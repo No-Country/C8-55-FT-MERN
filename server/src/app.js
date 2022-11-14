@@ -5,7 +5,8 @@ const morgan = require("morgan");
 const helmet = require("helmet");
 const { urlencoded } = require("body-parser");
 const db = require("./database/db.config");
-const routes = require("./routes/index")
+const routes = require("./routes/index");
+const { PORT } = require("./config");
 
 const app = express();
 db().then(() => {
@@ -20,7 +21,7 @@ app.use(morgan("dev"));
 app.use(helmet());
 app.use('/', routes)
 
-const PORT = process.env.PORT || 3000;
+
 app.set("port", PORT || 3000);
 
 app.use((err, req, res, next) => {

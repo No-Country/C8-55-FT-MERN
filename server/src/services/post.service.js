@@ -1,4 +1,4 @@
-const Post = require("../models/Post");
+const Post = require("../Models/Post");
 
 const getPost = async (id) => {
   return await Post.findById(id);

@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
+const { DB } = require("../config");
 
-const DB = process.env.MONGODB_URI
 
 const db = async () => {
   try {

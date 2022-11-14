@@ -1,8 +1,8 @@
-const { Schema, model } = require("mongoose");
+const mongoose = require("mongoose");
 
-const Post = Schema(
+const postSchema = new mongoose.Schema(
   {
-    user: { type: Schema.Types.ObjectId, ref: "User" },
+    userId: { type: Schema.Types.ObjectId, ref: "User" },
     description: {
       type: String,
       require: [true, "description is required"],
@@ -14,4 +14,5 @@ const Post = Schema(
   { timestamps: true }
 );
 
-module.exports = model("Post", Post);
+const Post = mongoose.model("Post", postSchema);
+module.exports = Post;

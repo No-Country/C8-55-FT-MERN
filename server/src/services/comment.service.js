@@ -39,4 +39,16 @@ const createReply = async (id, body) => {
   );
 };
 
-module.exports = { createComment, getUserComments, createReply };
+const likeComment = async (comment, userId) => {
+  await comment.updateOne({$push: {likes: userId}})
+}
+
+const findComment = async(id) => {
+  return await Comment.findById(id)
+}
+
+const dislikeComment = async(comment, userId) => {
+  await comment.updateOne({$pull: {likes: userId}})
+}
+
+module.exports = { createComment, getUserComments, findComment, createReply, likeComment, dislikeComment};

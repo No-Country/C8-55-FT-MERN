@@ -19,7 +19,6 @@ const style = {
 
 const TopProject = ({project}) => {
 
-    console.log(project)
     return (
         <Box sx={style.topProject}>
             <Box sx={{ backgroundColor: '#23222F', width: '3em', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>

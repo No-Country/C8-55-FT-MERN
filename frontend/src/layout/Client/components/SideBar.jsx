@@ -59,19 +59,19 @@ const SideBar = () => {
                 <Box sx={{ display: 'flex', flexDirection: 'column', gap: '1em' }}>
                     <Box>
                         <Typography variant="subtitle" color="initial">Webs 3.0</Typography>
-                        <LinearProgress variant="buffer" value={98} />
+                        <LinearProgress variant="determinate" value={98} />
                     </Box>
                     <Box>
                         <Typography variant="subtitle" color="initial">Gaming projects</Typography>
-                        <LinearProgress variant="buffer" value={82} />
+                        <LinearProgress variant="determinate" value={82} />
                     </Box>
                     <Box>
                         <Typography variant="subtitle" color="initial">Charity</Typography>
-                        <LinearProgress variant="buffer" value={78} />
+                        <LinearProgress variant="determinate" value={78} />
                     </Box>
                     <Box>
                         <Typography variant="subtitle" color="initial">Gaming projects</Typography>
-                        <LinearProgress variant="buffer" value={75} />
+                        <LinearProgress variant="determinate" value={75} />
                     </Box>
                 
                 </Box>

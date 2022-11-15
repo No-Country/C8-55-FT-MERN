@@ -1,11 +1,9 @@
 import { Box, Button, Divider, Stack, TextField, Typography } from '@mui/material'
 import React, { useState } from 'react'
 
-const Signup = () => {
+const Signup = ({ setLogStatus }) => {
 
   const [userCreate, setUserCreate] = useState()
-
-  console.log(userCreate)
 
   const createUser = e => {
     e.preventDefault();
@@ -15,8 +13,20 @@ const Signup = () => {
       lastname: e.target.lastname.value.trim(),
       mail: e.target.mail.value.trim(),
       password: e.target.password.value.trim()
-    }    
-    setUserCreate(userData)
+    }
+
+    if (e.target.password.value.trim() != e.target.confirmPassword.value.trim()) {
+      console.log('error')
+     
+    } else {
+      if (e.target.password.value.trim().length > 6) {
+        setUserCreate(userData)
+      } else {
+        console.log('error')
+      }
+
+    }
+
   }
 
   return (
@@ -32,12 +42,14 @@ const Signup = () => {
           id="name"
           size="small"
           fullWidth
+          required
         />
         <TextField
           label="lastname"
           id="lastname"
           size="small"
           fullWidth
+          required
         />
       </Box>
       <Box sx={{ widht: '100%', gap: '1em', display: 'flex', flexDirection: 'column' }}>
@@ -46,12 +58,14 @@ const Signup = () => {
           id="mail"
           size="small"
           fullWidth
+          required
         />
         <TextField
           label="password"
           id="password"
           size="small"
           fullWidth
+          required
           type='password'
         />
         <TextField
@@ -59,6 +73,7 @@ const Signup = () => {
           id="confirmPassword"
           size="small"
           fullWidth
+          required
           type='password'
         />
 
@@ -66,7 +81,7 @@ const Signup = () => {
 
       <Button variant='contained' color='warning' type='submit' >Create</Button>
       <Divider />
-      <Button variant="text" color="primary">
+      <Button variant="text" color="primary" onClick={() => setLogStatus(true)}>
         Do you already have an account?
       </Button>
     </Stack >

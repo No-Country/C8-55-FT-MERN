@@ -12,8 +12,8 @@ module.exports = model(
     socials: [{ type: Schema.Types.ObjectId, ref: "User" }],
     description: String,
     assets: String,
-    posts: [{ type: Schema.Types.ObjectId, ref: "User" }],
-    saved: [{ type: Schema.Types.ObjectId, ref: "User" }],
+    posts: [{ type: Schema.Types.ObjectId, ref: "Post" }],
+    saved: [{ type: Schema.Types.ObjectId, ref: "Post" }],
     following: [{ type: Schema.Types.ObjectId, ref: "User" }],
     followers: [{ type: Schema.Types.ObjectId, ref: "User" }],
   })

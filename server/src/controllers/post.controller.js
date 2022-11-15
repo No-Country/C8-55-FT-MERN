@@ -64,6 +64,23 @@ const getPosts = async (req, res) => {
   }
 };
 
+const likePost = async (req, res) => {
+  try{
+    let { id } = req.params;
+    let {userId} = req.body;
+    const post = await postService.getPostById(id);
+    if(!post.likes.includes(userId)){
+      await postService.likePost(post, userId)
+      return res.status(200).json({"liked": "successfully"});
+    }else{
+      await postService.dislikePost(post, userId)
+      return res.status(200).json({"disliked": "successfully"});
+    }
+  }catch(err){
+    return res.status(500).json({ error: err.message });
+  }
+}
+
 module.exports = {
   createPost,
   deletePost,
@@ -71,4 +88,5 @@ module.exports = {
   getPosts,
   updatePost,
   getPostById,
+  likePost
 };

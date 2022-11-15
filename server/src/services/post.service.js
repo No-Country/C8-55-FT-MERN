@@ -50,6 +50,22 @@ const deletePost = async (id) => {
   return Post.findByIdAndRemove(id);
 };
 
+// const likePost = async (id, userId) => {
+//   const post = await Post.findById(id);
+//   if (!post.likes.includes(userId)) {
+//     await post.updateOne({ $push: { likes: userId } });
+//   } else {
+//     await post.updateOne({ $pull: { likes: userId } });
+//   }
+// };
+
+const likePost = async(post, userId) => {
+  await post.updateOne({ $push: { likes: userId } });
+}
+const dislikePost = async(post, userId) => {
+  await post.updateOne({ $pull: { likes: userId } });
+}
+
 module.exports = {
   createPost,
   getUserPosts,
@@ -57,4 +73,6 @@ module.exports = {
   deletePost,
   updatePost,
   getPostById,
+  likePost,
+  dislikePost
 };

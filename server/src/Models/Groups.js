@@ -9,4 +9,6 @@ const groupSchema = new Schema({
     }
 });
 
-module.exports = model("Group",groupSchema);
+const Group = model("Group",groupSchema)
+
+module.exports = Group;

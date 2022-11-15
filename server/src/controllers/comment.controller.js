@@ -36,4 +36,21 @@ const createReply = async (req, res) => {
   }
 };
 
-module.exports = { createComment, getUserComments, createReply };
+const likeComment = async(req, res) => {
+  try{
+    let {id} = req.params;
+    let {userId} = req.body;
+    const comment = await commentService.findComment(id)
+    if(!comment.likes.includes(userId)){
+      await commentService.likeComment(comment ,userId)
+      return res.status(200).json({liked: "successfully"})
+    }else{
+      await commentService.dislikeComment(comment, userId);
+      return res.status(200).json({disliked: "successfully"})
+    }
+  }catch(err){
+return res.status(500).json({ error: err.message });
+  }
+}
+
+module.exports = { createComment, getUserComments, createReply, likeComment };

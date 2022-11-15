@@ -3,7 +3,7 @@ import React from 'react'
 
 const ChatUser = () => {
     return (
-        <Box>
+        <Box sx={{cursor: 'pointer'}}>
             <Box sx={{display: 'flex', gap: '0.5em'}}>
                 <Box sx={{ maxWidth: 40, borderRadius: '100%', overflow: 'hidden' }}>
                     <CardMedia
@@ -15,7 +15,7 @@ const ChatUser = () => {
                     />
                 </Box>
                 <Box sx={{display: 'flex',  width: '100%', flexDirection: 'column' }}>
-                    <Box sx={{display: 'flex', alignItems: 'top', justifyContent: 'space-between', alignItems: 'center',  width: '100%'}}>
+                    <Box sx={{display: 'flex', alignItems: 'top', justifyContent: 'space-between',  width: '100%'}}>
                     <Typography variant="subtitle2" color="initial">Feredico Valdez</Typography>
                     <Typography variant="body2" color="gray">13:42A.M.</Typography>
                     </Box>

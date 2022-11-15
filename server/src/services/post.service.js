@@ -1,6 +1,6 @@
 const Post = require("../models/Post");
 
-const getPost = async (id) => {
+const getUserPosts = async (id) => {
   const posts = await Post.find({ id })
     .lean()
     .populate({
@@ -13,6 +13,10 @@ const getPost = async (id) => {
       },
     });
   return posts;
+};
+
+const getPostById = async (id) => {
+  return await Post.findById(id);
 };
 
 const getPosts = async () => {
@@ -46,4 +50,11 @@ const deletePost = async (id) => {
   return Post.findByIdAndRemove(id);
 };
 
-module.exports = { createPost, getPost, getPosts, deletePost, updatePost };
+module.exports = {
+  createPost,
+  getUserPosts,
+  getPosts,
+  deletePost,
+  updatePost,
+  getPostById,
+};

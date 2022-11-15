@@ -1,4 +1,4 @@
-import { Stack, Box, Button, Paper, IconButton, InputBase, Divider } from '@mui/material'
+import { Stack, Box, Button, Paper, IconButton, InputBase, Divider, Drawer } from '@mui/material'
 import React from 'react'
 import Typography from '@mui/material/Typography'
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
@@ -38,7 +38,7 @@ const Header = () => {
 
         <Paper
           component="form"
-          sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', width: 400 }}
+          sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', width: '100%', maxWidth: 400 }}
         >
           <InputBase
             sx={{ ml: 1, flex: 1 }}
@@ -53,8 +53,13 @@ const Header = () => {
       <Box sx={style.boxUser}>
         <Button variant='text' sx={{ color: 'white' }} >Crear Proyecto</Button>
         <Button variant='text' sx={{ color: 'white' }} >Descubrir</Button>
-        <AccountCircleIcon sx={{ cursor: 'pointer', color: '#74F7AE' }} />
+        <IconButton sx={{color: '#74F7AE'}}>
+        <AccountCircleIcon />
+
+        </IconButton>
       </Box>
+
+
     </Stack>
   )
 }

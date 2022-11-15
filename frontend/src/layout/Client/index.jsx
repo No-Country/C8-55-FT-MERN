@@ -19,7 +19,10 @@ const ClientLayout = () => {
           <Outlet />
         </Stack>
       </Box>
-       {/* //! <Chat/> */}
+      <Box sx={{position: 'fixed', right: 0, bottom: 0}}>
+      <Chat />
+
+      </Box>
 
     </Stack>
   )

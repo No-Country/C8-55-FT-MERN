@@ -13,7 +13,7 @@ const createPost = async (req, res) => {
 const updatePost = async (req, res) => {
   try {
     let { id } = req.params;
-    let { body } = req.body;
+    let { body } = req;
     const x = await postService.updatePost(id, body);
     return res.status(200).json({ updated: true, post: x });
   } catch (err) {

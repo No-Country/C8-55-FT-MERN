@@ -1,20 +1,17 @@
 const Post = require("../models/Post");
-const Comment = require("../models/Comment");
-const User = require("../models/User");
-
 
 const getPost = async (id) => {
   const posts = await Post.find({ id })
     .lean()
     .populate({
       path: "comments",
-      select: '-postId',
+      select: "-postId",
       populate: {
-        path: 'userId',
-        model: User,
-        select:  {name: 1, lastName: 1, profileImage: 1}
-      }
-    })
+        path: "userId",
+        model: "User",
+        select: { name: 1, lastName: 1, profileImage: 1 },
+      },
+    });
   return posts;
 };
 
@@ -32,7 +29,17 @@ const createPost = async (userId, text, image) => {
 };
 
 const updatePost = async (id, body) => {
-  return Post.findOneAndUpdate(id, body);
+  try {
+    return Post.findOneAndUpdate(
+      id,
+      {
+        $set: body,
+      },
+      { new: true }
+    );
+  } catch (err) {
+    console.log("error", err);
+  }
 };
 
 const deletePost = async (id) => {

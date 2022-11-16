@@ -1,4 +1,4 @@
-import { Box, CardMedia, Stack, Typography, IconButton, Divider, BottomNavigation, BottomNavigationAction, Paper } from '@mui/material'
+import { Box, CardMedia, Stack, Typography, IconButton, Divider, BottomNavigation, BottomNavigationAction, Paper, Button } from '@mui/material'
 import React, { useState } from 'react'
 import FileUploadOutlinedIcon from '@mui/icons-material/FileUploadOutlined';
 import InsertCommentOutlinedIcon from '@mui/icons-material/InsertCommentOutlined';
@@ -6,6 +6,8 @@ import BookmarkBorderOutlinedIcon from '@mui/icons-material/BookmarkBorderOutlin
 import PersonAddOutlinedIcon from '@mui/icons-material/PersonAddOutlined';
 import LocalCafeOutlinedIcon from '@mui/icons-material/LocalCafeOutlined';
 import ThumbUpOffAltOutlinedIcon from '@mui/icons-material/ThumbUpOffAltOutlined';
+import ThumbDownOffAltOutlinedIcon from '@mui/icons-material/ThumbDownOffAltOutlined';
+import Comments from './Comments';
 
 const style = {
     postSharedStyle: {
@@ -15,10 +17,9 @@ const style = {
     }
 }
 
-const PostShared = () => {
+const PostShared = ({ post }) => {
 
     const [value, setValue] = useState(0);
-
 
     return (
         <Stack sx={{ borderRadius: '0.5em', backgroundColor: '#edf2f4', paddingBottom: '1em' }}>
@@ -39,34 +40,28 @@ const PostShared = () => {
                             <Typography variant="body2" color="initial">Frontend Developer</Typography>
                         </Box>
                     </Box>
-                    <IconButton>
+                    {/* <IconButton>
                         <FileUploadOutlinedIcon />
-                    </IconButton>
+                    </IconButton> */}
+                    <Button variant='outlined' color='success'>
+                        Follow
+                    </Button>
                 </Box>
                 <Box sx={{ marginX: '1em' }}>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores officia accusamus, possimus suscipit tempora dolor repudiandae laboriosam quia nam repellat numquam quam expedita impedit dolore mollitia itaque veritatis maiores totam.
-                    <br />
-                    <br />
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores officia accusamus, possimus suscipit tempora dolor repudiandae laboriosam quia nam repellat numquam quam expedita impedit dolore mollitia itaque veritatis maiores totam.
-
+                    {post.text}
                 </Box>
                 <Divider sx={{ marginTop: '1em' }} />
 
             </Stack>
             <BottomNavigation
                 showLabels
-                value={value}
-                onChange={(event, newValue) => {
-                    setValue(newValue);
-                }}
                 sx={{ backgroundColor: 'transparent' }}
             >
-                <BottomNavigationAction label="Like" icon={<ThumbUpOffAltOutlinedIcon />} />
-                <BottomNavigationAction label="Comments" icon={<InsertCommentOutlinedIcon />} />
-                <BottomNavigationAction label="Donate" icon={<LocalCafeOutlinedIcon />} />
-                <BottomNavigationAction label="Add Talent" icon={<PersonAddOutlinedIcon />} />
+                <BottomNavigationAction label={`Likes (${post.likes.length})`} icon={<ThumbUpOffAltOutlinedIcon />} />
+                <BottomNavigationAction label={`Comments (${post.comments.length})`} icon={<InsertCommentOutlinedIcon />} />
                 <BottomNavigationAction label="Save" icon={<BookmarkBorderOutlinedIcon />} />
             </BottomNavigation>
+            <Comments comments={post.comments}/>
         </Stack>
     )
 }

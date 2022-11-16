@@ -45,7 +45,7 @@ const Chat = () => {
                         </IconButton>
                     </Paper>
                 </Box>
-                <Box sx={{ p: '1em', maxHeight: 600, overflow: 'scroll' }}>
+                <Box sx={{ p: '1em', maxHeight: 400, overflow: 'scroll' }}>
                     <ChatUser />
                     <Divider sx={{ my: '0.5em' }} />
                     <ChatUser />

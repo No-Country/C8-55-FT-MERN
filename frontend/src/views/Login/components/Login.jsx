@@ -10,7 +10,10 @@ const Login = ({ setLogStatus }) => {
 
   const [log, setLog] = useState()
   const user = useSelector(state => state.user)
-  const token = localStorage.getItem('token');
+  const token = localStorage.getItem('token')
+
+  const navigate = useNavigate()
+
 
   const dispatch = useDispatch()
 
@@ -33,7 +36,9 @@ const Login = ({ setLogStatus }) => {
     }
     setLog(userData)
     getUser(userData)
+    navigate('/feed')
   }
+
 
   if (!token) {
     return (
@@ -73,11 +78,9 @@ const Login = ({ setLogStatus }) => {
         </Button>
       </Stack>
     )
-  } else {
-    return <Navigate to='/feed' />
+  }else{
+    return <Navigate to='/feed'/>
   }
-
-
 }
 
 export default Login

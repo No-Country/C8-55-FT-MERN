@@ -27,30 +27,35 @@ const getUserComments = async (req, res) => {
 
 const createReply = async (req, res) => {
   try {
-    let { id } = req.params;
-    let { body } = req.body;
-    const reply = await commentService.createReply(id, body);
-    return res.status(200).json({ created: "successfully", body: reply });
+    let { commentId, userId, postId, text, image } = req.body;
+    const reply = await commentService.createReply(
+      commentId,
+      userId,
+      postId,
+      text,
+      image
+    );
+    return res.status(200).json({ created: "successfully", reply });
   } catch (err) {
     return res.status(500).json({ error: err.message });
   }
 };
 
-const likeComment = async(req, res) => {
-  try{
-    let {id} = req.params;
-    let {userId} = req.body;
-    const comment = await commentService.findComment(id)
-    if(!comment.likes.includes(userId)){
-      await commentService.likeComment(comment ,userId)
-      return res.status(200).json({liked: "successfully"})
-    }else{
+const likeComment = async (req, res) => {
+  try {
+    let { id } = req.params;
+    let { userId } = req.body;
+    const comment = await commentService.findComment(id);
+    if (!comment.likes.includes(userId)) {
+      await commentService.likeComment(comment, userId);
+      return res.status(200).json({ liked: "successfully" });
+    } else {
       await commentService.dislikeComment(comment, userId);
-      return res.status(200).json({disliked: "successfully"})
+      return res.status(200).json({ disliked: "successfully" });
     }
-  }catch(err){
-return res.status(500).json({ error: err.message });
+  } catch (err) {
+    return res.status(500).json({ error: err.message });
   }
-}
+};
 
 module.exports = { createComment, getUserComments, createReply, likeComment };

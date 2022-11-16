@@ -4,7 +4,11 @@ const router = Router();
 router.use('/example', require('./example.route'))
 router.use("/user", require("./user.route"))
 router.use("/post", require("./post.route"));
-router.use("/comment", require("./comment.route"));
+router.use("/comment", require("./comment.routes"));
 router.use("/group", require("./group.route"));
+
+router.get("/", (req, res) => {
+    res.status(200).json('Bienvenido a Rocket Cafe ☕​​🚀​')
+})
 
 module.exports = router;

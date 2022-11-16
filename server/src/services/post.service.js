@@ -1,5 +1,5 @@
 const Post = require("../models/Post");
-
+const User = require("../models/User");
 const getUserPosts = async (id) => {
   const posts = await Post.find({ id })
     .lean()
@@ -29,7 +29,19 @@ const getPosts = async () => {
 
 const createPost = async (userId, text, image) => {
   const post = new Post({ userId: userId, text: text, image: image });
-  await post.save();
+  post
+    .save()
+    .then(async (p) => {
+      const user = await User.findById(userId);
+      if (!user) {
+        return res.status(404).send({ error: "Invalid ID" });
+      }
+      user.posts = [...user.posts, p._id];
+      await user.save();
+    })
+    .catch((e) => {
+      return res.status(404).send({ error: e.message });
+    });
 };
 
 const updatePost = async (id, body) => {
@@ -47,7 +59,13 @@ const updatePost = async (id, body) => {
 };
 
 const deletePost = async (id) => {
-  return Post.findByIdAndRemove(id);
+  const deletedPost = await Post.findByIdAndDelete(id);
+  const user = await User.findById(deletedPost.userId);
+  
+  const oldPosts = user.posts.filter((u)=> u !== deletedPost._id)
+  user.posts = oldPosts;
+  await user.save();
+  return deletedPost;
 };
 
 // const likePost = async (id, userId) => {
@@ -59,12 +77,12 @@ const deletePost = async (id) => {
 //   }
 // };
 
-const likePost = async(post, userId) => {
+const likePost = async (post, userId) => {
   await post.updateOne({ $push: { likes: userId } });
-}
-const dislikePost = async(post, userId) => {
+};
+const dislikePost = async (post, userId) => {
   await post.updateOne({ $pull: { likes: userId } });
-}
+};
 
 module.exports = {
   createPost,
@@ -74,5 +92,5 @@ module.exports = {
   updatePost,
   getPostById,
   likePost,
-  dislikePost
+  dislikePost,
 };

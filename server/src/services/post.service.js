@@ -61,8 +61,10 @@ const updatePost = async (id, body) => {
 const deletePost = async (id) => {
   const deletedPost = await Post.findByIdAndDelete(id);
   const user = await User.findById(deletedPost.userId);
-  
-  const oldPosts = user.posts.filter((u)=> u !== deletedPost._id)
+
+  const oldPosts = user.posts.filter(
+    (u) => u.toString() !== deletedPost._id.toString()
+  );
   user.posts = oldPosts;
   await user.save();
   return deletedPost;

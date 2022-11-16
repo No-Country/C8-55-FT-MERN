@@ -3,7 +3,7 @@ import { Routes, Route } from "react-router-dom"
 import ClientLayout from "./layout/Client"
 import PublicLayout from "./layout/Public"
 
-import Home from "./views/Home"
+import Feed from "./views/Feed"
 import LogIndex from "./views/Login"
 
 function App() {
@@ -13,7 +13,7 @@ function App() {
   <Routes>
     <Route path="/log" element={<LogIndex/>} />
     <Route element={<ClientLayout/>}>
-      <Route path="/" element={<Home/>}/>
+      <Route path="/" element={<Feed/>}/>
     </Route>
   </Routes>
 

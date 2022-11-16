@@ -4,19 +4,21 @@ import ClientLayout from "./layout/Client"
 import PublicLayout from "./layout/Public"
 
 import Feed from "./views/Feed"
+import Home from "./views/Home"
 import LogIndex from "./views/Login"
 
 function App() {
 
   return (
-
-  <Routes>
-    <Route path="/log" element={<LogIndex/>} />
-    <Route element={<ClientLayout/>}>
-      <Route path="/" element={<Feed/>}/>
-    </Route>
-  </Routes>
-
+    <Routes>
+      <Route path="/log" element={<LogIndex />} />
+      <Route element={<ClientLayout />}>
+        <Route path="/feed" element={<Feed />} />
+      </Route>
+      <Route element={<PublicLayout />}>
+        <Route path="/" element={<Home />}/>
+      </Route>
+    </Routes>
   )
 }
 

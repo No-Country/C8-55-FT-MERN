@@ -2,30 +2,20 @@ import React from 'react'
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { Stack, Typography } from '@mui/material';
+import { useQuill } from 'react-quilljs';
+import 'quill/dist/quill.snow.css'; // Add css for snow theme
 
-const CreatePost = () => {
+
+
+const CreatePost = ({createPostVisibility}) => {
+
+    const { quill, quillRef } = useQuill();
+
+
     return (
-        <Stack>
-            <Typography variant="h6" color="initial">Create Post</Typography>
-            <CKEditor
-                editor={ClassicEditor}
-                data="<p>Helloworld,</p>"
-                onReady={editor => {
-                    // You can store the "editor" and use when it is needed.
-                    console.log('Editor is ready to use!', editor);
-                }}
-                onChange={(event, editor) => {
-                    const data = editor.getData();
-                    console.log({ event, editor, data });
-                }}
-                onBlur={(event, editor) => {
-                    console.log('Blur.', editor);
-                }}
-                onFocus={(event, editor) => {
-                    console.log('Focus.', editor);
-                }}
-            />
-        </Stack>
+        <div style={{ width: '100%', minHeight:20, maxHeight: 300, display: createPostVisibility, marginBottom: 70}}>
+            <div ref={quillRef} />
+        </div>
     )
 }
 

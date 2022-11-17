@@ -4,7 +4,13 @@ const User = require("../models/User");
 
 const verifyToken = async (req, res, next) => {
   try {
-    const verifyToken = jwt.verify(req.get("authorization"), SECRET);
+    if (!req.get("Authorization")) {
+      return res
+        .status(404)
+        .send({ auth: false, error: "A token is required for authentication" });
+    }
+    const token = req.get("Authorization").substring(7)
+    const verifyToken = jwt.verify(token, SECRET);
     const user = await User.findById(verifyToken.id);
     if (!user) {
       return res
@@ -14,7 +20,7 @@ const verifyToken = async (req, res, next) => {
     req.userId = user._id;
     next();
   } catch (e) {
-    return res.status(404).send({ error: e.message });
+    return res.status(404).send({ auth: false, error: e.message });
   }
 };
 

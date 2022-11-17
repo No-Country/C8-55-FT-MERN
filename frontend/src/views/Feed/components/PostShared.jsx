@@ -19,7 +19,6 @@ const style = {
 }
 
 const PostShared = ({ post }) => {
-    console.log(post)
 
     const [commentShow, setCommentShow] = useState(false)
 

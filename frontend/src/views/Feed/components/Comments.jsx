@@ -4,10 +4,15 @@ import CommentDetails from './CommentDetails'
 import SendIcon from '@mui/icons-material/Send';
 import axios from 'axios'
 
-const Comments = ({comments, postId}) => {
+const Comments = ({ comments, postId }) => {
 
     const [commentsToGetDetails, setCommentToGetDetails] = useState(comments)
 
+    const getComments = postId => {
+        axios.get(`http://localhost:3000/post/get_post/${postId}`)
+            .then(res => setCommentToGetDetails(res.data.post.comments))
+            .catch(err => console.log(err))
+    }
 
     const postComment = e => {
         e.preventDefault()
@@ -19,24 +24,29 @@ const Comments = ({comments, postId}) => {
         }
 
         axios.post('http://localhost:3000/comment/', body)
-        .then(res => {console.log(res.data)
-           })
-        .then(err => console.log(err))
+            .then(res => {
+                console.log(res.data)
+                getComments(postId)
+                e.target.comment.value = ''
+            })
+            .then(err => console.log(err))
 
     }
-  
+
+
+
 
     return (
         <Stack m='1em'>
             <Divider />
-            {commentsToGetDetails && commentsToGetDetails.map( comment => <CommentDetails key={comment._id} comment={comment._id}/> )}
-            <Divider sx={{ mb:'1em'}} />
-            <Box onSubmit={postComment} component='form' sx={{display: 'flex'}}>
+            {commentsToGetDetails && commentsToGetDetails.map(comment => <CommentDetails key={comment._id} comment={comment._id} getComments={getComments} />)}
+            <Divider sx={{ mb: '1em' }} />
+            <Box onSubmit={postComment} component='form' sx={{ display: 'flex' }}>
                 <TextField fullWidth name="comment" label="Deja aqui tu veneno..." variant="outlined" />
                 <IconButton color='success' type='submit'>
-                  <SendIcon/>
+                    <SendIcon />
                 </IconButton>
-</Box>
+            </Box>
         </Stack>
     )
 }

@@ -10,3 +10,18 @@
   padding: 0;
   box-sizing: border-box;
 }
+
+.spin{
+  animation: rotation 10s infinite linear;
+  max-height: 120px;
+
+}
+
+@keyframes rotation {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(359deg);
+  }
+}

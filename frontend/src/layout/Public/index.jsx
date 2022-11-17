@@ -11,7 +11,9 @@ const PublicLayout = () => {
       <Box sx={{ position: 'fixed', left: 0, right: 0, top: 0 }}>
         <Header />
       </Box>
-      <Outlet />
+      <Stack pt='5em' sx={{zIndex: 100}} >
+        <Outlet />
+      </Stack>
     </Stack>
   )
 }

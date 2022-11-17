@@ -32,8 +32,6 @@ const updateGroup = async (req,res) => {
     try {
         const { id } = req.params;
         const { body } = req;
-        console.log(JSON.stringify(req.params));
-        console.log(JSON.stringify(body));
         const group = await groupService.updateGroup(id,body);
         return res.status(200).json({updated: true, group: group});
     } catch (err) {

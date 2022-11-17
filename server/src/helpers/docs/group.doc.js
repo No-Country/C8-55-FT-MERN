@@ -155,7 +155,6 @@ const deleteGroup ={
             },
             required: true,
             description: "group id",
-            example: "63754c3a7d5154dc39aefb79"
         }
     ],
     responses:{

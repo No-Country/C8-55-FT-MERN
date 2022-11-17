@@ -1,4 +1,5 @@
 const {groupRoute,group} = require("./docs/group.doc");
+const { post,postRoute } = require("./docs/post.doc");
 const {user,userRoute} = require("./docs/user.doc");
 
 const swaggerSpec = {
@@ -20,16 +21,22 @@ const swaggerSpec = {
         {
             name: "User",
             description:"User routes"
+        },
+        {
+            name: "Post",
+            description:"Post routes"
         }
     ],
     paths:{
         ...groupRoute,
-        ...userRoute
+        ...userRoute,
+        ...postRoute
     },
     components:{
         schemas:{
             ...group,
-            ...user
+            ...user,
+            ...post
         }
     }
 };

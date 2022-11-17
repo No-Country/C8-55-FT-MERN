@@ -41,10 +41,10 @@ const user = {
         },
         required:["name","lastName","mail","password"],
         example:{
-            "name": "Mateoucho1Prueba",
+            "name": "anonimo3Prueba",
             "lastName": "PruebaPosts",
-            "mail": "Mateoucho1Prueba@gmail.com",
-            "password": "$2b$10$RGV4537sESt6C1z1pGQWHe9BDSAXoaCQ0996Vm4x42P2FsASIZmBu",
+            "mail": "anonimo3Prueba@gmail.com",
+            "password": "contraseniaDificil",
         }
     }
 }
@@ -74,13 +74,39 @@ const signUpUser = {
         }
     }
 }
+const signInUser={
+    summary: "signIn a User ",
+    tags:["User"],
+    requestBody:{
+        required: true,
+        content:{
+            "application/json":{
+                schema:{
+                    type:"object",
+                    example:{
+                        "mail": "anonimo3Prueba@gmail.com",
+                        "password": "contraseniaDificil"
+                    }
+                }
+            }
+        }
+    },
+    responses:{
+        200:{
+            description:"OK",
+        },
+        404:{
+            description: "mail or password incorrects"
+        },
+    }
+}
 
 const userRoute = {
     "/user/signup":{
         post: signUpUser,
     },
-    "/user/singin":{
-        
+    "/user/signin":{
+        post: signInUser,
     }
 }
 

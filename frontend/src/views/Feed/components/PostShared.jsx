@@ -8,6 +8,7 @@ import LocalCafeOutlinedIcon from '@mui/icons-material/LocalCafeOutlined';
 import ThumbUpOffAltOutlinedIcon from '@mui/icons-material/ThumbUpOffAltOutlined';
 import ThumbDownOffAltOutlinedIcon from '@mui/icons-material/ThumbDownOffAltOutlined';
 import Comments from './Comments';
+import axios from 'axios'
 
 const style = {
     postSharedStyle: {
@@ -18,8 +19,13 @@ const style = {
 }
 
 const PostShared = ({ post }) => {
+    console.log(post)
 
-    const [value, setValue] = useState(0);
+    const [commentShow, setCommentShow] = useState(false)
+
+    const commentView = () => {
+        setCommentShow(!commentShow)
+    }
 
     return (
         <Stack sx={{ borderRadius: '0.5em', backgroundColor: '#edf2f4', paddingBottom: '1em' }}>
@@ -40,9 +46,6 @@ const PostShared = ({ post }) => {
                             <Typography variant="body2" color="initial">Frontend Developer</Typography>
                         </Box>
                     </Box>
-                    {/* <IconButton>
-                        <FileUploadOutlinedIcon />
-                    </IconButton> */}
                     <Button variant='outlined' color='success'>
                         Follow
                     </Button>
@@ -58,10 +61,10 @@ const PostShared = ({ post }) => {
                 sx={{ backgroundColor: 'transparent' }}
             >
                 <BottomNavigationAction label={`Likes (${post.likes.length})`} icon={<ThumbUpOffAltOutlinedIcon />} />
-                <BottomNavigationAction label={`Comments (${post.comments.length})`} icon={<InsertCommentOutlinedIcon />} />
+                <BottomNavigationAction onClick={commentView} label={`Comments (${post.comments.length})`} icon={<InsertCommentOutlinedIcon />} />
                 <BottomNavigationAction label="Save" icon={<BookmarkBorderOutlinedIcon />} />
             </BottomNavigation>
-            <Comments comments={post.comments}/>
+           {commentShow && <Comments comments={post.comments} postId={post._id} />}
         </Stack>
     )
 }

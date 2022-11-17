@@ -1,14 +1,42 @@
-import { Stack, Box, Divider, CardMedia, Typography } from '@mui/material'
-import React from 'react'
+import { Stack, Box, Divider, CardMedia, Typography, TextField, IconButton } from '@mui/material'
+import React, { useEffect, useState } from 'react'
 import CommentDetails from './CommentDetails'
+import SendIcon from '@mui/icons-material/Send';
+import axios from 'axios'
 
-const Comments = ({comments}) => {
+const Comments = ({comments, postId}) => {
+
+    const [commentsToGetDetails, setCommentToGetDetails] = useState(comments)
+
+
+    const postComment = e => {
+        e.preventDefault()
+        const textComment = e.target.comment.value
+        const body = {
+            userId: '63743f57d8c106bb72a1c066',
+            postId,
+            text: textComment
+        }
+
+        axios.post('http://localhost:3000/comment/', body)
+        .then(res => {console.log(res.data)
+           })
+        .then(err => console.log(err))
+
+    }
+  
 
     return (
         <Stack m='1em'>
             <Divider />
-            {comments.map( comment => <CommentDetails key={comment} comment={comment}/> )}
-            
+            {commentsToGetDetails && commentsToGetDetails.map( comment => <CommentDetails key={comment._id} comment={comment._id}/> )}
+            <Divider sx={{ mb:'1em'}} />
+            <Box onSubmit={postComment} component='form' sx={{display: 'flex'}}>
+                <TextField fullWidth name="comment" label="Deja aqui tu veneno..." variant="outlined" />
+                <IconButton color='success' type='submit'>
+                  <SendIcon/>
+                </IconButton>
+</Box>
         </Stack>
     )
 }

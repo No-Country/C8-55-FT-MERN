@@ -2,7 +2,8 @@ const commentService = require("../services/comment.service");
 
 const createComment = async (req, res) => {
   try {
-    const { userId, postId, text, image } = req.body;
+    const { postId, text, image } = req.body;
+    const userId = req.userId
     const comment = await commentService.createComment(
       userId,
       postId,
@@ -27,7 +28,8 @@ const getUserComments = async (req, res) => {
 
 const createReply = async (req, res) => {
   try {
-    let { commentId, userId, postId, text, image } = req.body;
+    const userId = req.userId
+    let { commentId,postId, text, image } = req.body;
     const reply = await commentService.createReply(
       commentId,
       userId,
@@ -44,7 +46,7 @@ const createReply = async (req, res) => {
 const likeComment = async (req, res) => {
   try {
     let { id } = req.params;
-    let { userId } = req.body;
+    let  userId = req.userId;
     const comment = await commentService.findComment(id);
     if (!comment.likes.includes(userId)) {
       await commentService.likeComment(comment, userId);

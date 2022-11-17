@@ -28,6 +28,12 @@ const getUserComments = async (id) => {
       .populate({
         path: "replies",
         populate: { path: "replies" },
+      })
+      .lean()
+      .populate({
+        path: "userId",
+        model: "User",
+        select: { name: 1, lastName: 1, profileImage: 1 },
       });
   } else {
     console.log("error", err);
@@ -38,8 +44,19 @@ const likeComment = async (comment, userId) => {
   await comment.updateOne({ $push: { likes: userId } });
 };
 
-const findComment = async (id) => {
-  return await Comment.findById(id);
+const findCommentById = async (id) => {
+  return await Comment.findById(id)
+    .lean()
+    .populate({
+      path: "replies",
+      populate: { path: "replies" },
+    })
+    .lean()
+    .populate({
+      path: "userId",
+      model: "User",
+      select: { name: 1, lastName: 1, profileImage: 1 },
+    });
 };
 
 const dislikeComment = async (comment, userId) => {
@@ -70,7 +87,7 @@ const createReply = async (commentId, postId, userId, text, image) => {
 module.exports = {
   createComment,
   getUserComments,
-  findComment,
+  findCommentById,
   createReply,
   likeComment,
   dislikeComment,

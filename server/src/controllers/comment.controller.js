@@ -58,4 +58,14 @@ const likeComment = async (req, res) => {
   }
 };
 
-module.exports = { createComment, getUserComments, createReply, likeComment };
+const findCommentById = async (req, res) => {
+  try {
+    let { id } = req.params;
+    const comment = await commentService.findCommentById(id);
+    return res.status(200).json({ comment: comment });
+  } catch (err) {
+    return res.status(500).json({ error: err.message });
+  }
+};
+
+module.exports = { createComment, getUserComments, createReply, likeComment, findCommentById };

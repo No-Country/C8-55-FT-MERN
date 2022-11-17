@@ -45,11 +45,13 @@ const signUp = async (req, res) => {
 };
 
 const signIn = async (req, res) => {
+  console.log("----------user----------");
   if (_.isNil(req.body.mail) || _.isNil(req.body.password)) {
     return res.send({ msg: "Faltan datos" });
   }
   const { mail, password } = req.body;
   const user = await User.findOne({ mail });
+  console.log(user);
   if (user) {
     const validPassword = await bcrypt.compare(password, user.password);
     if (validPassword) {

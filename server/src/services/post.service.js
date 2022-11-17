@@ -105,7 +105,7 @@ const deletePost = async (id) => {
 // };
 
 const likePost = async (post, userId) => {
-  await post.updateOne({ $push: { likes: userId } });
+  await Post.updateOne({id: post._id, $push: { likes: userId } });
 };
 const dislikePost = async (post, userId) => {
   await post.updateOne({ $pull: { likes: userId } });

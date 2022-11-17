@@ -11,13 +11,15 @@ const user = {
             socials: {
                 type: "array",
                 items: {
-                    type:"string"
+                    type:"string",
+                    description:"id user references"
                 }
             },
             posts: {
                 type: "array",
                 items: {
-                    type:"string"
+                    type:"string",
+                    description:"id post references"
                 }
             },
             saved:{
@@ -29,13 +31,15 @@ const user = {
             following:{
                 type: "array",
                 items: {
-                    type:"string"
+                    type:"string",
+                    description:"id user references"
                 }
             },
             followers:{
                 type: "array",
                 items: {
-                    type:"string"
+                    type:"string",
+                    description:"id user references"
                 }
             },
         },

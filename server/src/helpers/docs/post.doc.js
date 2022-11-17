@@ -17,16 +17,16 @@ const post={
             comments:{
                 type:"array",
                 items:{
-                    type:"string"
+                    type:"string",
+                    description:"referencia a id de comment"
                 },
-                description:"referencia a id de comment"
             },
             likes:{
                 type:"array",
                 items:{
-                    type:"string"
+                    type:"string",
+                    description:"referencia a id de user"
                 },
-                description:"referencia a id de user"
             },
             createdAt:{
                 type:"string",
@@ -35,7 +35,6 @@ const post={
             updatedAt:{
                 type:"string",
                 description:"fecha de edicion"
-
             }
         },
         example:{

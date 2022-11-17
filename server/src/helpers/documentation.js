@@ -1,3 +1,4 @@
+const { comment, commentRoutes } = require("./docs/comment.doc");
 const {groupRoute,group} = require("./docs/group.doc");
 const { post,postRoute } = require("./docs/post.doc");
 const {user,userRoute} = require("./docs/user.doc");
@@ -25,18 +26,24 @@ const swaggerSpec = {
         {
             name: "Post",
             description:"Post routes"
+        },
+        {
+            name:"Comment",
+            description:"Comment routes",
         }
     ],
     paths:{
         ...groupRoute,
         ...userRoute,
-        ...postRoute
+        ...postRoute,
+        ...commentRoutes,
     },
     components:{
         schemas:{
             ...group,
             ...user,
-            ...post
+            ...post,
+            ...comment,
         }
     }
 };

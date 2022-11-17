@@ -9,9 +9,9 @@ const group = {
             members:{
                 type: "array",
                 items: {
-                    type: "string"
+                    type: "string",
+                    description: "id of users of the group"
                 },
-                description: "id of users of the group"
             },
             ownerId:{
                 type: "string",

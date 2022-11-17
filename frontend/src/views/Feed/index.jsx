@@ -25,7 +25,6 @@ const Feed = () => {
   useEffect(() => {
     axios.get('http://localhost:3000/post/all_posts')
     .then(res => {
-      console.log(res.data.posts)
       setPosts(res.data.posts)
     })
     .catch(err => console.log(err))

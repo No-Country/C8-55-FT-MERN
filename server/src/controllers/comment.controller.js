@@ -68,4 +68,37 @@ const findCommentById = async (req, res) => {
   }
 };
 
-module.exports = { createComment, getUserComments, createReply, likeComment, findCommentById };
+const deleteComment = async (req, res) => {
+  try {
+    let { id } = req.params;
+    const comment = await commentService.deleteComment(id);
+    if (comment) {
+      return res.status(200).json({ deleted: "Deleted successfully", comment });
+    } else {
+      return res.status(404).json({ error: "Comment not found" });
+    }
+  } catch (err) {
+    return res.status(500).json({ error: err.message });
+  }
+};
+
+const updateComment = async (req, res) => {
+  try {
+    let { id } = req.params;
+    let { body } = req;
+    const saveComment = await commentService.updateComment(id, body);
+    return res.status(200).json({ updated: true, comment: saveComment });
+  } catch (err) {
+    return res.status(500).json({ error: err.message });
+  }
+};
+
+module.exports = {
+  createComment,
+  getUserComments,
+  createReply,
+  likeComment,
+  findCommentById,
+  deleteComment,
+  updateComment,
+};

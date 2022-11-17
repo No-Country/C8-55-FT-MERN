@@ -63,7 +63,7 @@ const dislikeComment = async (comment, userId) => {
   await comment.updateOne({ $pull: { likes: userId } });
 };
 
-const createReply = async (commentId, postId, userId, text, image) => {
+const createReply = async (commentId, userId, postId, text, image) => {
   try {
     const comment = await Comment.findById(commentId);
 
@@ -84,6 +84,32 @@ const createReply = async (commentId, postId, userId, text, image) => {
   }
 };
 
+const deleteComment = async (id) => {
+  const deletedPost = await Comment.findByIdAndDelete(id);
+  const post = await Post.findById(deletedPost.postId);
+
+  const deleteComment = post.comments.filter(
+    (comment) => comment.toString() !== deletedPost._id.toString()
+  );
+  post.comments = deleteComment;
+  await post.save();
+  return deletedPost;
+};
+
+const updateComment = async (id, body) => {
+  try {
+    return Comment.findOneAndUpdate(
+      id,
+      {
+        $set: body,
+      },
+      { new: true }
+    );
+  } catch (err) {
+    console.log("error", err);
+  }
+};
+
 module.exports = {
   createComment,
   getUserComments,
@@ -91,4 +117,6 @@ module.exports = {
   createReply,
   likeComment,
   dislikeComment,
+  deleteComment,
+  updateComment,
 };

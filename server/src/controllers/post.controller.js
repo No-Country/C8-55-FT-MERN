@@ -2,7 +2,8 @@ const postService = require("../services/post.service");
 
 const createPost = async (req, res) => {
   try {
-    const { userId, text, image } = req.body;
+    const userId = req.userId
+    const {text, image } = req.body;
     if (!userId)
       return res.status(404).json({ message: "User id is required" });
     if (!text) return res.status(400).json({ message: "Text is required" });
@@ -55,7 +56,7 @@ const getPostById = async (req, res) => {
   }
 };
 
-const getPosts = async (req, res) => {
+const getPosts = async (_req, res) => {
   try {
     const posts = await postService.getPosts();
     return res.status(200).json({ posts: posts });
@@ -67,7 +68,7 @@ const getPosts = async (req, res) => {
 const likePost = async (req, res) => {
   try{
     let { id } = req.params;
-    let {userId} = req.body;
+    let userId = req.userId;
     const post = await postService.getPostById(id);
     if(!post.likes.includes(userId)){
       await postService.likePost(post, userId)

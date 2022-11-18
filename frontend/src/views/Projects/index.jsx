@@ -1,9 +1,20 @@
-import React from 'react'
+import React from 'react';
+import CardProject from "./components/CardProject";
+import { Stack } from "@mui/material";
 
 const Projects = () => {
   return (
-    <div>Projects</div>
+    <Stack sx={{display: "flex", flexDirection:"row", flexWrap: "wrap", justifyContent: "center"}}>
+      < CardProject />
+      < CardProject />
+      < CardProject />
+      < CardProject />
+      < CardProject />
+      < CardProject />
+      < CardProject />
+      < CardProject />
+    </Stack>
   )
 }
 
-export default Projects
+export default Projects;

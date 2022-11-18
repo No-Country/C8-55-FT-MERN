@@ -1,7 +1,8 @@
 const Post = require("../models/Post");
 const User = require("../models/User");
+
 const getUserPosts = async (id) => {
-  const posts = await Post.find({ id })
+  const posts = await Post.find({ userId: id })
     .lean()
     .populate({
       path: "comments",
@@ -16,12 +17,56 @@ const getUserPosts = async (id) => {
 };
 
 const getPostById = async (id) => {
-  return await Post.findById(id);
+  return await Post.findById(id)
+    .lean()
+    .populate({
+      path: "comments",
+      model: "Comment",
+      populate: [
+        {
+          path: "replies",
+          populate: {
+            path: "userId",
+            select: { name: 1, lastName: 1, profileImage: 1 },
+          },
+        },
+        { path: "userId", select: { name: 1, lastName: 1, profileImage: 1 } },
+      ],
+    })
+    .populate({
+      path: "userId",
+      select: { name: 1, lastName: 1, profileImage: 1 },
+    });
 };
 
 const getPosts = async () => {
   try {
-    return await Post.find().lean();
+    return await Post.find()
+      .lean()
+      .populate({
+        path: "comments",
+        select: "-postId",
+        populate: [
+          {
+            path: "userId",
+            model: "User",
+            select: { name: 1, lastName: 1, profileImage: 1 },
+          },
+          {
+            path: "replies",
+            populate: [
+              {
+                path: "userId",
+                select: { name: 1, lastName: 1, profileImage: 1 },
+              },
+            ],
+          },
+        ],
+      })
+      .populate({
+        path: "userId",
+        select: { name: 1, lastName: 1, profileImage: 1 },
+      });
   } catch (err) {
     console.log("error", err);
   }
@@ -80,7 +125,7 @@ const deletePost = async (id) => {
 // };
 
 const likePost = async (post, userId) => {
-  await post.updateOne({ $push: { likes: userId } });
+  await Post.updateOne({ id: post._id, $push: { likes: userId } });
 };
 const dislikePost = async (post, userId) => {
   await post.updateOne({ $pull: { likes: userId } });

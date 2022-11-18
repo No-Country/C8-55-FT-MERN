@@ -1,11 +1,14 @@
 import { Stack, Box, Typography, IconButton } from '@mui/material'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import CreatePost from './components/CreatePost'
 import PostShared from './components/PostShared'
 import AddIcon from '@mui/icons-material/Add';
+import axios from 'axios'
+
 const Feed = () => {
 
   const [createPostVisibility, setCreatePostVisibility] = useState('none')
+  const [posts, setPosts] = useState()
 
   const addPost = () => {
     if(createPostVisibility === 'none'){
@@ -14,6 +17,19 @@ const Feed = () => {
       setCreatePostVisibility('none')
     }
   }
+
+  const getAllPosts = () => {
+   
+  } 
+
+  useEffect(() => {
+    axios.get('http://localhost:3000/post/all_posts')
+    .then(res => {
+      setPosts(res.data.posts)
+    })
+    .catch(err => console.log(err))
+  }, [])
+  
 
   return (
     <Stack>
@@ -28,9 +44,8 @@ const Feed = () => {
         <CreatePost createPostVisibility={createPostVisibility} />
 
         <Stack sx={{ display: 'flex', gap: '1em', overflow: 'scroll', maxHeight: 700, paddingBottom: '8em' }}>
-          <PostShared />
-          <PostShared />
-          <PostShared />
+        {posts && posts.map( post =>  <PostShared key={post._id} post={post} /> )}
+         
         </Stack>
       </Stack>
     </Stack>

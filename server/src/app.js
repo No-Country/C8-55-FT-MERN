@@ -7,6 +7,12 @@ const { urlencoded } = require("body-parser");
 const db = require("./database/db.config");
 const routes = require("./routes/index");
 const { PORT } = require("./config");
+const path = require("path");
+
+//swagger
+const swaggerUI = require("swagger-ui-express");
+const documentation = require("./helpers/documentation")
+
 
 const app = express();
 db().then(() => {
@@ -20,6 +26,7 @@ app.use(urlencoded({ extended: true }));
 app.use(morgan("dev"));
 app.use(helmet());
 app.use('/', routes)
+app.use("/api-doc",swaggerUI.serve,swaggerUI.setup(documentation));
 
 
 app.set("port", PORT || 3000);

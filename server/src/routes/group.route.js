@@ -1,12 +1,13 @@
 const groupController = require("../controllers/group.controller");
 
 const Router = require("express");
+const { verifyToken } = require("../middlewares/verifyToken");
 const router = Router();
 
-router.get("/",groupController.getGroups);
-router.get("/:id",groupController.getGroupById);
-router.post("/",groupController.createGroup);
-router.put("/:id",groupController.updateGroup);
-router.delete("/:id",groupController.deleteGroup);
+router.get("/", verifyToken ,groupController.getGroups);
+router.get("/:id", verifyToken ,groupController.getGroupById);
+router.post("/", verifyToken ,groupController.createGroup);
+router.put("/:id", verifyToken ,groupController.updateGroup);
+router.delete("/:id", verifyToken ,groupController.deleteGroup);
 
 module.exports = router;

@@ -1,5 +1,6 @@
 import { Box, Button, Divider, Stack, TextField, Typography } from '@mui/material'
 import React, { useState } from 'react'
+import axios from 'axios'
 
 const Signup = ({ setLogStatus }) => {
 
@@ -10,7 +11,7 @@ const Signup = ({ setLogStatus }) => {
 
     const userData = {
       name: e.target.name.value.trim(),
-      lastname: e.target.lastname.value.trim(),
+      lastName: e.target.lastname.value.trim(),
       mail: e.target.mail.value.trim(),
       password: e.target.password.value.trim()
     }
@@ -20,7 +21,11 @@ const Signup = ({ setLogStatus }) => {
      
     } else {
       if (e.target.password.value.trim().length > 6) {
-        setUserCreate(userData)
+       
+      axios.post('http://localhost:3000/user/signup', userData)
+      .then(res => console.log(res.data))
+      .catch(err => console.log(err))
+
       } else {
         console.log('error')
       }

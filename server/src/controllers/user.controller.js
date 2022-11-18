@@ -45,22 +45,28 @@ const signUp = async (req, res) => {
 };
 
 const signIn = async (req, res) => {
+  console.log("----------user----------");
   if (_.isNil(req.body.mail) || _.isNil(req.body.password)) {
     return res.send({ msg: "Faltan datos" });
   }
   const { mail, password } = req.body;
   const user = await User.findOne({ mail });
+  console.log(user);
   if (user) {
     const validPassword = await bcrypt.compare(password, user.password);
     if (validPassword) {
       const token = jwt.sign({ id: user._id, mail: user.mail }, SECRET, {
         expiresIn: 60 * 60 * 24,
       });
-      return res.send({ auth: true, token, user:{
-        name:user.name,
-        lastName: user.lastName,
-        mail:user.mail
-      } });
+      return res.send({
+        auth: true,
+        token,
+        user: {
+          name: user.name,
+          lastName: user.lastName,
+          mail: user.mail,
+        },
+      });
     } else {
       return res.status(404).send({
         auth: false,
@@ -74,4 +80,6 @@ const signIn = async (req, res) => {
     });
   }
 };
+
+
 module.exports = { signUp, signIn };

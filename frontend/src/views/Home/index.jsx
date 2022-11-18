@@ -1,18 +1,13 @@
-import { InputBase, Stack, TextField } from '@mui/material'
+import { Box, Stack, Typography } from '@mui/material'
 import React from 'react'
-import CreatePost from './components/CreatePost'
-import PostShared from './components/PostShared'
+import FrontView from './components/FrontView'
+
 const Home = () => {
   return (
     <Stack>
-      <Stack sx={{ width: '600px', display: 'flex', gap: '1em' }}>
-          <CreatePost />
-        <Stack sx={{ display: 'flex', gap: '1em', overflow: 'scroll', maxHeight: 700, paddingBottom: '8em' }}>
-          <PostShared />
-          <PostShared />
-          <PostShared />
-        </Stack>
-      </Stack>
+      <Box sx={{ border: '2px dashed white', height: 'calc(100vh - 5em)', width: '100vw', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <FrontView />
+      </Box>
     </Stack>
   )
 }

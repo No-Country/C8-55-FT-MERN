@@ -104,6 +104,9 @@ const signInUser={
         },
     }
 }
+// const followingUser={
+
+// }
 
 const userRoute = {
     "/user/signup":{
@@ -111,7 +114,10 @@ const userRoute = {
     },
     "/user/signin":{
         post: signInUser,
-    }
+    },
+    // "/user/addfollowing/{id}":{
+    //     post:followingUser
+    // }
 }
 
 module.exports = {user,userRoute};

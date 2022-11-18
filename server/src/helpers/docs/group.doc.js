@@ -30,6 +30,7 @@ const group = {
 const getGroups = {
     summary: "returns all groups",
     tags:["Group"],
+    security:[{bearerAuth:[]}],
     responses:{
         200:{
             description: "OK",
@@ -52,6 +53,7 @@ const getGroups = {
 const getGroup = {
     summary: "returns a group serched by Id",
     tags:["Group"],
+    security:[{bearerAuth:[]}],
     parameters:[
         {
             in: "path",
@@ -83,6 +85,8 @@ const getGroup = {
 const postGroups={
     summary: "create a group",
     tags:["Group"],
+    security:[{bearerAuth:[]}],
+
     requestBody:{
         required: true,
         content:{
@@ -105,6 +109,8 @@ const postGroups={
 const putGroup = {
     summary: "update a group serched by Id",
     tags:["Group"],
+    security:[{bearerAuth:[]}],
+
     parameters:[
         {
             in: "path",
@@ -146,6 +152,8 @@ const putGroup = {
 const deleteGroup ={
     summary: "delete a group serched by Id",
     tags:["Group"],
+    security:[{bearerAuth:[]}],
+
     parameters:[
         {
             in: "path",
@@ -157,6 +165,7 @@ const deleteGroup ={
             description: "group id",
         }
     ],
+
     responses:{
         200:{
             description: "OK",

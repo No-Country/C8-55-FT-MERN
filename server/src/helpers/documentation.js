@@ -4,15 +4,15 @@ const { post,postRoute } = require("./docs/post.doc");
 const {user,userRoute} = require("./docs/user.doc");
 
 const swaggerSpec = {
-    openapi:"3.0.0",
+    openapi:"3.0.1",
     info:{
         title: "RocketCup API",
         version: "0.0.1"
     },
     servers:[
-    {
-        url: "http://localhost:3000"
-    }
+        {
+            url: "http://localhost:3000"
+        }
     ],
     tags:[
         {
@@ -44,7 +44,14 @@ const swaggerSpec = {
             ...user,
             ...post,
             ...comment,
-        }
+        },
+        securitySchemes:{
+            bearerAuth:{
+                type:"http",
+                scheme:"bearer",
+                bearerFormat:"JWT",
+            },
+        },  
     }
 };
 

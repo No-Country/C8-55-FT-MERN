@@ -4,6 +4,7 @@ const { DB } = require("../config");
 
 const db = async () => {
   try {
+    console.log(DB);
     await mongoose.connect(DB);
   } catch (error) {
     console.log(error);

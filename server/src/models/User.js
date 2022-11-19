@@ -5,7 +5,7 @@ module.exports = model(
   new Schema({
     name: { type: String, required: true },
     lastName: { type: String, required: true },
-    mail: { type: String, required: true , unique: true},
+    mail: { type: String, required: true, unique: true },
     password: { type: String, required: true },
     user_role: { type: Schema.Types.ObjectId, ref: "User_role" },
     profileImage: String,
@@ -16,5 +16,6 @@ module.exports = model(
     saved: [{ type: Schema.Types.ObjectId, ref: "Post" }],
     following: [{ type: Schema.Types.ObjectId, ref: "User" }],
     followers: [{ type: Schema.Types.ObjectId, ref: "User" }],
+    saved: { type: Schema.Types.ObjectId, ref: "Saved" },
   })
 );

@@ -70,6 +70,8 @@ const comment = {
 const commentUser ={
     summary: "returns all comments of user",
     tags:["Comment"],
+    security:[{bearerAuth:[]}],
+
     parameters:[
         {
             in: "path",
@@ -106,6 +108,8 @@ const commentUser ={
 const getComment ={
     summary: "returns a comment serched by id",
     tags:["Comment"],
+    security:[{bearerAuth:[]}],
+
     parameters:[
         {
             in: "path",
@@ -137,6 +141,8 @@ const getComment ={
 const commentPost={
     summary:"coment a post",
     tags:["Comment"],
+    security:[{bearerAuth:[]}],
+
     requestBody:{
         required:true,
         content:{
@@ -168,6 +174,8 @@ const commentPost={
 const commentReply={
     summary:"coment a comment",
     tags:["Comment"],
+    security:[{bearerAuth:[]}],
+
     requestBody:{
         required:true,
         content:{
@@ -201,6 +209,8 @@ const commentReply={
 const commentLike={
     summary: "like a comment searched by id",
     tags:["Comment"],
+    security:[{bearerAuth:[]}],
+
     parameters:[
         {
             in: "path",

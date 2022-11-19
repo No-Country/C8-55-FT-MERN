@@ -1,5 +1,5 @@
 import React from 'react';
-import CardProject from "./components/CardProject";
+import CardProject from "./components/ProjectCard/CardProject";
 import { Stack } from "@mui/material";
 
 const Projects = () => {

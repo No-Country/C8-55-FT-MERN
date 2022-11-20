@@ -90,8 +90,8 @@ export const styles = {
     }
 }
 
-export const HandleMouseEnter = (ref) => {
-    ref.current.style.display = "flex";
+export const HandleMouseEnter = (ref, widthResize) => {
+    widthResize < theme.breakpoints.values.md ? ref.current.style.display = "flex" : "";
 }
 
 export const HandleMouseLeave = (ref) => {

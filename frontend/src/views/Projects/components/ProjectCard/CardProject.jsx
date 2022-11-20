@@ -1,5 +1,5 @@
 import React, { useRef } from 'react'
-import { Grid, Box, Button, Typography, CardMedia, createTheme } from '@mui/material'
+import { Grid, Box, Button, Typography, CardMedia, createTheme, Avatar } from '@mui/material'
 
 //MUI Icons
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
@@ -7,13 +7,14 @@ import ModeCommentIcon from '@mui/icons-material/ModeComment';
 import LoupeIcon from '@mui/icons-material/Loupe';
 
 //Utils
-import {HandleMouseEnter, HandleMouseLeave, styles } from "../../../../utils/cardProjectUtils";
-
-const theme = createTheme();
+import { HandleMouseEnter, HandleMouseLeave, styles } from "../../../../utils/cardProjectUtils";
+import useScreenSize from "../../../../hooks/useScreenSize";
 
 const GridCardProject = () => {
 
+    const theme = createTheme();
     const descriptionRef = useRef();
+    const resize = useScreenSize();
 
     return (
         <Box
@@ -22,10 +23,9 @@ const GridCardProject = () => {
             width="320px"
             sx={styles.article}
         >
-            <Grid container spacing={0}>
+            <Grid container spacing={0} >
 
-                <Grid item md={4}>
-
+                <Grid item md={4} >
                     <Box sx={styles.frontCard}>
 
                         <CardMedia
@@ -33,20 +33,23 @@ const GridCardProject = () => {
                             component="img"
                             image="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8cGVyc29ufGVufDB8fDB8fA%3D%3D&w=1000&q=80"
                             alt="green iguana"
-                            onMouseEnter={() => HandleMouseEnter(descriptionRef)}
+                            onMouseEnter={() => HandleMouseEnter(descriptionRef, resize.widthResize)}
                         />
 
                         {/* Project Info Mobile */}
-                        <Box sx={styles.proyectData}>
+                        <Box sx={styles.proyectData} >
                             <Typography
                                 variant="h5"
-                                sx={{ color: "var(--color-gray-lofi)" }}>
+                                sx={{ color: "var(--color-gray-lofi)" }}
+                            >
                                 Re:Clothes
                             </Typography>
+
                             <Button
                                 sx={styles.btnTechnology}
                                 size="medium"
-                                disableElevation>
+                                disableElevation
+                            >
                                 technology
                             </Button>
                         </Box>
@@ -55,57 +58,75 @@ const GridCardProject = () => {
                         <Typography
                             onMouseLeave={() => HandleMouseLeave(descriptionRef)}
                             sx={styles.hoverDescription}
-                            ref={descriptionRef}>
+                            ref={descriptionRef}
+                        >
                             Lorem ipsum dolor sit amet consectetur adipisicing elit.
                         </Typography>
                     </Box>
                 </Grid>
 
-                <Grid item xs={12} md={8}>
-
+                <Grid item xs={12} md={8} >
                     <Box
                         width="100%"
                         height="100%"
                         padding="10px"
                     >
-                        <Grid container spacing={0}>
+                        <Grid container spacing={0} >
 
-                            <Grid item md={12}>
+                            <Grid item md={12} >
+                                <Box width="100%" >
+                                    <Grid container >
 
-                                <Box width="100%">
-                                    <Grid container>
-
-                                        <Grid item md={8}>
+                                        <Grid item md={8} >
                                             <Box
-                                                sx={{
-                                                    [theme.breakpoints.down("md")]: {
-                                                        display: "none"
+                                                sx={
+                                                    {
+                                                        [theme.breakpoints.down("md")]: { display: "none" }
                                                     }
-                                                }}
+                                                }
                                             >
-                                                <Grid container>
+                                                <Grid container >
 
                                                     {/* Proyect Info md */}
-                                                    <Grid item md={12}>
-                                                        <Box sx={{ display: "flex", padding:"20px" }}>
+                                                    <Grid item md={12} >
+                                                        <Box
+                                                            sx={
+                                                                {
+                                                                    display: "flex",
+                                                                    padding: "20px"
+                                                                }
+                                                            }
+                                                        >
                                                             <Typography
                                                                 variant="h5"
-                                                                sx={{ color: "var(--color-gray-lofi)", marginRight: "15px" }}>
+                                                                sx={
+                                                                    {
+                                                                        color: "var(--color-gray-lofi)",
+                                                                        marginRight: "15px"
+                                                                    }
+                                                                }
+                                                            >
                                                                 Re:Clothes
                                                             </Typography>
                                                             <Button
                                                                 sx={styles.btnTechnology}
                                                                 size="medium"
-                                                                disableElevation>
+                                                                disableElevation
+                                                            >
                                                                 technology
                                                             </Button>
                                                         </Box>
                                                     </Grid>
 
                                                     {/* Description md */}
-                                                    <Grid item md={12}>
+                                                    <Grid item md={12} >
                                                         <Typography
-                                                            sx={{ color: "var(--color-gray-lofi)", marginLeft: "20px" }}
+                                                            sx={
+                                                                {
+                                                                    color: "var(--color-gray-lofi)",
+                                                                    marginLeft: "20px"
+                                                                }
+                                                            }
                                                             variant="small"
                                                         >
                                                             Esta es la descripción del proyecto.
@@ -116,7 +137,10 @@ const GridCardProject = () => {
                                         </Grid>
 
                                         {/* View Button */}
-                                        <Grid item md={4}>
+                                        <Grid
+                                            item
+                                            md={4}
+                                        >
                                             <Box
                                                 sx={
                                                     {
@@ -139,12 +163,16 @@ const GridCardProject = () => {
                                                             }
                                                         }
                                                     }
-
                                                 >
                                                     <LoupeIcon />
                                                     <Typography
                                                         variant="small"
-                                                        sx={{ fontFamily: "var(--font-secondary)", marginLeft: "4px" }}
+                                                        sx={
+                                                            {
+                                                                fontFamily: "var(--font-secondary)",
+                                                                marginLeft: "4px"
+                                                            }
+                                                        }
                                                     >
                                                         View
                                                     </Typography>
@@ -158,21 +186,38 @@ const GridCardProject = () => {
 
                             {/* Bottom architecture */}
                             <Grid item xs={12} md={12}>
-                                <Box sx={{ [theme.breakpoints.up("md")]: { marginTop: "40px" } }}>
-                                    <Grid container spacing={0}>
+                                <Box
+                                    sx={
+                                        {
+                                            [theme.breakpoints.up("md")]: { marginTop: "40px" }
+                                        }
+                                    }
+                                >
+                                    <Grid container spacing={0} >
 
                                         {/* Profile Data */}
-                                        <Grid item xs={6} md={8}>
-                                            <Box sx={{ display: "flex", alignItems: "flex-end", [theme.breakpoints.up("md")]:{marginLeft: "20px"} }}>
-                                                <CardMedia
-                                                    sx={{ borderRadius: "40px", width: "40px", height: "40px" }}
-                                                    component="img"
-                                                    image="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8cGVyc29ufGVufDB8fDB8fA%3D%3D&w=1000&q=80"
-                                                    alt="green iguana" />
-                                                <Typography 
+                                        <Grid item xs={6} md={8} >
+                                            <Box
+                                                sx={
+                                                    {
+                                                        display: "flex",
+                                                        alignItems: "flex-end",
+                                                        [theme.breakpoints.up("md")]: { marginLeft: "20px" }
+                                                    }
+                                                }
+                                            >
+                                                < Avatar
+                                                    alt="avatar"
+                                                    src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8cGVyc29ufGVufDB8fDB8fA%3D%3D&w=1000&q=80"
+                                                />
+                                                <Typography
                                                     variant="small"
                                                     marginLeft="5px"
-                                                    sx={{[theme.breakpoints.up("md")]:{color:"var(--color-gray-lofi)"}}}
+                                                    sx={
+                                                        {
+                                                            [theme.breakpoints.up("md")]: { color: "var(--color-gray-lofi)" }
+                                                        }
+                                                    }
                                                 >
                                                     name user
                                                 </Typography>
@@ -180,10 +225,20 @@ const GridCardProject = () => {
                                         </Grid>
 
                                         {/* Likes */}
-                                        <Grid item xs={3} md={2}>
-                                            <Box sx={{ display: "flex", width: "100%" }}>
-                                                < ThumbUpIcon sx={styles.icon} />
-                                                <Typography sx={styles.descriptionIcon}>
+                                        <Grid item xs={3} md={2} >
+                                            <Box sx={
+                                                {
+                                                    display: "flex",
+                                                    width: "100%"
+                                                }
+                                            }
+                                            >
+                                                < ThumbUpIcon
+                                                    sx={styles.icon}
+                                                />
+                                                <Typography
+                                                    sx={styles.descriptionIcon}
+                                                >
                                                     4k
                                                 </Typography>
                                             </Box>
@@ -191,9 +246,19 @@ const GridCardProject = () => {
 
                                         {/* Comments */}
                                         <Grid item xs={3} md={2}>
-                                            <Box sx={{ display: "flex" }}>
-                                                < ModeCommentIcon sx={styles.icon} />
-                                                <Typography sx={styles.descriptionIcon}>
+                                            <Box
+                                                sx={
+                                                    {
+                                                        display: "flex"
+                                                    }
+                                                }
+                                            >
+                                                < ModeCommentIcon
+                                                    sx={styles.icon}
+                                                />
+                                                <Typography
+                                                    sx={styles.descriptionIcon}
+                                                >
                                                     4k
                                                 </Typography>
                                             </Box>
@@ -212,4 +277,4 @@ const GridCardProject = () => {
     )
 }
 
-export default GridCardProject
+export default GridCardProject;

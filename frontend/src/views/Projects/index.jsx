@@ -1,6 +1,6 @@
 import React from 'react';
 import CardProject from "./components/ProjectCard/CardProject";
-import { Stack } from "@mui/material";
+import { Stack, Avatar } from "@mui/material";
 
 const Projects = () => {
   return (

@@ -65,6 +65,8 @@ const post={
 const createPost={
     summary:"create a post",
     tags:["Post"],
+    security:[{bearerAuth:[]}],
+
     requestBody:{
         required:true,
         content:{
@@ -96,6 +98,8 @@ const createPost={
 const getAllPosts={
     summary: "returns all posts",
     tags:["Post"],
+    security:[{bearerAuth:[]}],
+
     responses:{
         200:{
             description: "OK",
@@ -119,6 +123,8 @@ const getAllPosts={
 const getPostsUser ={
     summary: "returns all posts of user",
     tags:["Post"],
+    security:[{bearerAuth:[]}],
+
     parameters:[
         {
             in: "path",
@@ -154,6 +160,8 @@ const getPostsUser ={
 const getPostById = {
     summary: "returns a post serched by id",
     tags:["Post"],
+    security:[{bearerAuth:[]}],
+
     parameters:[
         {
             in: "path",
@@ -184,6 +192,8 @@ const getPostById = {
 const deletePost={
     summary: "delete a post serched by id",
     tags:["Post"],
+    security:[{bearerAuth:[]}],
+
     parameters:[
         {
             in: "path",
@@ -213,6 +223,8 @@ const deletePost={
 const updatePost = {
     summary: "update a post serched by id",
     tags:["Post"],
+    security:[{bearerAuth:[]}],
+
     parameters:[
         {
             in: "path",
@@ -262,6 +274,8 @@ const updatePost = {
 const likePost ={
     summary: "like a post serched by id",
     tags:["Post"],
+    security:[{bearerAuth:[]}],
+
     parameters:[
         {
             in: "path",

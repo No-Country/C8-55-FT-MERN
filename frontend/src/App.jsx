@@ -6,6 +6,7 @@ import PublicLayout from "./layout/Public"
 import Feed from "./views/Feed"
 import Home from "./views/Home"
 import LogIndex from "./views/Login"
+import Projects from "./views/Projects";
 
 function App() {
 
@@ -18,6 +19,7 @@ function App() {
       <Route element={<PublicLayout />}>
         <Route path="/" element={<Home />}/>
       </Route>
+      <Route path="/projects" element={<Projects />} />
     </Routes>
   )
 }

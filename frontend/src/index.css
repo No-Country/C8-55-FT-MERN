@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Zen+Dots&display=swap');
+
 :root {
   font-family: Inter, Avenir, Helvetica, Arial, sans-serif, roboto;
   font-size: 16px;
@@ -9,6 +11,15 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+
+:root {
+  --color-background-white-base: #EDF2F4;
+  --color-orange-base: #FF9F1C;
+  --color-gray-lofi: #DEDEDE;
+  --color-black-lofi: #212121;
+  --color-complement-black: #242F40;
+  --font-secondary: 'Zen Dots';
 }
 
 .spin{

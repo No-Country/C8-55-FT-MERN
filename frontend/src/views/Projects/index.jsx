@@ -4,7 +4,7 @@ import { Stack, Avatar } from "@mui/material";
 
 const Projects = () => {
   return (
-    <Stack sx={{display: "flex", flexDirection:"row", flexWrap: "wrap", justifyContent: "center"}}>
+    <Stack sx={{display: "flex", flexDirection:"row", flexWrap: "wrap", justifyContent: "center", overflow: 'scroll'}}>
       < CardProject />
       < CardProject />
       < CardProject />

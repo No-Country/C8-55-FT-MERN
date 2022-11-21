@@ -82,7 +82,7 @@ const Signup = ({ setLogStatus }) => {
           required
           type='password'
         />
-        <SelectSmall/>
+        {/* <SelectSmall/> */}
 
       </Box>
 

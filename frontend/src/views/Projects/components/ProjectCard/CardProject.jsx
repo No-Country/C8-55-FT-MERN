@@ -10,7 +10,7 @@ import LoupeIcon from '@mui/icons-material/Loupe';
 import { HandleMouseEnter, HandleMouseLeave, styles } from "../../../../utils/cardProjectUtils";
 import useScreenSize from "../../../../hooks/useScreenSize";
 
-const GridCardProject = () => {
+const CardProject = () => {
 
     const theme = createTheme();
     const descriptionRef = useRef();
@@ -158,6 +158,9 @@ const GridCardProject = () => {
                                                             backgroundColor: "var(--color-black-lofi)",
                                                             margin: "auto",
                                                             padding: "auto 10px",
+                                                            "&:hover": {
+                                                                backgroundColor: "var(--color-orange-base)"
+                                                            },
                                                             [theme.breakpoints.down("md")]: {
                                                                 display: "none"
                                                             }
@@ -277,4 +280,4 @@ const GridCardProject = () => {
     )
 }
 
-export default GridCardProject;
+export default CardProject;

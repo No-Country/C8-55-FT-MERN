@@ -19,9 +19,6 @@ const Feed = () => {
     }
   }
 
-  const getAllPosts = () => {
-   
-  } 
 
   useEffect(() => {
     axios.get('http://localhost:3000/post/all_posts', getConfig())

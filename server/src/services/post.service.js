@@ -10,7 +10,7 @@ const getUserPosts = async (id) => {
       populate: {
         path: "userId",
         model: "User",
-        select: { name: 1, lastName: 1, profileImage: 1 },
+        select: { name: 1, lastName: 1, profileImage: 1 , userRole: 1 },
       },
     });
   return posts;
@@ -27,15 +27,15 @@ const getPostById = async (id) => {
           path: "replies",
           populate: {
             path: "userId",
-            select: { name: 1, lastName: 1, profileImage: 1 },
+            select: { name: 1, lastName: 1, profileImage: 1 , userRole: 1},
           },
         },
-        { path: "userId", select: { name: 1, lastName: 1, profileImage: 1 } },
+        { path: "userId", select: { name: 1, lastName: 1, profileImage: 1 , userRole: 1} },
       ],
     })
     .populate({
       path: "userId",
-      select: { name: 1, lastName: 1, profileImage: 1 },
+      select: { name: 1, lastName: 1, profileImage: 1, userRole: 1 },
     });
 };
 
@@ -50,14 +50,14 @@ const getPosts = async () => {
           {
             path: "userId",
             model: "User",
-            select: { name: 1, lastName: 1, profileImage: 1 },
+            select: { name: 1, lastName: 1, profileImage: 1 , userRole:1},
           },
           {
             path: "replies",
             populate: [
               {
                 path: "userId",
-                select: { name: 1, lastName: 1, profileImage: 1 },
+                select: { name: 1, lastName: 1, profileImage: 1 , userRole:1},
               },
             ],
           },
@@ -65,7 +65,7 @@ const getPosts = async () => {
       })
       .populate({
         path: "userId",
-        select: { name: 1, lastName: 1, profileImage: 1 },
+        select: { name: 1, lastName: 1, profileImage: 1 , userRole:1},
       });
   } catch (err) {
     console.log("error", err);

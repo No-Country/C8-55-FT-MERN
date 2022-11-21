@@ -4,6 +4,7 @@ import CreatePost from './components/CreatePost'
 import PostShared from './components/PostShared'
 import AddIcon from '@mui/icons-material/Add';
 import axios from 'axios'
+import getConfig from '../../config';
 
 const Feed = () => {
 
@@ -23,7 +24,7 @@ const Feed = () => {
   } 
 
   useEffect(() => {
-    axios.get('http://localhost:3000/post/all_posts')
+    axios.get('http://localhost:3000/post/all_posts', getConfig())
     .then(res => {
       setPosts(res.data.posts)
     })

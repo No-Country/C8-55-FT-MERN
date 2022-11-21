@@ -49,13 +49,7 @@ const findCommentById = async (id) => {
     .lean()
     .populate({
       path: "replies",
-      populate: { path: "replies" },
-    })
-    .lean()
-    .populate({
-      path: "userId",
-      model: "User",
-      select: { name: 1, lastName: 1, profileImage: 1 },
+      populate: { path: "userId", select: { name: 1, lastName: 1 } },
     });
 };
 

@@ -15,11 +15,11 @@ function App() {
       <Route path="/log" element={<LogIndex />} />
       <Route element={<ClientLayout />}>
         <Route path="/feed" element={<Feed />} />
+      <Route path="/projects" element={<Projects />} />
       </Route>
       <Route element={<PublicLayout />}>
         <Route path="/" element={<Home />}/>
       </Route>
-      <Route path="/projects" element={<Projects />} />
     </Routes>
   )
 }

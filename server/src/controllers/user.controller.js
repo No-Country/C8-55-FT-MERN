@@ -9,7 +9,8 @@ const signUp = async (req, res) => {
     _.isNil(req.body.name) ||
     _.isNil(req.body.lastName) ||
     _.isNil(req.body.mail) ||
-    _.isNil(req.body.password)
+    _.isNil(req.body.password) ||
+    _.isNil(req.body.userRole)
   ) {
     return res.status(404).send({ msg: "Faltan datos" });
   }
@@ -18,7 +19,7 @@ const signUp = async (req, res) => {
       .status(404)
       .send({ msg: "La contrasena debe contener al menos 6 caracteres" });
   }
-  const { name, lastName, mail, password } = req.body;
+  const { name, lastName, mail, password , userRole} = req.body;
   try {
     const salt = await bcrypt.genSalt(10);
     const hashPassword = await bcrypt.hash(password, salt);
@@ -27,6 +28,7 @@ const signUp = async (req, res) => {
       lastName,
       password: hashPassword,
       mail,
+      userRole
     });
     newUser
       .save()
@@ -81,5 +83,33 @@ const signIn = async (req, res) => {
   }
 };
 
-
-module.exports = { signUp, signIn };
+const tokenInfo = async (req, res) => {
+  try {
+    if (!req.get("Authorization")) {
+      return res
+        .status(404)
+        .send({ auth: false, error: "A token is required for authentication" });
+    }
+    const token = req.get("Authorization").substring(7);
+    const verifyToken = jwt.verify(token, SECRET);
+    const user = await User.findById(verifyToken.id);
+    if (!user) {
+      return res
+        .status(404)
+        .send({ auth: false, msg: "Authentication failed" });
+    }
+    return res.send({
+      auth: true,
+      user: {
+        name: user.name,
+        lastName: user.lastName,
+        id: user._id,
+        userRole: user.userRole,
+        profileImage: user.profileImage,
+      },
+    });
+  } catch (e) {
+    return res.status(404).send({ auth: false, error: e.message });
+  }
+};
+module.exports = { signUp, signIn, tokenInfo };

@@ -5,6 +5,7 @@ import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import CommentIcon from '@mui/icons-material/Comment';
 import Reply from './Reply';
 import SendIcon from '@mui/icons-material/Send';
+import getConfig from '../../../config';
 
 
 const CommentDetails = ({ comment, getComments }) => {
@@ -13,11 +14,16 @@ const CommentDetails = ({ comment, getComments }) => {
     const [commentDetails, setCommentDetails] = useState()
     const [reply, setReply] = useState()
 
-    console.log(commentDetails)
+
 
     const [replyShow, setReplyShow] = useState(false)
+    const [repliesCount, setRepliesCount] = useState(0)
+    const [likesCount, setLikesCount] = useState(0)
 
     const hour = new Date(commentDetails?.comment.createdAt)
+
+
+
 
     const postReply = e => {
         e.preventDefault()
@@ -30,23 +36,25 @@ const CommentDetails = ({ comment, getComments }) => {
             postId: commentDetails.comment.postId,
             text
         }
-        if(commentDetails){
-            axios.put('http://localhost:3000/comment/reply', body)
-            .then(res => {
-                console.log(res.data)
-                getComments(commentDetails.comment.postId)
-                e.target.reply.value = ''
-            })
-            .catch(err => console.log(err))
+        if (commentDetails) {
+            axios.put('http://localhost:3000/comment/reply', body, getConfig())
+                .then(res => {
+                    console.log(res.data)
+                    getComments(commentDetails.comment.postId)
+                    e.target.reply.value = ''
+                })
+                .catch(err => console.log(err))
         }
-    
+
     }
 
-
-
     useEffect(() => {
-        axios.get(`http://localhost:3000/comment/get_comment/${comment}`)
-            .then(res => { setCommentDetails(res.data) })
+        axios.get(`http://localhost:3000/comment/get_comment/${comment}`, getConfig())
+            .then(res => {
+                setCommentDetails(res.data)
+                setRepliesCount(res.data.comment.replies.length)
+                setLikesCount(res.data.comment.likes.length)
+            })
             .catch(err => console.log(err))
     }, [])
 
@@ -72,12 +80,31 @@ const CommentDetails = ({ comment, getComments }) => {
                     <Box my='0.3em' p='0.8em' sx={{ width: '100%', height: 'auto', minHeight: '1em', borderRadius: '0.3em', backgroundColor: '#ffffff98', boxShadow: '0 .125rem .25rem rgba(0,0,0,.075)' }}>
                         {commentDetails.comment.text}
                     </Box>
-                    <Box>
+                    <Box sx={{display: 'flex', gap: '0.5em'}}>
                         <IconButton size="small">
-                            <ThumbUpIcon fontSize="small" />
+                            <Badge
+                                color='primary'
+                                badgeContent={likesCount}
+                                anchorOrigin={{
+                                    vertical: 'bottom',
+                                    horizontal: 'right',
+                                }}
+
+                            >
+                                <ThumbUpIcon fontSize="small" />
+                            </Badge>
+
                         </IconButton>
                         <IconButton onClick={() => setReplyShow(!replyShow)} size="small">
-                            <Badge  >
+                            <Badge
+                                color='primary'
+                                badgeContent={repliesCount}
+                                anchorOrigin={{
+                                    vertical: 'bottom',
+                                    horizontal: 'right',
+                                }}
+
+                            >
 
                                 <CommentIcon fontSize="small" />
                             </Badge>
@@ -88,7 +115,7 @@ const CommentDetails = ({ comment, getComments }) => {
                         replyShow &&
                         <Box>
 
-                            {commentDetails?.comment.replies[0] && commentDetails?.comment.replies.map(reply => <Reply key={reply._id} reply={reply} />   )}
+                            {commentDetails?.comment.replies[0] && commentDetails?.comment.replies.map(reply => <Reply key={reply._id} reply={reply} />)}
 
                             <Box component='form' onSubmit={postReply} sx={{ display: 'flex', my: '0.3em' }}>
                                 <TextField size='small' fullWidth name="reply" label="Deja aqui tu veneno..." variant="outlined" />

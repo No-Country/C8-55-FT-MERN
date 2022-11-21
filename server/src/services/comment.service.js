@@ -50,7 +50,7 @@ const findCommentById = async (id) => {
     .populate({
       path: "replies",
       populate: { path: "userId", select: { name: 1, lastName: 1 } },
-    });
+    }).populate("userId", {name: 1, lastName: 1 })
 };
 
 const dislikeComment = async (comment, userId) => {

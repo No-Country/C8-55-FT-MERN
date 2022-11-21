@@ -14,7 +14,7 @@ const CommentDetails = ({ comment, getComments }) => {
     const [commentDetails, setCommentDetails] = useState()
     const [reply, setReply] = useState()
 
-
+console.log(commentDetails)
 
     const [replyShow, setReplyShow] = useState(false)
     const [repliesCount, setRepliesCount] = useState(0)
@@ -23,7 +23,7 @@ const CommentDetails = ({ comment, getComments }) => {
     const hour = new Date(commentDetails?.comment.createdAt)
 
 
-
+console.log(commentDetails)
 
     const postReply = e => {
         e.preventDefault()
@@ -32,7 +32,7 @@ const CommentDetails = ({ comment, getComments }) => {
 
         const body = {
             commentId: commentDetails.comment._id,
-            userId: commentDetails.comment.userId._id,
+            // userId: commentDetails.comment.userId._id,
             postId: commentDetails.comment.postId,
             text
         }

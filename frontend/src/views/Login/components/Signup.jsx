@@ -1,6 +1,7 @@
 import { Box, Button, Divider, Stack, TextField, Typography } from '@mui/material'
 import React, { useState } from 'react'
 import axios from 'axios'
+import SelectSmall from './SelectRole'
 
 const Signup = ({ setLogStatus }) => {
 
@@ -81,6 +82,7 @@ const Signup = ({ setLogStatus }) => {
           required
           type='password'
         />
+        <SelectSmall/>
 
       </Box>
 

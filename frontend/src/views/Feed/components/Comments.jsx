@@ -33,7 +33,6 @@ const Comments = ({ comments, postId }) => {
                 e.target.comment.value = ''
             })
             .then(err => console.log(err))
-
     }
 
 

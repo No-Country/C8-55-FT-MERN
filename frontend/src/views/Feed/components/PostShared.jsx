@@ -22,6 +22,8 @@ const PostShared = ({ post }) => {
 
     const [commentShow, setCommentShow] = useState(false)
 
+    console.log(post)
+
     const commentView = () => {
         setCommentShow(!commentShow)
     }
@@ -41,7 +43,7 @@ const PostShared = ({ post }) => {
                             />
                         </Box>
                         <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-                            <Typography variant="body" color="initial"><strong>Deriam Suarez</strong></Typography>
+                            <Typography variant="body" color="initial"><strong>{post.userId.name} {post.userId.lastName}</strong></Typography>
                             <Typography variant="body2" color="initial">Frontend Developer</Typography>
                         </Box>
                     </Box>

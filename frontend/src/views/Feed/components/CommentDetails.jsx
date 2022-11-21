@@ -42,7 +42,6 @@ const CommentDetails = ({ comment, getComments }) => {
         if (commentDetails) {
             axios.put('http://localhost:3000/comment/reply', body, getConfig())
                 .then(res => {
-                    console.log(res.data)
                     getComments(commentDetails.comment.postId)
                     getCommentDetails()
                     e.target.reply.value = ''

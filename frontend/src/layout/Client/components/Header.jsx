@@ -1,4 +1,4 @@
-import { Stack, Box, Button, Paper, IconButton, InputBase, Divider, Drawer } from '@mui/material'
+import { Stack, Box, Button, Paper, IconButton, InputBase, Divider, Drawer, Avatar } from '@mui/material'
 import React from 'react'
 import Typography from '@mui/material/Typography'
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
@@ -54,8 +54,11 @@ const Header = () => {
         <Button variant='text' sx={{ color: 'white' }} >Crear Proyecto</Button>
         <Button variant='text' sx={{ color: 'white' }} >Descubrir</Button>
         <IconButton sx={{color: '#74F7AE'}}>
-        <AccountCircleIcon />
-
+        {/* <AccountCircleIcon /> */}
+        <Avatar
+  alt="Remy Sharp"
+  src="/broken-image.jpg"
+/>
         </IconButton>
       </Box>
 

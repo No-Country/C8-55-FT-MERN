@@ -5,15 +5,12 @@ import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import CommentIcon from '@mui/icons-material/Comment';
 
 
-const Reply = ({ reply }) => {
+const Reply = ({ reply, getCommentDetails }) => {
 
     const hour = new Date(reply?.createdAt)
 
-    console.log(reply)
-
     const [replyDetails, setReplyDetails] = useState(reply)
-
-    console.log(reply)
+console.log(reply)
     return (
         <Box p='0.5em' px='0' sx={{ display: 'flex', alignItems: 'center' }}>
             <Box sx={{ maxWidth: 40, borderRadius: '100%', overflow: 'hidden' }}>

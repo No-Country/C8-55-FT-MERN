@@ -4,6 +4,7 @@ import Typography from '@mui/material/Typography'
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import ManageSearchIcon from '@mui/icons-material/ManageSearch';
 import MenuIcon from '@mui/icons-material/Menu';
+import { Link } from 'react-router-dom';
 
 const style = {
   header: {
@@ -29,12 +30,16 @@ const Header = () => {
     <Stack sx={style.header}>
 
       <Typography variant='h6' color="#FF9F1C">rocketCup</Typography>
-     
+
 
       <Box sx={style.boxUser}>
         {/* <Button variant='text' sx={{ color: 'white' }} >Crear Proyecto</Button> */}
         <Button variant='text' sx={{ color: '#EDF2F4' }} >Descubrir</Button>
-        <AccountCircleIcon sx={{ cursor: 'pointer', color: '#FF9F1C' }} />
+        <IconButton aria-label="">
+          <Link to={'/log'}>
+            <AccountCircleIcon sx={{ cursor: 'pointer', color: '#FF9F1C' }} />
+          </Link>
+        </IconButton>
       </Box>
     </Stack>
   )

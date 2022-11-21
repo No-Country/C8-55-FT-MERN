@@ -9,6 +9,7 @@ import ThumbUpOffAltOutlinedIcon from '@mui/icons-material/ThumbUpOffAltOutlined
 import ThumbDownOffAltOutlinedIcon from '@mui/icons-material/ThumbDownOffAltOutlined';
 import Comments from './Comments';
 import axios from 'axios'
+import getConfig from '../../../config';
 
 const style = {
     postSharedStyle: {
@@ -22,10 +23,19 @@ const PostShared = ({ post }) => {
 
     const [commentShow, setCommentShow] = useState(false)
 
-    console.log(post)
 
     const commentView = () => {
         setCommentShow(!commentShow)
+    }
+
+    const putLike = userId => {
+
+        const body = {
+            userId
+        }
+        axios.put(`http://localhost:3000/comment/like/${userId}`, body, getConfig())
+        .then(res => console.log(res.data))
+        .catch(err => console.log(err))
     }
 
     return (
@@ -61,7 +71,7 @@ const PostShared = ({ post }) => {
                 showLabels
                 sx={{ backgroundColor: 'transparent' }}
             >
-                <BottomNavigationAction label={`Likes (${post.likes.length})`} icon={<ThumbUpOffAltOutlinedIcon />} />
+                <BottomNavigationAction onClick={() => putLike(post.userId._id)} label={`Likes (${post.likes.length})`} icon={<ThumbUpOffAltOutlinedIcon />} />
                 <BottomNavigationAction onClick={commentView} label={`Comments (${post.comments.length})`} icon={<InsertCommentOutlinedIcon />} />
                 <BottomNavigationAction label="Save" icon={<BookmarkBorderOutlinedIcon />} />
             </BottomNavigation>

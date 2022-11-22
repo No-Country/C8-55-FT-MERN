@@ -9,6 +9,8 @@ const Comments = ({ comments, postId }) => {
 
     const [commentsToGetDetails, setCommentToGetDetails] = useState(comments)
 
+
+
     const getComments = postId => {
         axios.get(`http://localhost:3000/post/get_post/${postId}`, getConfig())
             .then(res => setCommentToGetDetails(res.data.post.comments))
@@ -31,7 +33,6 @@ const Comments = ({ comments, postId }) => {
                 e.target.comment.value = ''
             })
             .then(err => console.log(err))
-
     }
 
 

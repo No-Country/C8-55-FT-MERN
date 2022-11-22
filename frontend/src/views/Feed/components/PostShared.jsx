@@ -7,8 +7,11 @@ import PersonAddOutlinedIcon from '@mui/icons-material/PersonAddOutlined';
 import LocalCafeOutlinedIcon from '@mui/icons-material/LocalCafeOutlined';
 import ThumbUpOffAltOutlinedIcon from '@mui/icons-material/ThumbUpOffAltOutlined';
 import ThumbDownOffAltOutlinedIcon from '@mui/icons-material/ThumbDownOffAltOutlined';
+import DragIndicatorIcon from '@mui/icons-material/DragIndicator';
+import PersonAddAltIcon from '@mui/icons-material/PersonAddAlt';
 import Comments from './Comments';
 import axios from 'axios'
+import getConfig from '../../../config';
 
 const style = {
     postSharedStyle: {
@@ -22,8 +25,19 @@ const PostShared = ({ post }) => {
 
     const [commentShow, setCommentShow] = useState(false)
 
+
     const commentView = () => {
         setCommentShow(!commentShow)
+    }
+
+    const putLike = userId => {
+
+        const body = {
+            userId
+        }
+        axios.put(`http://localhost:3000/comment/like/${userId}`, body, getConfig())
+            .then(res => console.log(res.data))
+            .catch(err => console.log(err))
     }
 
     return (
@@ -41,16 +55,23 @@ const PostShared = ({ post }) => {
                             />
                         </Box>
                         <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-                            <Typography variant="body" color="initial"><strong>Deriam Suarez</strong></Typography>
+                            <Box sx={{display: 'flex', alignItems: 'center'}}>
+                                <Typography variant="body" color="initial"><strong>{post.userId.name} {post.userId.lastName}</strong></Typography>
+                               <IconButton >
+                                <PersonAddAltIcon fontSize="small" />
+                                 
+                               </IconButton>
+                            </Box>
                             <Typography variant="body2" color="initial">Frontend Developer</Typography>
                         </Box>
                     </Box>
-                    <Button variant='outlined' color='success'>
-                        Follow
-                    </Button>
+                  <IconButton >
+                    <DragIndicatorIcon/>
+                  </IconButton>
                 </Box>
                 <Box sx={{ marginX: '1em' }}>
-                    {post.text}
+                    {/* {post.text} */}
+                    <div dangerouslySetInnerHTML={{ __html: post.text }}  ></div>
                 </Box>
                 <Divider sx={{ marginTop: '1em' }} />
 
@@ -59,11 +80,11 @@ const PostShared = ({ post }) => {
                 showLabels
                 sx={{ backgroundColor: 'transparent' }}
             >
-                <BottomNavigationAction label={`Likes (${post.likes.length})`} icon={<ThumbUpOffAltOutlinedIcon />} />
+                <BottomNavigationAction onClick={() => putLike(post.userId._id)} label={`Likes (${post.likes.length})`} icon={<ThumbUpOffAltOutlinedIcon />} />
                 <BottomNavigationAction onClick={commentView} label={`Comments (${post.comments.length})`} icon={<InsertCommentOutlinedIcon />} />
                 <BottomNavigationAction label="Save" icon={<BookmarkBorderOutlinedIcon />} />
             </BottomNavigation>
-           {commentShow && <Comments comments={post.comments} postId={post._id} />}
+            {commentShow && <Comments comments={post.comments} postId={post._id} />}
         </Stack>
     )
 }

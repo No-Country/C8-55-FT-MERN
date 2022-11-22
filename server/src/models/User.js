@@ -7,7 +7,7 @@ module.exports = model(
     lastName: { type: String, required: true },
     mail: { type: String, required: true, unique: true },
     password: { type: String, required: true },
-    user_role: { type: Schema.Types.ObjectId, ref: "User_role" },
+    userRole: { type: Schema.Types.ObjectId, ref: "UserRole" },
     profileImage: String,
     socials: [{ type: Schema.Types.ObjectId, ref: "User" }],
     description: String,

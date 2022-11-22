@@ -5,7 +5,7 @@ let theme = createTheme();
 export const styles = {
     article: {
         cursor: "pointer",
-        [theme.breakpoints.up("md")]: {
+        [theme.breakpoints.up("lg")]: {
             backgroundColor: "var(--color-complement-black)",
             borderRadius: "5px",
             height: "200px",
@@ -18,7 +18,7 @@ export const styles = {
     imgFront: {
         height: "100%",
         width: "100%",
-        [theme.breakpoints.up("md")]: {
+        [theme.breakpoints.up("lg")]: {
             borderRadius: "4px",
             height: "80%",
             margin: "20px",
@@ -28,7 +28,7 @@ export const styles = {
     icon: {
         color: "var(--color-complement-black)",
         fontSize: "30px",
-        [theme.breakpoints.up("md")]: {
+        [theme.breakpoints.up("lg")]: {
             color: "var(--color-gray-lofi)"
         }
     },
@@ -54,7 +54,7 @@ export const styles = {
         top: 0,
         transition: "all 5s",
         width: "100%",
-        [theme.breakpoints.up("md")] : {
+        [theme.breakpoints.up("lg")] : {
             display: "none"
         }
     },
@@ -68,7 +68,7 @@ export const styles = {
         padding: "10px",
         position: "absolute",
         width: "100%",
-        [theme.breakpoints.up("md")]: {
+        [theme.breakpoints.up("lg")]: {
             display: "none"
         }
     },
@@ -91,7 +91,7 @@ export const styles = {
 }
 
 export const HandleMouseEnter = (ref, widthResize) => {
-    widthResize < theme.breakpoints.values.md ? ref.current.style.display = "flex" : "";
+    widthResize < theme.breakpoints.values.lg ? ref.current.style.display = "flex" : "";
 }
 
 export const HandleMouseLeave = (ref) => {

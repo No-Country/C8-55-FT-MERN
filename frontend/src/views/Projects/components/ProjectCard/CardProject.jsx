@@ -25,7 +25,7 @@ const CardProject = () => {
         >
             <Grid container spacing={0} >
 
-                <Grid item md={4} >
+                <Grid item lg={4} >
                     <Box sx={styles.frontCard}>
 
                         <CardMedia
@@ -65,7 +65,7 @@ const CardProject = () => {
                     </Box>
                 </Grid>
 
-                <Grid item xs={12} md={8} >
+                <Grid item xs={12} lg={8} >
                     <Box
                         width="100%"
                         height="100%"
@@ -73,22 +73,22 @@ const CardProject = () => {
                     >
                         <Grid container spacing={0} >
 
-                            <Grid item md={12} >
+                            <Grid item lg={12} >
                                 <Box width="100%" >
                                     <Grid container >
 
-                                        <Grid item md={8} >
+                                        <Grid item lg={8} >
                                             <Box
                                                 sx={
                                                     {
-                                                        [theme.breakpoints.down("md")]: { display: "none" }
+                                                        [theme.breakpoints.down("lg")]: { display: "none" }
                                                     }
                                                 }
                                             >
                                                 <Grid container >
 
                                                     {/* Proyect Info md */}
-                                                    <Grid item md={12} >
+                                                    <Grid item lg={12} >
                                                         <Box
                                                             sx={
                                                                 {
@@ -119,7 +119,7 @@ const CardProject = () => {
                                                     </Grid>
 
                                                     {/* Description md */}
-                                                    <Grid item md={12} >
+                                                    <Grid item lg={12} >
                                                         <Typography
                                                             sx={
                                                                 {
@@ -139,7 +139,7 @@ const CardProject = () => {
                                         {/* View Button */}
                                         <Grid
                                             item
-                                            md={4}
+                                            lg={4}
                                         >
                                             <Box
                                                 sx={
@@ -161,7 +161,7 @@ const CardProject = () => {
                                                             "&:hover": {
                                                                 backgroundColor: "var(--color-orange-base)"
                                                             },
-                                                            [theme.breakpoints.down("md")]: {
+                                                            [theme.breakpoints.down("lg")]: {
                                                                 display: "none"
                                                             }
                                                         }
@@ -188,24 +188,24 @@ const CardProject = () => {
                             </Grid>
 
                             {/* Bottom architecture */}
-                            <Grid item xs={12} md={12}>
+                            <Grid item xs={12} lg={12}>
                                 <Box
                                     sx={
                                         {
-                                            [theme.breakpoints.up("md")]: { marginTop: "40px" }
+                                            [theme.breakpoints.up("lg")]: { marginTop: "40px" }
                                         }
                                     }
                                 >
                                     <Grid container spacing={0} >
 
                                         {/* Profile Data */}
-                                        <Grid item xs={6} md={8} >
+                                        <Grid item xs={6} lg={8} >
                                             <Box
                                                 sx={
                                                     {
                                                         display: "flex",
                                                         alignItems: "flex-end",
-                                                        [theme.breakpoints.up("md")]: { marginLeft: "20px" }
+                                                        [theme.breakpoints.up("lg")]: { marginLeft: "20px" }
                                                     }
                                                 }
                                             >
@@ -218,7 +218,7 @@ const CardProject = () => {
                                                     marginLeft="5px"
                                                     sx={
                                                         {
-                                                            [theme.breakpoints.up("md")]: { color: "var(--color-gray-lofi)" }
+                                                            [theme.breakpoints.up("lg")]: { color: "var(--color-gray-lofi)" }
                                                         }
                                                     }
                                                 >
@@ -228,7 +228,7 @@ const CardProject = () => {
                                         </Grid>
 
                                         {/* Likes */}
-                                        <Grid item xs={3} md={2} >
+                                        <Grid item xs={3} lg={2} >
                                             <Box sx={
                                                 {
                                                     display: "flex",
@@ -248,7 +248,7 @@ const CardProject = () => {
                                         </Grid>
 
                                         {/* Comments */}
-                                        <Grid item xs={3} md={2}>
+                                        <Grid item xs={3} lg={2}>
                                             <Box
                                                 sx={
                                                     {

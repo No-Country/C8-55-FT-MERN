@@ -14,14 +14,15 @@ const Signup = ({ setLogStatus }) => {
       name: e.target.name.value.trim(),
       lastName: e.target.lastname.value.trim(),
       mail: e.target.mail.value.trim(),
-      password: e.target.password.value.trim()
+      password: e.target.password.value.trim(),
+      userRole: e.target.userRole.value.trim()
     }
 
     if (e.target.password.value.trim() != e.target.confirmPassword.value.trim()) {
       console.log('error')
      
     } else {
-      if (e.target.password.value.trim().length > 6) {
+      if (e.target.password.value.trim().length >= 6) {
        
       axios.post('http://localhost:3000/user/signup', userData)
       .then(res => console.log(res.data))
@@ -67,6 +68,13 @@ const Signup = ({ setLogStatus }) => {
           required
         />
         <TextField
+          label="Rol"
+          id="userRole"
+          size="small"
+          fullWidth
+          required
+        />
+        <TextField
           label="password"
           id="password"
           size="small"
@@ -82,7 +90,6 @@ const Signup = ({ setLogStatus }) => {
           required
           type='password'
         />
-        {/* <SelectSmall/> */}
 
       </Box>
 

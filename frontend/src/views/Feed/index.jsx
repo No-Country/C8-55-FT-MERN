@@ -11,7 +11,6 @@ const Feed = () => {
 
   const [createPostVisibility, setCreatePostVisibility] = useState('none')
   const [posts, setPosts] = useState()
-  const [image, setImage] = useState()
 
   const addPost = () => {
     if (createPostVisibility === 'none') {
@@ -30,30 +29,12 @@ const Feed = () => {
       .catch(err => console.log(err))
   }, [])
 
-  const submitImage = () => {
-    const data = new FormData()
-    data.append('file', image)
-    data.append('upload_preset', 'rbzpjt8a')
-    data.append('cloud_name', 'da8xnpdpx')
-
-    axios.post('https://api.cloudinary.com/v1_1/da8xnpdpx/image/upload', data)
-    .then(res => console.log(res.data))
-    .catch(err => console.log(err))
-  }
+ 
 
   return (
     <Stack>
       <Stack sx={{ width: '600px', display: 'flex', gap: '1em' }}>
-        <CloudinaryContext cloudName="da8xnpdpx">
-          <div>
-            <Image publicId="cld-sample" width="50" />
-          </div>
-          <input type="file" onChange={(e) => setImage(e.target.files[0])}/>
-          <Button onClick={submitImage} variant="text" color="primary">
-            UPLOAD
-          </Button>
 
-        </CloudinaryContext>
         <Box sx={{ display: 'flex', width: '100%', justifyContent: 'space-between' }}>
           <Typography variant="h6" color="initial">Create post</Typography>
           <IconButton color='success' onClick={addPost}>

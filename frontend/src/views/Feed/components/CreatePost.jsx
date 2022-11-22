@@ -32,17 +32,13 @@ const CreatePost = ({createPostVisibility}) => {
         const body = {
             text: postValue.toString()
         }
-
-
             axios.post('http://localhost:3000/post/create', body, getConfig())
             .then(res => {
-                console.log(res.data)
                 quillRef.current.firstChild.innerHTML = ''
             })
             .catch(err => console.log(err.data))
     }
     
-console.log(postValue)
     return (
         <div style={{ width: '100%', minHeight:20, maxHeight: 300, display: createPostVisibility, marginBottom: 70}}>
             <div ref={quillRef} />

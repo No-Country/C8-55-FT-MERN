@@ -7,7 +7,7 @@ import ModeCommentIcon from '@mui/icons-material/ModeComment';
 import LoupeIcon from '@mui/icons-material/Loupe';
 
 //Utils
-import { HandleMouseEnter, HandleMouseLeave, styles } from "../../../../utils/cardProjectUtils";
+import { HandleMouseEnter, HandleMouseLeave } from "../../../../utils/cardProjectUtils";
 import useScreenSize from "../../../../hooks/useScreenSize";
 
 const CardProject = () => {
@@ -21,15 +21,40 @@ const CardProject = () => {
             height="auto"
             m={2}
             width="320px"
-            sx={styles.article}
+            sx={
+                {
+                    cursor: "pointer",
+                    [theme.breakpoints.up("lg")]: {
+                        backgroundColor: "var(--color-complement-black)",
+                        borderRadius: "5px",
+                        height: "200px",
+                        width: "900px"
+                    }
+                }
+            }
         >
             <Grid container spacing={0} >
 
                 <Grid item lg={4} >
-                    <Box sx={styles.frontCard}>
+                    <Box sx={
+                        {
+                            position: "relative"
+                        }
+                    }
+                    >
 
                         <CardMedia
-                            sx={styles.imgFront}
+                            sx={{
+                                height: "100%",
+                                width: "100%",
+                                [theme.breakpoints.up("lg")]: {
+                                    borderRadius: "4px",
+                                    height: "80%",
+                                    margin: "20px",
+                                    width: "80%"
+                                }
+                            }
+                            }
                             component="img"
                             image="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8cGVyc29ufGVufDB8fDB8fA%3D%3D&w=1000&q=80"
                             alt="green iguana"
@@ -37,7 +62,24 @@ const CardProject = () => {
                         />
 
                         {/* Project Info Mobile */}
-                        <Box sx={styles.proyectData} >
+                        <Box
+                            sx={
+                                {
+                                    alignItems: "center",
+                                    backgroundColor: "var(--color-black-lofi)",
+                                    bottom: "0",
+                                    display: "flex",
+                                    justifyContent: "space-evenly",
+                                    opacity: "0.8",
+                                    padding: "10px",
+                                    position: "absolute",
+                                    width: "100%",
+                                    [theme.breakpoints.up("lg")]: {
+                                        display: "none"
+                                    }
+                                }
+                            }
+                        >
                             <Typography
                                 variant="h5"
                                 sx={{ color: "var(--color-gray-lofi)" }}
@@ -46,7 +88,15 @@ const CardProject = () => {
                             </Typography>
 
                             <Button
-                                sx={styles.btnTechnology}
+                                sx={
+                                    {
+                                        border: "solid 1px var(--color-orange-base)",
+                                        borderRadius: "20px",
+                                        color: "var(--color-orange-base)",
+                                        fontSize: "12px",
+                                        padding: "4px 8px"
+                                    }
+                                }
                                 size="medium"
                                 disableElevation
                             >
@@ -57,7 +107,29 @@ const CardProject = () => {
                         {/* Description Mobile */}
                         <Typography
                             onMouseLeave={() => HandleMouseLeave(descriptionRef)}
-                            sx={styles.hoverDescription}
+                            sx={
+                                {
+                                    alignItems: "center",
+                                    backgroundColor: "var(--color-black-lofi)",
+                                    bottom: 0,
+                                    color: "white",
+                                    display: "none",
+                                    fontSize: "20px",
+                                    height: "100%",
+                                    left: 0,
+                                    opacity: "0.7",
+                                    padding: "10px",
+                                    position: "absolute",
+                                    right: 0,
+                                    textAlign: "center",
+                                    top: 0,
+                                    transition: "all 5s",
+                                    width: "100%",
+                                    [theme.breakpoints.up("lg")]: {
+                                        display: "none"
+                                    }
+                                }
+                            }
                             ref={descriptionRef}
                         >
                             Lorem ipsum dolor sit amet consectetur adipisicing elit.
@@ -109,7 +181,15 @@ const CardProject = () => {
                                                                 Re:Clothes
                                                             </Typography>
                                                             <Button
-                                                                sx={styles.btnTechnology}
+                                                                sx={
+                                                                    {
+                                                                        border: "solid 1px var(--color-orange-base)",
+                                                                        borderRadius: "20px",
+                                                                        color: "var(--color-orange-base)",
+                                                                        fontSize: "12px",
+                                                                        padding: "4px 8px"
+                                                                    }
+                                                                }
                                                                 size="medium"
                                                                 disableElevation
                                                             >
@@ -237,10 +317,24 @@ const CardProject = () => {
                                             }
                                             >
                                                 < ThumbUpIcon
-                                                    sx={styles.icon}
+                                                    sx={
+                                                        {
+                                                            color: "var(--color-complement-black)",
+                                                            fontSize: "30px",
+                                                            [theme.breakpoints.up("lg")]: {
+                                                                color: "var(--color-gray-lofi)"
+                                                            }
+                                                        }
+                                                    }
                                                 />
                                                 <Typography
-                                                    sx={styles.descriptionIcon}
+                                                    sx={
+                                                        {
+                                                            color: "var(--color-orange-base)",
+                                                            fontFamily: "var(--font-secondary)",
+                                                            padding: "4px"
+                                                        }
+                                                    }
                                                 >
                                                     4k
                                                 </Typography>
@@ -257,10 +351,24 @@ const CardProject = () => {
                                                 }
                                             >
                                                 < ModeCommentIcon
-                                                    sx={styles.icon}
+                                                    sx={
+                                                        {
+                                                            color: "var(--color-complement-black)",
+                                                            fontSize: "30px",
+                                                            [theme.breakpoints.up("lg")]: {
+                                                                color: "var(--color-gray-lofi)"
+                                                            }
+                                                        }
+                                                    }
                                                 />
                                                 <Typography
-                                                    sx={styles.descriptionIcon}
+                                                    sx={
+                                                        {
+                                                            color: "var(--color-orange-base)",
+                                                            fontFamily: "var(--font-secondary)",
+                                                            padding: "4px"
+                                                        }
+                                                    }
                                                 >
                                                     4k
                                                 </Typography>

@@ -10,9 +10,7 @@ import getConfig from '../../../config';
 
 const CommentDetails = ({ comment, getComments }) => {
 
-
     const [commentDetails, setCommentDetails] = useState()
-    const [reply, setReply] = useState()
     const [replyShow, setReplyShow] = useState(false)
     const [repliesCount, setRepliesCount] = useState(0)
     const [likesCount, setLikesCount] = useState(0)

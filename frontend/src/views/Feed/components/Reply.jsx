@@ -9,7 +9,8 @@ const Reply = ({ reply, getCommentDetails }) => {
 
     const hour = new Date(reply?.createdAt)
 
-    // const [replyDetails, setReplyDetails] = useState(reply)
+    
+
 
     return (
         <Box p='0.5em' px='0' sx={{ display: 'flex', alignItems: 'center' }}>

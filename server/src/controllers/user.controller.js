@@ -3,6 +3,7 @@ const _ = require("lodash");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const { SECRET } = require("../config");
+const UserRole = require("../models/UserRole");
 
 const signUp = async (req, res) => {
   if (
@@ -10,7 +11,9 @@ const signUp = async (req, res) => {
     _.isNil(req.body.lastName) ||
     _.isNil(req.body.mail) ||
     _.isNil(req.body.password) ||
-    _.isNil(req.body.userRole)
+    _.isNil(req.body.userType) ||
+    _.isNil(req.body.profileImage) ||
+    _.isNil(req.body.role)
   ) {
     return res.status(404).send({ msg: "Faltan datos" });
   }
@@ -19,7 +22,7 @@ const signUp = async (req, res) => {
       .status(404)
       .send({ msg: "La contrasena debe contener al menos 6 caracteres" });
   }
-  const { name, lastName, mail, password , userRole} = req.body;
+  const { name, lastName, mail, password, userType, profileImage } = req.body;
   try {
     const salt = await bcrypt.genSalt(10);
     const hashPassword = await bcrypt.hash(password, salt);
@@ -28,14 +31,22 @@ const signUp = async (req, res) => {
       lastName,
       password: hashPassword,
       mail,
-      userRole
+      profileImage,
     });
+    const role = new UserRole({
+      userType: userType,
+      role: req.body.role,
+    });
+    newUser.userRole = role._id;
+    await role.save();
+
     newUser
       .save()
       .then((u) => {
         res.send({
           name: u.name,
           lastName: u.lastName,
+          roleInfo: { userType: role.userType, role: role.role },
         });
       })
       .catch((e) => {

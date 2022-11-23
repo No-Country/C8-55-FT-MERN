@@ -25,7 +25,16 @@ const TabsProjects = () => {
     console.log(theme)
 
     return (
-        <Box sx={{ width: '100%', padding: "30px" }}>
+        <Box
+            sx={
+                {
+                    width: '70vw',
+                    padding: "30px",
+                    overflow: "scroll",
+                    height: "80vh"
+                }
+            }
+        >
             <Tabs
                 value={value}
                 onChange={handleChange}
@@ -34,7 +43,12 @@ const TabsProjects = () => {
                 variant="scrollable"
                 scrollButtons="auto"
                 allowScrollButtonsMobile
-                sx={{ margin: "30px auto", [theme.breakpoints.up("sm")]: { width: "fit-content" } }}
+                sx={
+                    {
+                        margin: "30px auto 10px",
+                        [theme.breakpoints.up("sm")]: { width: "fit-content" }
+                    }
+                }
             >
                 <Tab
                     sx={styles.tab}
@@ -47,7 +61,15 @@ const TabsProjects = () => {
                 <Tab value="four" label="My Projects" sx={styles.tab} />
             </Tabs>
 
-            <Box sx={{ display: "flex", flexWrap: "wrap", justifyContent: "center" }}>
+            <Box
+                sx={
+                    {
+                        display: "flex",
+                        flexWrap: "wrap",
+                        justifyContent: "center"
+                    }
+                }
+            >
                 <CardProject />
                 <CardProject />
                 <CardProject />

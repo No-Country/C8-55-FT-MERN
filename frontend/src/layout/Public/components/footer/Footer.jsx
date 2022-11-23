@@ -1,15 +1,25 @@
-import React from 'react'
-import { Box, Typography, createTheme } from '@mui/material'
+import React from 'react';
+import { Box, Typography, createTheme, SvgIcon } from '@mui/material';
+import { styled } from '@mui/system';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import TwitterIcon from '@mui/icons-material/Twitter';
 
+import FooterImage from "./FooterImage";
+
+
 const styles = {
     icon: {
-        margin: "5px",
-        color: "var(--color-gray-lofi)"
+        color: "var(--color-gray-lofi)",
+        cursor: "pointer",
+        margin: "5px"
     }
 }
+
+const svgStyles = styled({
+    margin: 0,
+    height: "auto"
+})
 
 const Footer = () => {
 
@@ -18,23 +28,29 @@ const Footer = () => {
     return (
         <Box sx={
             {
-                border: "solid 2px violet"
+                position: "absolute",
+                bottom: 0,
+                right: 0,
+                height: "auto",
+                [theme.breakpoints.down("lg")]: {
+                    width: "100%"
+                }
             }
         }>
 
             <Box
                 sx={
                     {
-                        border: "solid 2px lightgreen",
                         backgroundColor: "var(--color-complement-black)",
-                        bottom: 0,
                         display: "flex",
                         justifyContent: "space-around",
-                        left: 0,
-                        /* position: "absolute", */
                         padding: "20px",
-                        right: 0,
-                        zIndex: 100
+                        [theme.breakpoints.up("lg")]: {
+                            backgroundColor: "transparent",
+                            justifyContent: "space-between",
+                            position: "absolute",
+                            width: "80%"
+                        }
                     }
                 }
             >
@@ -56,6 +72,9 @@ const Footer = () => {
                                 fontSize: "15px",
                                 justifyContent: "center"
                             },
+                            [theme.breakpoints.up("lg")]: {
+                                flexGrow: 0
+                            }
                         }
                     }
                 >
@@ -74,6 +93,10 @@ const Footer = () => {
                                 flexGrow: 1,
                                 justifyContent: "space-evenly"
                             },
+                            [theme.breakpoints.up("lg")]: {
+                                flexGrow: 0.5,
+                                justifyContent: "space-evenly"
+                            },
                         }
                     }
                 >
@@ -83,16 +106,10 @@ const Footer = () => {
                 </Box>
 
             </Box>
-
-            <Box sx={
-                {
-                    border: "solid 2px red",
-                }
-            }>
-            </Box>
+            <FooterImage />
 
         </Box>
     )
 }
 
-export default Footer
+export default Footer;

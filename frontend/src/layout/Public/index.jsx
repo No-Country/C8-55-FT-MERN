@@ -3,7 +3,7 @@ import React from 'react'
 import { Outlet } from 'react-router-dom'
 import Particle from '../../components/Particles'
 import Header from './components/Header'
-import Footer from "./components/Footer"
+import Footer from "./components/footer/Footer"
 
 const PublicLayout = () => {
   return (

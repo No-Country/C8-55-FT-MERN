@@ -8,8 +8,6 @@ import Home from "./views/Home"
 import LogIndex from "./views/Login"
 import Projects from "./views/Projects";
 
-import Footer from "./layout/Public/components/Footer"
-
 function App() {
 
   return (

@@ -36,3 +36,16 @@
     transform: rotate(359deg);
   }
 }
+
+.svgFile {
+  display: none;
+}
+
+@media(min-width: 1200px){
+  .svgFile {
+    display: block;
+    margin: 0;
+    height: auto;
+  }
+  
+}

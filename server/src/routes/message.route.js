@@ -4,9 +4,9 @@ const { verifyToken } = require("../middlewares/verifyToken");
 const Router = require("express");
 const router = Router();
 
-router.post("/create",messageController.createMessage);
+router.post("/send",messageController.sendMessage);
 router.get('/get_message/:id',messageController.getMessage);
 router.delete('/delete/:id',messageController.deleteMessage);
-router.put("/update/:id",messageController.updateMessage);
+router.put("/edit/:id",messageController.editMessage);
 
 module.exports = router;

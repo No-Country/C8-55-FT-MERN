@@ -1,10 +1,10 @@
 const messageService = require("../services/message.service");
 
-const createMessage = async (req,res)=>{
+const sendMessage = async (req,res)=>{
     try {
         const {userId,text} = req.body;
-        const message = await messageService.createMessage(userId,text);
-        console.log(message);
+        const message = await messageService.sendMessage(userId,text);
+        //console.log(message);
         return res.status(200).json({created:true, message:message});
     } catch (err) {
         return res.status(404).json({error: err.message});
@@ -29,11 +29,11 @@ const deleteMessage = async (req,res)=>{
     }
 };
 
-const updateMessage = async (req,res)=>{
+const editMessage = async (req,res)=>{
     try {
         let { id } = req.params;
         let { body } = req;
-        const message = await messageService.updateMessage(id,body);  
+        const message = await messageService.editMessage(id,body);  
         return res.status(200).json({updated: true, message: message});
     } catch (err) {
         return res.status(500).json({error: err.message});
@@ -41,4 +41,4 @@ const updateMessage = async (req,res)=>{
 
 }
 
-module.exports = {createMessage,getMessage,deleteMessage,updateMessage};
+module.exports = {sendMessage,getMessage,deleteMessage,editMessage};

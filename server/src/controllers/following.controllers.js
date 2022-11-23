@@ -11,6 +11,10 @@ const addFollowing = async (req, res) => {
   if (!userFollowed) {
     return res.status(404).send({ error: "User to follow not found" });
   }
+
+  if (idUserFollowed == userId) {
+    return res.status(404).send({ error: "You can't follow yourself" });
+  }
   if (user.following.includes(idUserFollowed)) {
     const newFollowing = user.following.filter(
       (u) => u.toString() !== userFollowed._id.toString()
@@ -19,17 +23,25 @@ const addFollowing = async (req, res) => {
       (u) => u.toString() !== user._id.toString()
     );
     user.following = newFollowing;
-    userFollowed.followers = newFollowers
+    userFollowed.followers = newFollowers;
     await user.save();
-    return userFollowed.save().then((u)=>{
-        return res.send({auth: true, msg: `You don't follow ${u.name} anymore`, follow: false})
-    })
+    return userFollowed.save().then((u) => {
+      return res.send({
+        auth: true,
+        msg: `You don't follow ${u.name} anymore`,
+        follow: false,
+      });
+    });
   }
   user.following = [...user.following, idUserFollowed];
   await user.save();
   userFollowed.followers = [...userFollowed.followers, user._id];
- return userFollowed.save().then((u) => {
-    res.send({ auth:true, msg: `You are now following ${u.name}`, follow: true });
+  return userFollowed.save().then((u) => {
+    res.send({
+      auth: true,
+      msg: `You are now following ${u.name}`,
+      follow: true,
+    });
   });
 };
 

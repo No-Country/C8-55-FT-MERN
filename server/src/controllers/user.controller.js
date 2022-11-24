@@ -5,6 +5,7 @@ const bcrypt = require("bcrypt");
 const { SECRET } = require("../config");
 const UserRole = require("../models/UserRole");
 
+
 const signUp = async (req, res) => {
   if (
     _.isNil(req.body.name) ||
@@ -123,4 +124,71 @@ const tokenInfo = async (req, res) => {
     return res.status(404).send({ auth: false, error: e.message });
   }
 };
-module.exports = { signUp, signIn, tokenInfo };
+
+const userInfo = async (req, res) => {
+  const user = await User.findById(req.userId,"name lastName profileImage description profileBanner saved mail")
+    .lean()
+    .populate({
+      path: "posts",
+      select: {
+        userId: 1,
+        comments: 1,
+        likes: 1,
+        text: 1,
+        userId: 1,
+      },
+      populate: [
+        {
+          path: "userId",
+          select: {
+            name: 1,
+            lastName: 1,
+            profileImage: 1,
+          },
+        },
+
+        {
+          path: "comments",
+          select: {
+            userId: 1,
+            likes: 1,
+            text: 1,
+            replies: 1,
+          },
+          populate: [
+            {
+              path: "userId",
+              select: { name: 1, lastName: 1 },
+            },
+            {
+              path: "replies",
+              select: {
+                text: 1,
+                userId: 1,
+              },
+              populate: {
+                path: "userId",
+                select: { name: 1, lastName: 1, profileImage: 1 },
+              },
+            },
+          ],
+        },
+      ],
+    })
+    .lean()
+    .populate("userRole")
+    .lean()
+    .populate("following", { name: 1, lastName: 1, profileImage: 1 })
+    .lean()
+    .populate("followers", { name: 1, lastName: 1, profileImage: 1 });
+  if (!user) {
+    return res.status(404).send({
+      error: "User does not exists",
+    });
+  }
+  // const userRoles = await user.populate("userRole");
+  // const posts = await user
+  const obj = user;
+  res.send({auth: true, userData: obj});
+};
+module.exports = { signUp, signIn, tokenInfo, userInfo };

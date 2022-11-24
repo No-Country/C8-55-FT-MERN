@@ -9,6 +9,7 @@ module.exports = model(
     password: { type: String, required: true },
     userRole: { type: Schema.Types.ObjectId, ref: "UserRole" },
     profileImage: String,
+    bannerImage: String,
     socials: [{ type: Schema.Types.ObjectId, ref: "User" }],
     description: String,
     assets: String,

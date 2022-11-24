@@ -158,7 +158,7 @@ const userInfo = async (req, res) => {
           populate: [
             {
               path: "userId",
-              select: { name: 1, lastName: 1 },
+              select: { name: 1, lastName: 1 , profileImage: 1},
             },
             {
               path: "replies",

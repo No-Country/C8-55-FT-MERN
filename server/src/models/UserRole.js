@@ -1,7 +1,7 @@
 const { Schema, model } = require("mongoose");
 
 module.exports = model(
-  "userRole",
+  "UserRole",
   new Schema({
     userType: String,
     role: String,

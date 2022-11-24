@@ -126,7 +126,8 @@ const tokenInfo = async (req, res) => {
 };
 
 const userInfo = async (req, res) => {
-  const user = await User.findById(req.userId,"name lastName profileImage description profileBanner saved mail")
+
+  const user = await User.findById(req.params.id,"name lastName profileImage description profileBanner saved mail")
     .lean()
     .populate({
       path: "posts",
@@ -186,9 +187,12 @@ const userInfo = async (req, res) => {
       error: "User does not exists",
     });
   }
-  // const userRoles = await user.populate("userRole");
-  // const posts = await user
+  
   const obj = user;
-  res.send({auth: true, userData: obj});
+  if(req.params.id == req.userId){
+    return res.send({auth: true, userData:obj, profileOwner: true})
+  }
+  
+ return res.send({auth: true, userData: obj, profileOwner: false});
 };
 module.exports = { signUp, signIn, tokenInfo, userInfo };

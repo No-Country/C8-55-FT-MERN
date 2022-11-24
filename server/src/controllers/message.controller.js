@@ -2,8 +2,8 @@ const messageService = require("../services/message.service");
 
 const sendMessage = async (req,res)=>{
     try {
-        const {userId,text} = req.body;
-        const message = await messageService.sendMessage(userId,text);
+        const {userId,destinataryId,text} = req.body;
+        const message = await messageService.sendMessage(userId,destinataryId,text);
         //console.log(message);
         return res.status(200).json({created:true, message:message});
     } catch (err) {

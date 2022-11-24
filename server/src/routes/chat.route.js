@@ -4,3 +4,5 @@ const Router = require("express");
 const router = Router();
 
 router.get("/get",chatController.getChat);
+
+module.exports = router;

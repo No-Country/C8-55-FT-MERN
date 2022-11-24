@@ -33,6 +33,7 @@ const signUp = async (req, res) => {
       password: hashPassword,
       mail,
       profileImage,
+      chat: new Map(),
     });
     const role = new UserRole({
       userType: userType,

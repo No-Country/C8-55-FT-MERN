@@ -26,8 +26,7 @@ const loadChat = async (userId,destinataryId,idMessage)=>{
             await destinatary.save();
             return await Chat.create(chat);
         }
-        const chat = await Chat.findById(chatId)
-        console.log(chat.messages);
+        const chat = await Chat.findById(chatId);
         chat.messages.unshift(idMessage);
         await chat.save();
         return chat;
@@ -37,8 +36,9 @@ const loadChat = async (userId,destinataryId,idMessage)=>{
 };
 const getChat = async (userId,destinataryId) => {
     try {
-        const {chatId:chat} = await searchChat(userId,destinataryId);
-        return chat;
+        const {chatId} = await searchChat(userId,destinataryId);
+        const chat = await Chat.findById(chatId)
+        return chat.messages;
     } catch (err) {
         throw err;
     }

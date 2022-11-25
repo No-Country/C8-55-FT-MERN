@@ -8,6 +8,8 @@ import Home from "./views/Home"
 import LogIndex from "./views/Login"
 import Projects from "./views/Projects";
 
+import FormExample from "../FormExample";
+
 function App() {
 
   return (
@@ -20,6 +22,7 @@ function App() {
       <Route element={<PublicLayout />}>
         <Route path="/" element={<Home />} />
       </Route>
+        <Route path="/form" element={<FormExample />} />
     </Routes>
   )
 }

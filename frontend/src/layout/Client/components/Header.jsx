@@ -1,10 +1,12 @@
-import { Stack, Box, Button, Paper, IconButton, InputBase, Divider, Drawer, Avatar } from '@mui/material'
+import { Stack, Box, Button, Paper, IconButton, InputBase, Divider, Drawer, Avatar, Typography, Popover } from '@mui/material'
 import React from 'react'
-import Typography from '@mui/material/Typography'
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import ManageSearchIcon from '@mui/icons-material/ManageSearch';
 import MenuIcon from '@mui/icons-material/Menu';
 import { useSelector } from 'react-redux';
+import LockPersonOutlinedIcon from '@mui/icons-material/LockPersonOutlined';
+import SettingsApplicationsOutlinedIcon from '@mui/icons-material/SettingsApplicationsOutlined';
+import { useNavigate } from 'react-router-dom';
 
 const style = {
   header: {
@@ -28,6 +30,27 @@ const style = {
 const Header = () => {
 
   const user = useSelector(state => state.user)
+
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const open = Boolean(anchorEl);
+  const id = open ? 'simple-popover' : undefined;
+
+  const navigate = useNavigate()
+
+  const handleClick = (event) => {
+      setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const signOut = () => {
+    localStorage.removeItem('token')
+    navigate('/')
+
+  }
+
 
   return (
     <Stack sx={style.header}>
@@ -57,13 +80,36 @@ const Header = () => {
       <Box sx={style.boxUser}>
         <Button variant='text' sx={{ color: 'white' }} >Crear Proyecto</Button>
         <Button variant='text' sx={{ color: 'white' }} >Descubrir</Button>
-        <IconButton sx={{ color: '#74F7AE' }}>
+        <IconButton aria-describedby={id} onClick={handleClick} sx={{ color: '#74F7AE' }}>
           {/* <AccountCircleIcon /> */}
           <Avatar
             alt={`${user?.name} ${user?.lastName}`}
             src={`${user?.profileImage}`}
           />
         </IconButton>
+          <Popover
+            id={id}
+            open={open}
+            anchorEl={anchorEl}
+            onClose={handleClose}
+            anchorOrigin={{
+              vertical: 'bottom',
+              horizontal: 'left',
+            }}
+          >
+
+            <Box sx={{ p: '1em', display: 'flex', gap: '0.5em', alignItems: 'center' }}>
+              <SettingsApplicationsOutlinedIcon />
+              <Typography >Configuration</Typography>
+            </Box>
+
+            <Divider sx={{mx: '1em'}} />
+            <Box onClick={signOut} sx={{ p: '1em', display: 'flex', gap: '0.5em', alignItems: 'center' }}>
+              <LockPersonOutlinedIcon sx={{color:'error.main'}} />
+              <Typography >Sign out</Typography>
+
+            </Box>
+          </Popover>
       </Box>
     </Stack>
   )

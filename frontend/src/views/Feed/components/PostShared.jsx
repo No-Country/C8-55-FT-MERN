@@ -40,6 +40,14 @@ const PostShared = ({ post }) => {
             .catch(err => console.log(err))
     }
 
+    const followUser = id => {
+        console.log(id)
+
+        axios.post(`http://localhost:3000/user/addfollowing/${id}`, id, getConfig())
+        .then(res => console.log(res.data))
+        .catch(err => console.log(err, `aqui hay algo raro`))
+    }
+
     return (
         <Stack sx={{ borderRadius: '0.5em', backgroundColor: '#edf2f4', paddingBottom: '1em' }}>
             <Stack sx={style.postSharedStyle}>
@@ -57,15 +65,14 @@ const PostShared = ({ post }) => {
                         <Box sx={{ display: 'flex', flexDirection: 'column' }}>
                             <Box sx={{display: 'flex', alignItems: 'center'}}>
                                 <Typography variant="body" color="initial"><strong>{post.userId.name} {post.userId.lastName}</strong></Typography>
-                               <IconButton >
+                               <IconButton onClick={() => followUser(post.userId._id)} >
                                 <PersonAddAltIcon fontSize="small" />
-                                 
                                </IconButton>
                             </Box>
                             <Typography variant="body2" color="initial">Frontend Developer</Typography>
                         </Box>
                     </Box>
-                  <IconButton >
+                  <IconButton  >
                     <DragIndicatorIcon/>
                   </IconButton>
                 </Box>

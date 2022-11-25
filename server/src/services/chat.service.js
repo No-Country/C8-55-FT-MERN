@@ -37,7 +37,7 @@ const loadChat = async (userId,destinataryId,idMessage)=>{
 const getChat = async (userId,destinataryId) => {
     try {
         const {chatId} = await searchChat(userId,destinataryId);
-        const chat = await Chat.findById(chatId)
+        const chat = await Chat.findById(chatId);
         return chat.messages;
     } catch (err) {
         throw err;

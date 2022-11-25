@@ -35,7 +35,7 @@ const Login = ({ setLogStatus }) => {
     }
     setLog(userData)
     getUser(userData)
-    navigate('/feed')
+    // navigate('/feed')
   }
 
 

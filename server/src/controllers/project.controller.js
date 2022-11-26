@@ -2,7 +2,8 @@ const projectServices = require("../services/project.service");
 
 const createProject = async (req, res) => {
   try {
-    const { name, founder, description, category } = req.body;
+    const { name, description, category } = req.body;
+    const founder = req.userId
     const uniqueProject = await projectServices.validateUniqueProject(name);
     if (uniqueProject.length === 0) {
       const project = await projectServices.createProject(
@@ -20,7 +21,7 @@ const createProject = async (req, res) => {
   }
 };
 
-const getProjects = async (req, res) => {
+const getProjects = async (_req, res) => {
   try {
     const projects = await projectServices.getProjects();
     if (projects.length) {
@@ -63,7 +64,7 @@ const deleteProject = async (req, res) => {
 
 const addMembers = async (req, res) => {
   const { id } = req.params;
-  const { userId } = req.body;
+  const userId  = req.userId;
   try {
     const project = await projectServices.getProject(id);
     if (!project.members.includes(userId)) {

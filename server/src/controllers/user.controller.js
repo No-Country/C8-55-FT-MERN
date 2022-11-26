@@ -61,7 +61,7 @@ const signUp = async (req, res) => {
 
 const signIn = async (req, res) => {
   console.log("----------user----------");
-  if (_.isNil(req.body.mail) || _.isNil(req.body.password)) {
+  try{if (_.isNil(req.body.mail) || _.isNil(req.body.password)) {
     return res.send({ msg: "Faltan datos" });
   }
   const { mail, password } = req.body;
@@ -93,6 +93,9 @@ const signIn = async (req, res) => {
       auth: false,
       error: "Correo electronico o contrasena incorrectos",
     });
+  }}
+  catch(e){
+    return res.status(404).send({error: e.message})
   }
 };
 
@@ -127,7 +130,8 @@ const tokenInfo = async (req, res) => {
 };
 
 const userInfo = async (req, res) => {
-
+try
+{
   const user = await User.findById(req.params.id,"name lastName profileImage description profileBanner saved mail")
     .lean()
     .populate({
@@ -194,6 +198,9 @@ const userInfo = async (req, res) => {
     return res.send({auth: true, userData:obj, profileOwner: true})
   }
   
- return res.send({auth: true, userData: obj, profileOwner: false});
+ return res.send({auth: true, userData: obj, profileOwner: false});}
+ catch(e){
+  return res.status(404).send({error: e.message})
+ }
 };
 module.exports = { signUp, signIn, tokenInfo, userInfo };

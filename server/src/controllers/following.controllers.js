@@ -1,7 +1,7 @@
 const User = require("../models/User");
 
 const addFollowing = async (req, res) => {
-  console.log("HOla");
+  try{
   const userId = req.userId;
   const idUserFollowed = req.params.id;
   console.log(idUserFollowed);
@@ -43,6 +43,10 @@ const addFollowing = async (req, res) => {
       follow: true,
     });
   });
+}
+catch(e){
+  return res.status(404).send({error: e.message})
+}
 };
 
 module.exports = { addFollowing };

@@ -2,7 +2,7 @@ const timelineServices = require("../services/timeline.service");
 
 const getTimeline = async (req, res) => {
   try {
-    const { id } = req.params;
+    const id  = req.userId;
     if (id) {
       const userTimeline = await timelineServices.getTimeline(id);
       return res.status(200).json(userTimeline);

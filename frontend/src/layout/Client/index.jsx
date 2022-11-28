@@ -24,7 +24,7 @@ const ClientLayout = () => {
       .then(res => {
         setUseAuth(res.data.auth)
         dispatch(setUser(res.data.user))
-        console.log(res.data.user)
+        //console.log(res.data.user)
       })
       .catch(err => {
         // console.log(err.response.data)

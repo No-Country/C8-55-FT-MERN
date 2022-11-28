@@ -7,6 +7,9 @@ import axios from 'axios'
 import getConfig from '../../config';
 import { CloudinaryContext, Image } from 'cloudinary-react'
 
+
+import {emitSocketIO, socket} from "../../socketIO/socketIO";
+
 const Feed = () => {
 
   const [createPostVisibility, setCreatePostVisibility] = useState('none')
@@ -29,6 +32,9 @@ const Feed = () => {
       .catch(err => console.log(err))
   }, [])
 
+  useEffect(()=> {
+    emitSocketIO(socket, "username", localStorage.getItem("token"))
+  }, [])
  
 
   return (

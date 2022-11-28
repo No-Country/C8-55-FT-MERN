@@ -1,5 +1,5 @@
 import { Stack, Box, Button, Paper, IconButton, InputBase, Divider, Drawer, Avatar, Typography, Popover } from '@mui/material'
-import React from 'react'
+import React, {useEffect} from 'react'
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import ManageSearchIcon from '@mui/icons-material/ManageSearch';
 import MenuIcon from '@mui/icons-material/Menu';
@@ -7,6 +7,9 @@ import { useSelector } from 'react-redux';
 import LockPersonOutlinedIcon from '@mui/icons-material/LockPersonOutlined';
 import SettingsApplicationsOutlinedIcon from '@mui/icons-material/SettingsApplicationsOutlined';
 import { useNavigate } from 'react-router-dom';
+
+import {Notifications} from '@mui/icons-material';
+import {onSocketIO, emitSocketIO, socket} from "../../../socketIO/socketIO";
 
 const style = {
   header: {
@@ -51,7 +54,6 @@ const Header = () => {
 
   }
 
-
   return (
     <Stack sx={style.header}>
 
@@ -78,6 +80,16 @@ const Header = () => {
         </Paper>
       </Box>
       <Box sx={style.boxUser}>
+
+        <Notifications 
+          sx={{color: "gainsboro", cursor: "pointer"}}
+          onClick={()=> {
+            console.log("OnCLick")
+            emitSocketIO(socket)
+            onSocketIO(socket)
+          }}
+        />
+
         <Button variant='text' sx={{ color: 'white' }} >Crear Proyecto</Button>
         <Button variant='text' sx={{ color: 'white' }} >Descubrir</Button>
         <IconButton aria-describedby={id} onClick={handleClick} sx={{ color: '#74F7AE' }}>

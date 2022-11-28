@@ -26,7 +26,6 @@ const createGroup = async body =>{
 
 const updateGroup = async (id,body) => {
     try {
-        
         return await Group.findByIdAndUpdate(id,body,{new:true});
     } catch (err) {
         console.error(err);

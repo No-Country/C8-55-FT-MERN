@@ -2,7 +2,7 @@ const postService = require("../services/post.service");
 
 const createPost = async (req, res) => {
   try {
-    const userId = req.body
+    const userId = req.userId
     const {text, image } = req.body;
     if (!userId)
       return res.status(404).json({ message: "User id is required" });

@@ -3,13 +3,18 @@ const _ = require("lodash");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const { SECRET } = require("../config");
+const UserRole = require("../models/UserRole");
+
 
 const signUp = async (req, res) => {
   if (
     _.isNil(req.body.name) ||
     _.isNil(req.body.lastName) ||
     _.isNil(req.body.mail) ||
-    _.isNil(req.body.password)
+    _.isNil(req.body.password) ||
+    _.isNil(req.body.userType) ||
+    _.isNil(req.body.profileImage) ||
+    _.isNil(req.body.role)
   ) {
     return res.status(404).send({ msg: "Faltan datos" });
   }
@@ -18,7 +23,7 @@ const signUp = async (req, res) => {
       .status(404)
       .send({ msg: "La contrasena debe contener al menos 6 caracteres" });
   }
-  const { name, lastName, mail, password } = req.body;
+  const { name, lastName, mail, password, userType, profileImage } = req.body;
   try {
     const salt = await bcrypt.genSalt(10);
     const hashPassword = await bcrypt.hash(password, salt);
@@ -27,13 +32,23 @@ const signUp = async (req, res) => {
       lastName,
       password: hashPassword,
       mail,
+      profileImage,
+      chat: new Map(),
     });
+    const role = new UserRole({
+      userType: userType,
+      role: req.body.role,
+    });
+    newUser.userRole = role._id;
+    await role.save();
+
     newUser
       .save()
       .then((u) => {
         res.send({
           name: u.name,
           lastName: u.lastName,
+          roleInfo: { userType: role.userType, role: role.role },
         });
       })
       .catch((e) => {
@@ -46,7 +61,7 @@ const signUp = async (req, res) => {
 
 const signIn = async (req, res) => {
   console.log("----------user----------");
-  if (_.isNil(req.body.mail) || _.isNil(req.body.password)) {
+  try{if (_.isNil(req.body.mail) || _.isNil(req.body.password)) {
     return res.send({ msg: "Faltan datos" });
   }
   const { mail, password } = req.body;
@@ -78,8 +93,114 @@ const signIn = async (req, res) => {
       auth: false,
       error: "Correo electronico o contrasena incorrectos",
     });
+  }}
+  catch(e){
+    return res.status(404).send({error: e.message})
   }
 };
 
+const tokenInfo = async (req, res) => {
+  try {
+    if (!req.get("Authorization")) {
+      return res
+        .status(404)
+        .send({ auth: false, error: "A token is required for authentication" });
+    }
+    const token = req.get("Authorization").substring(7);
+    const verifyToken = jwt.verify(token, SECRET);
+    const user = await User.findById(verifyToken.id);
+    if (!user) {
+      return res
+        .status(404)
+        .send({ auth: false, msg: "Authentication failed" });
+    }
+    return res.send({
+      auth: true,
+      user: {
+        name: user.name,
+        lastName: user.lastName,
+        id: user._id,
+        userRole: user.userRole,
+        profileImage: user.profileImage,
+      },
+    });
+  } catch (e) {
+    return res.status(404).send({ auth: false, error: e.message });
+  }
+};
 
-module.exports = { signUp, signIn };
+const userInfo = async (req, res) => {
+try
+{
+  const user = await User.findById(req.params.id,"name lastName profileImage description profileBanner saved mail")
+    .lean()
+    .populate({
+      path: "posts",
+      select: {
+        userId: 1,
+        comments: 1,
+        likes: 1,
+        text: 1,
+        userId: 1,
+      },
+      populate: [
+        {
+          path: "userId",
+          select: {
+            name: 1,
+            lastName: 1,
+            profileImage: 1,
+          },
+        },
+
+        {
+          path: "comments",
+          select: {
+            userId: 1,
+            likes: 1,
+            text: 1,
+            replies: 1,
+          },
+          populate: [
+            {
+              path: "userId",
+              select: { name: 1, lastName: 1 , profileImage: 1},
+            },
+            {
+              path: "replies",
+              select: {
+                text: 1,
+                userId: 1,
+              },
+              populate: {
+                path: "userId",
+                select: { name: 1, lastName: 1, profileImage: 1 },
+              },
+            },
+          ],
+        },
+      ],
+    })
+    .lean()
+    .populate("userRole")
+    .lean()
+    .populate("following", { name: 1, lastName: 1, profileImage: 1 })
+    .lean()
+    .populate("followers", { name: 1, lastName: 1, profileImage: 1 });
+  if (!user) {
+    return res.status(404).send({
+      error: "User does not exists",
+    });
+  }
+  
+  const obj = user;
+  if(req.params.id == req.userId){
+    return res.send({auth: true, userData:obj, profileOwner: true})
+  }
+  
+ return res.send({auth: true, userData: obj, profileOwner: false});}
+ catch(e){
+  return res.status(404).send({error: e.message})
+ }
+};
+module.exports = { signUp, signIn, tokenInfo, userInfo };

@@ -22,7 +22,6 @@ const Login = ({ setLogStatus }) => {
       .then(res => {
         console.log(res.data.user)
         localStorage.setItem('token', res.data.token)
-        dispatch(setUser(res.data.user))
       })
       .catch(err => console.log(err.response))
   }
@@ -36,7 +35,7 @@ const Login = ({ setLogStatus }) => {
     }
     setLog(userData)
     getUser(userData)
-    navigate('/feed')
+    // navigate('/feed')
   }
 
 

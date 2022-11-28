@@ -3,13 +3,16 @@ import React, { useEffect, useState } from 'react'
 import CommentDetails from './CommentDetails'
 import SendIcon from '@mui/icons-material/Send';
 import axios from 'axios'
+import getConfig from '../../../config';
 
 const Comments = ({ comments, postId }) => {
 
     const [commentsToGetDetails, setCommentToGetDetails] = useState(comments)
 
+
+
     const getComments = postId => {
-        axios.get(`http://localhost:3000/post/get_post/${postId}`)
+        axios.get(`http://localhost:3000/post/get_post/${postId}`, getConfig())
             .then(res => setCommentToGetDetails(res.data.post.comments))
             .catch(err => console.log(err))
     }
@@ -23,14 +26,13 @@ const Comments = ({ comments, postId }) => {
             text: textComment
         }
 
-        axios.post('http://localhost:3000/comment/', body)
+        axios.post('http://localhost:3000/comment/', body, getConfig())
             .then(res => {
                 console.log(res.data)
                 getComments(postId)
                 e.target.comment.value = ''
             })
             .then(err => console.log(err))
-
     }
 
 

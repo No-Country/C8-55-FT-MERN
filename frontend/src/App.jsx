@@ -8,6 +8,8 @@ import Home from "./views/Home"
 import LogIndex from "./views/Login"
 import Projects from "./views/Projects";
 
+import FormExample from "../FormExample";
+
 function App() {
 
   return (
@@ -15,11 +17,12 @@ function App() {
       <Route path="/log" element={<LogIndex />} />
       <Route element={<ClientLayout />}>
         <Route path="/feed" element={<Feed />} />
-      <Route path="/projects" element={<Projects />} />
+        <Route path="/projects" element={<Projects />} />
       </Route>
       <Route element={<PublicLayout />}>
-        <Route path="/" element={<Home />}/>
+        <Route path="/" element={<Home />} />
       </Route>
+        <Route path="/form" element={<FormExample />} />
     </Routes>
   )
 }

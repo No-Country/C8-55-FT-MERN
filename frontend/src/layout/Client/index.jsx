@@ -1,16 +1,38 @@
 import { Stack, Box } from '@mui/material'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Navigate, Outlet } from 'react-router-dom'
 import Chat from './components/Chat'
 import Header from './components/Header'
 import SideBar from './components/SideBar'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import axios from 'axios'
+import getConfig from '../../config'
+import { setUser } from '../../store/slices/user.slice'
 
 
 const ClientLayout = () => {
 
+  const [useAuth, setUseAuth] = useState()
+  
+  const dispatch = useDispatch()
+
   const user = useSelector(account => account.user)
   const token = localStorage.getItem('token')
+
+  useEffect(() => {
+    axios.get(`http://localhost:3000/user/tokeninfo`, getConfig())
+      .then(res => {
+        setUseAuth(res.data.auth)
+        dispatch(setUser(res.data.user))
+        console.log(res.data.user)
+      })
+      .catch(err => {
+        // console.log(err.response.data)
+        if (err.response.data.auth == false) {
+          localStorage.removeItem('token');
+        }
+      })
+  }, [])
 
   if (token) {
     return (

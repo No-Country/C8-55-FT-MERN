@@ -1,7 +1,8 @@
 const savedService = require("../services/saved.service");
 
 const savedPost = async (req, res) => {
-  const { userId, postId } = req.body;
+  const { postId } = req.body;
+  const userId = req.userId
   try {
     const post = await savedService.findSaveds(userId, postId);
     if (post.length === 0) {
@@ -17,7 +18,7 @@ const savedPost = async (req, res) => {
 
 const getUserSaveds = async (req, res) => {
   try {
-    const { id } = req.params;
+    const id = req.userId
     const userSaveds = await savedService.getUserSaveds(id);
     return res.status(200).json({ saveds: userSaveds });
   } catch (err) {

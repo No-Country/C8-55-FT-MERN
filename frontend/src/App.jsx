@@ -9,6 +9,7 @@ import LogIndex from "./views/Login"
 import Projects from "./views/Projects";
 
 import FormExample from "../FormExample";
+import CreateProjects from "./views/Projects/CreateProject"
 
 function App() {
 
@@ -18,6 +19,7 @@ function App() {
       <Route element={<ClientLayout />}>
         <Route path="/feed" element={<Feed />} />
         <Route path="/projects" element={<Projects />} />
+        <Route path="/projects/create" element={<CreateProjects/>}/>
       </Route>
       <Route element={<PublicLayout />}>
         <Route path="/" element={<Home />} />

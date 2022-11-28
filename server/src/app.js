@@ -11,10 +11,25 @@ const path = require("path");
 
 //swagger
 const swaggerUI = require("swagger-ui-express");
-const documentation = require("./helpers/documentation")
+const documentation = require("./helpers/documentation");
+const { socketOn } = require("./socketIo");
 
 
 const app = express();
+const http = require("http")
+.createServer(app)
+.listen(PORT,()=>{
+  console.log(`listening on port http://localhost:${PORT}/ ​​​🤟​😎​`);
+
+})
+const io = require("socket.io")(http,{
+  cors:{
+  origin: "http://localhost:5173"
+  }
+})
+
+socketOn(io)
+
 db().then(() => {
   console.log("connected to database");
 });
@@ -39,6 +54,4 @@ app.use((err, req, res, next) => {
   return;
 });
 
-app.listen(PORT, () => {
-  console.log(`listening on port http://localhost:${PORT}/ ​​​🤟​😎​`);
-});
+module.exports = {io}

@@ -5,6 +5,8 @@ import SendIcon from '@mui/icons-material/Send';
 import axios from 'axios'
 import getConfig from '../../../config';
 
+import {onSocketIO, socket, emitSocketIO} from "../../../socketIO/socketIO";
+
 const Comments = ({ comments, postId }) => {
 
     const [commentsToGetDetails, setCommentToGetDetails] = useState(comments)
@@ -31,8 +33,16 @@ const Comments = ({ comments, postId }) => {
                 console.log(res.data)
                 getComments(postId)
                 e.target.comment.value = ''
+
+                if(res.data.created === "successfully") {
+                    emitSocketIO(socket, "NEW_COMMENT", {
+                        token: localStorage.getItem("token"),
+                        postId
+                    })
+                }
             })
             .then(err => console.log(err))
+
     }
 
 

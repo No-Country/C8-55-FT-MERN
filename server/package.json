@@ -20,6 +20,7 @@
     "mongoose": "^6.7.1",
     "mongoose-deep-populate": "^3.2.0",
     "morgan": "^1.10.0",
+    "redis": "^4.5.1",
     "swagger-jsdoc": "^6.2.5",
     "swagger-ui-express": "^4.6.0"
   },

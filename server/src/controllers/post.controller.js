@@ -39,7 +39,9 @@ const deletePost = async (req, res) => {
 const getUserPosts = async (req, res) => {
   try {
     let { id } = req.params;
-    const post = await postService.getUserPosts(id);
+    const { page = 1, limit = 5} = req.query; 
+    const start = (page - 1) * limit;
+    const post = await postService.getUserPosts(id, start, limit);
     return res.status(200).json({ post: post });
   } catch (err) {
     return res.status(500).json({ error: err.message });
@@ -56,9 +58,11 @@ const getPostById = async (req, res) => {
   }
 };
 
-const getPosts = async (_req, res) => {
+const getPosts = async (req, res) => {
   try {
-    const posts = await postService.getPosts();
+    const { page = 1, limit = 10 } = req.query; 
+    const start = (page - 1) * limit;
+    const posts = await postService.getPosts(start, limit);
     return res.status(200).json({ posts: posts });
   } catch (err) {
     return res.status(500).json({ error: err.message });

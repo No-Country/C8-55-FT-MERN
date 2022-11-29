@@ -10,7 +10,7 @@ router.use("/saved", require("./saved.routes"));
 router.use("/project", require("./project.routes"));
 router.use("/timeline", require("./timeline.routes"));
 router.use("/message",require("./message.route"));
-router.use("chat",require("./chat.route"));
+router.use("/chat",require("./chat.route"));
 
 router.get("/", (req, res) => {
     res.status(200).json('Bienvenido a Rocket Cafe ☕​​🚀​')

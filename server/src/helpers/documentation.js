@@ -1,13 +1,16 @@
 const { comment, commentRoutes } = require("./docs/comment.doc");
-const {groupRoute,group} = require("./docs/group.doc");
-const { post,postRoute } = require("./docs/post.doc");
-const {user,userRoute} = require("./docs/user.doc");
+const { groupRoute, group } = require("./docs/group.doc");
+const { post, postRoute } = require("./docs/post.doc");
+const { projectRoute, project } = require("./docs/project.doc");
+const { savedRoute, saved } = require("./docs/saved.doc");
+const { timelineRoute } = require("./docs/timeline.doc");
+const { user, userRoute } = require("./docs/user.doc");
 
 const swaggerSpec = {
     openapi:"3.0.1",
     info:{
         title: "RocketCup API",
-        version: "0.0.1"
+        version: "0.1.1"
     },
     servers:[
         {
@@ -15,10 +18,6 @@ const swaggerSpec = {
         }
     ],
     tags:[
-        {
-            name:"Group",
-            description: "Group routes"
-        },
         {
             name: "User",
             description:"User routes"
@@ -30,20 +29,41 @@ const swaggerSpec = {
         {
             name:"Comment",
             description:"Comment routes",
+        },
+        {
+            name:"Project",
+            description: "Project routes"
+        },
+        {
+            name:'Timeline',
+            description:"Timeline routes"
+        },
+        {
+            name:"Group",
+            description: "Group routes"
+        },
+        {
+            name: "Saved",
+            description: "Saved routes",
         }
     ],
     paths:{
-        ...groupRoute,
         ...userRoute,
         ...postRoute,
         ...commentRoutes,
+        ...projectRoute,
+        ...timelineRoute,
+        ...groupRoute,
+        ...savedRoute,
     },
     components:{
         schemas:{
-            ...group,
             ...user,
             ...post,
             ...comment,
+            ...project,
+            ...group,
+            ...saved,
         },
         securitySchemes:{
             bearerAuth:{

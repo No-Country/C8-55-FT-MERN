@@ -20,4 +20,14 @@ const getChat= async (req,res) => {
     }
 };
 
-module.exports = {getChat};
+const getChats = async (req,res) =>{
+    try{
+        const {userId} = req.body;
+        const chats = await chatService.getChats(userId);
+        return res.status(200).json({chats:chats});
+    } catch (err) {
+        return res.status(404).json({error:err});
+    }
+}
+
+module.exports = {getChat,getChats};

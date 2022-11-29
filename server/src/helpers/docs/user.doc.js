@@ -104,9 +104,47 @@ const signInUser={
         },
     }
 }
-// const followingUser={
+const followingUser={
+    summary: "follows an User",
+    tags:["User"],
+    security:[{bearerAuth:[]}],
+    parameters:[
+        {
+            in: "path",
+            name: "id",
+            schema:{
+                type:"string",
+            },
+            required: true,
+            description: "id of user followed",
+        }
+    ],
+    responses:{
+        200:{description:"OK"},
+        404:{description:"Error"},
+    }
+};
 
-// }
+const userInfo ={
+    summary: "Returns user information",
+    tags:["User"],
+    security:[{bearerAuth:[]}],
+    parameters:[
+        {
+            in: "path",
+            name: "id",
+            schema:{
+                type:"string",
+            },
+            required: true,
+            description: "desired user id",
+        }
+    ],
+    responses:{
+        200:{description:"OK"},
+        404:{description:"Error"},
+    }
+};
 
 const userRoute = {
     "/user/signup":{
@@ -115,9 +153,12 @@ const userRoute = {
     "/user/signin":{
         post: signInUser,
     },
-    // "/user/addfollowing/{id}":{
-    //     post:followingUser
-    // }
+    "/user/addfollowing/{id}":{
+        post:followingUser,
+    },
+    "/user/userInfo/{id}":{
+        get: userInfo,
+    }
 }
 
 module.exports = {user,userRoute};

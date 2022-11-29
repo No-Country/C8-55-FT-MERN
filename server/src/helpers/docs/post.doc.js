@@ -331,7 +331,7 @@ const postRoute={
     "/post/user_posts/{userId}":{
         get:getPostsUser,
     },
-    "post//get_post/{id}":{
+    "/post/get_post/{id}":{
         get:getPostById
     },
     "/post/delete/{id}":{

@@ -8,12 +8,14 @@ import getConfig from '../../config';
 import { CloudinaryContext, Image } from 'cloudinary-react'
 
 
-import {emitSocketIO, socket} from "../../socketIO/socketIO";
+import {emitSocketIO, socket, onSocketIO} from "../../socketIO/socketIO";
 
 const Feed = () => {
 
   const [createPostVisibility, setCreatePostVisibility] = useState('none')
   const [posts, setPosts] = useState()
+
+  let [notifications, setNotifications] = useState();
 
   const addPost = () => {
     if (createPostVisibility === 'none') {
@@ -33,7 +35,8 @@ const Feed = () => {
   }, [])
 
   useEffect(()=> {
-    emitSocketIO(socket, "username", localStorage.getItem("token"))
+    emitSocketIO(socket, "USERNAME", {token: localStorage.getItem("token")})
+    onSocketIO(socket, "GET_NOTIFICATION")
   }, [])
  
 

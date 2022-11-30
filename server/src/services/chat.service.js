@@ -29,7 +29,7 @@ const getChats = async (userId)=>{
         })
         return await Promise.all(arrChats);
     } catch (err) {
-        
+        throw err;
     }
 }
 

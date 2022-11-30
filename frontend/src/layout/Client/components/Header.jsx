@@ -8,8 +8,9 @@ import LockPersonOutlinedIcon from '@mui/icons-material/LockPersonOutlined';
 import SettingsApplicationsOutlinedIcon from '@mui/icons-material/SettingsApplicationsOutlined';
 import { useNavigate } from 'react-router-dom';
 
-import {Notifications} from '@mui/icons-material';
+import {Notifications as NotificationsIcon} from '@mui/icons-material';
 import {onSocketIO, emitSocketIO, socket} from "../../../socketIO/socketIO";
+import Notifications from "./components/Notifications";
 
 const style = {
   header: {
@@ -81,7 +82,8 @@ const Header = () => {
       </Box>
       <Box sx={style.boxUser}>
 
-        <Notifications 
+      <Box>
+        <NotificationsIcon 
           sx={{color: "gainsboro", cursor: "pointer"}}
           onClick={()=> {
             console.log("OnCLick")
@@ -89,6 +91,9 @@ const Header = () => {
             onSocketIO(socket)
           }}
         />
+
+        <Notifications />
+      </Box>
 
         <Button variant='text' sx={{ color: 'white' }} >Crear Proyecto</Button>
         <Button variant='text' sx={{ color: 'white' }} >Descubrir</Button>

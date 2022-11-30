@@ -39,21 +39,27 @@ const socketOn = (io) => {
     socket.on("NEW_COMMENT", async ({ data }) => {
       try {
         const { postId, token } = data;
-        // console.log(data);
+
         const verifyToken = jwt.verify(token, SECRET);
         const userToken = await User.findById(verifyToken.id);
         const post = await Post.findById(postId).populate("userId", {
           mail: 1,
         });
         const mail = post.userId.mail;
-        // console.log("Este es el userId:",userId)
-        const receiver = getUser(mail);
-        // console.log(receiver)
-        io.to(receiver.socketId).emit("GET_NOTIFICATION", {
+        const userPost = await User.findById(post.userId._id)
+        
+        const obj = {
           senderName: `${userToken.name} ${userToken.lastName}`,
           type: "Comment",
           postId,
-        });
+          read: false,
+          profileImage: userToken.profileImage
+        }
+        userPost.notifications = [...userPost.notifications, obj]
+        await userPost.save()
+        const receiver = getUser(mail);
+        // console.log(receiver)
+        io.to(receiver.socketId).emit("GET_NOTIFICATION", obj);
       } catch (e) {
         console.log(e.message);
       }

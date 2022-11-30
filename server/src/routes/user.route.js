@@ -6,6 +6,7 @@ const {
   userPosts,
   tokenInfo,
   userInfo,
+  getNotifications,
 } = require("../controllers/user.controller");
 const { verifyToken } = require("../middlewares/verifyToken");
 const { addFollowing } = require("../controllers/following.controllers");
@@ -21,5 +22,7 @@ router.post("/addfollowing/:id", verifyToken, addFollowing);
 router.get("/tokenInfo", tokenInfo);
 
 router.get("/userInfo/:id", verifyToken, userInfo);
+
+router.get("/getnotifications", verifyToken, getNotifications)
 
 module.exports = router;

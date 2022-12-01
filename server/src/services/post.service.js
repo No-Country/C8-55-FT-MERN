@@ -1,17 +1,23 @@
 const Post = require("../models/Post");
 const User = require("../models/User");
 
-const getUserPosts = async (id) => {
+const getUserPosts = async (id, start, limit) => {
   const posts = await Post.find({ userId: id })
     .lean()
+    .skip(start)
+    .limit(limit)
     .populate({
       path: "comments",
       select: "-postId",
       populate: {
         path: "userId",
         model: "User",
-        select: { name: 1, lastName: 1, profileImage: 1 , userRole: 1 },
+        select: { name: 1, lastName: 1, profileImage: 1, userRole: 1 },
       },
+    })
+    .populate({
+      path: "userId",
+      select: { name: 1, lastName: 1, profileImage: 1, userRole: 1 },
     });
   return posts;
 };
@@ -27,10 +33,13 @@ const getPostById = async (id) => {
           path: "replies",
           populate: {
             path: "userId",
-            select: { name: 1, lastName: 1, profileImage: 1 , userRole: 1},
+            select: { name: 1, lastName: 1, profileImage: 1, userRole: 1 },
           },
         },
-        { path: "userId", select: { name: 1, lastName: 1, profileImage: 1 , userRole: 1} },
+        {
+          path: "userId",
+          select: { name: 1, lastName: 1, profileImage: 1, userRole: 1 },
+        },
       ],
     })
     .populate({
@@ -39,9 +48,11 @@ const getPostById = async (id) => {
     });
 };
 
-const getPosts = async () => {
+const getPosts = async (start, limit) => {
   try {
     return await Post.find()
+      .skip(start)
+      .limit(limit)
       .lean()
       .populate({
         path: "comments",
@@ -50,14 +61,14 @@ const getPosts = async () => {
           {
             path: "userId",
             model: "User",
-            select: { name: 1, lastName: 1, profileImage: 1 , userRole:1},
+            select: { name: 1, lastName: 1, profileImage: 1, userRole: 1 },
           },
           {
             path: "replies",
             populate: [
               {
                 path: "userId",
-                select: { name: 1, lastName: 1, profileImage: 1 , userRole:1},
+                select: { name: 1, lastName: 1, profileImage: 1, userRole: 1 },
               },
             ],
           },
@@ -65,7 +76,7 @@ const getPosts = async () => {
       })
       .populate({
         path: "userId",
-        select: { name: 1, lastName: 1, profileImage: 1 , userRole:1},
+        select: { name: 1, lastName: 1, profileImage: 1, userRole: 1 },
       });
   } catch (err) {
     console.log("error", err);

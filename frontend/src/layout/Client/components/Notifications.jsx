@@ -41,7 +41,7 @@ const StyledMenu = styled((props) => (
     boxShadow:
       'rgb(255, 255, 255) 0px 0px 0px 0px, rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px',
     '& .MuiMenu-list': {
-      padding: '30px 0',
+      padding: '0',
     },
     '& .MuiMenuItem-root': {
       '& .MuiSvgIcon-root': {
@@ -71,13 +71,13 @@ export default function Notifications({ notifications }) {
 
   return (
     <div>
-      <Badge badgeContent={notifications?.notifications ? notifications.notifications.length : 0} color="primary">
+      <Badge badgeContent={notifications ? notifications.length : 0} color="primary">
         <NotificationsIcon
           id="demo-customized-button"
           aria-controls={open ? 'demo-customized-menu' : undefined}
           aria-haspopup="true"
           aria-expanded={open ? 'true' : undefined}
-          sx={{ color: "gainsboro", cursor: "pointer" }}
+          sx={{ color: "gainsboro", cursor: "pointer"}}
           onClick={(e) => {
             console.log("OnCLick")
             handleClick(e)
@@ -97,11 +97,11 @@ export default function Notifications({ notifications }) {
         onClose={handleClose}
       >
         {
-          notifications?.notifications
+          notifications
             ?
-            notifications.notifications.map((notification, id) => (
+            notifications.map((notification, id) => (
               <Box key={id}>
-                <MenuItem onClick={handleClose} disableRipple sx={{backgroundColor: !notification.read && "gainsboro", height: "100px"}}>
+                <MenuItem onClick={handleClose} disableRipple sx={{backgroundColor: !notification.read && "gainsboro", height: "100px", borderBottom: "solid 1px lightGray"}}>
                 < Avatar
                     alt="avatar"
                     src={notification.profileImage}
@@ -109,7 +109,7 @@ export default function Notifications({ notifications }) {
                   />
                   {`${notification.senderName} ha comentado tu publicación.`}
                 </MenuItem>
-                <Divider sx={{ my: 0.5 }} />
+                {/* <Divider sx={{ my: 0.5 }} /> */}
               </Box>
 
             ))

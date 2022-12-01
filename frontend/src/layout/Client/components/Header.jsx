@@ -1,5 +1,5 @@
 import { Stack, Box, Button, Paper, IconButton, InputBase, Divider, Drawer, Avatar, Typography, Popover } from '@mui/material'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useCallback } from 'react'
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import ManageSearchIcon from '@mui/icons-material/ManageSearch';
 import MenuIcon from '@mui/icons-material/Menu';
@@ -57,24 +57,24 @@ const Header = () => {
   let [notifications, setNotifications] = useState();
   let url = "http://localhost:3000/user/getnotifications";
 
-  useEffect(() => {
+  async function fetchNotifications() {
+    try {
+      const response = await get(url)
 
-    async function fetchCategories() {
-      try {
-        const response = await get(url)
-
-        if (response.status === 200) {
-          setNotifications(response.data)
-        }
-      } catch (error) {
-        return { title: "An error occurred. Try again.", error }
+      if (response.status === 200) {
+        setNotifications(response.data)
       }
-
+    } catch (error) {
+      return { title: "An error occurred. Try again.", error }
     }
 
-    fetchCategories()
+  }
 
+
+  useEffect(() => {
+    fetchNotifications()
   }, [])
+
 
   console.log(notifications)
 
@@ -107,7 +107,7 @@ const Header = () => {
       <Box sx={style.boxUser}>
 
         <Box>
-          <Notifications notifications={notifications}/>
+          <Notifications {...notifications} />
         </Box>
 
         <Button variant='text' sx={{ color: 'white' }} >Crear Proyecto</Button>

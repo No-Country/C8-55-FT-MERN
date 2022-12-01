@@ -7,6 +7,7 @@ const {
   tokenInfo,
   userInfo,
   getNotifications,
+  updateNotifications,
 } = require("../controllers/user.controller");
 const { verifyToken } = require("../middlewares/verifyToken");
 const { addFollowing } = require("../controllers/following.controllers");
@@ -23,6 +24,8 @@ router.get("/tokenInfo", tokenInfo);
 
 router.get("/userInfo/:id", verifyToken, userInfo);
 
-router.get("/getnotifications", verifyToken, getNotifications)
+router.get("/getnotifications", verifyToken, getNotifications);
+
+router.patch("/updatenotifications", verifyToken, updateNotifications);
 
 module.exports = router;

@@ -1,5 +1,6 @@
 const jwt = require("jsonwebtoken");
 const { SECRET } = require("./config");
+const Notification = require("./models/Notification");
 const Post = require("./models/Post");
 const User = require("./models/User");
 const socketOn = (io) => {
@@ -46,17 +47,21 @@ const socketOn = (io) => {
           mail: 1,
         });
         const mail = post.userId.mail;
-        const userPost = await User.findById(post.userId._id)
-        
+
+        const userPost = await User.findById(post.userId._id);
+
         const obj = {
           senderName: `${userToken.name} ${userToken.lastName}`,
           type: "Comment",
+          receiverId: userPost._id,
           postId,
           read: false,
-          profileImage: userToken.profileImage
-        }
-        userPost.notifications = [...userPost.notifications, obj]
-        await userPost.save()
+          profileImage: userToken.profileImage,
+        };
+        const notification = new Notification(obj);
+        userPost.notifications = [...userPost.notifications, notification._id];
+        await notification.save();
+        await userPost.save();
         const receiver = getUser(mail);
         // console.log(receiver)
         io.to(receiver.socketId).emit("GET_NOTIFICATION", obj);

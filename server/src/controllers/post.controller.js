@@ -42,11 +42,10 @@ const getUserPosts = async (req, res) => {
     let { id } = req.params;
     const { page = 1, limit = 10 } = req.query; 
     const start = (page - 1) * limit;
-    const end = page * limit;
     const post = await postService.getUserPosts(id, start, limit);
     const total = await Post.countDocuments();//cuenta la cantidad de documentos
     const pages = Math.ceil(total / limit);
-    return res.status(200).json({ posts: post, total, end, pages});
+    return res.status(200).json({ posts: post, total, pages});
   } catch (err) {
     return res.status(500).json({ error: err.message });
   }
@@ -66,11 +65,10 @@ const getPosts = async (req, res) => {
   try {
     const { page = 1, limit = 10 } = req.query; 
     const start = (page - 1) * limit;
-    const end = page * limit;
     const total = await Post.countDocuments();//cuenta la cantidad de documentos
     const pages = Math.ceil(total / limit);
     const posts = await postService.getPosts(start, limit);
-    return res.status(200).json({ posts: posts, total, end, pages });
+    return res.status(200).json({ posts: posts, total, pages });
   } catch (err) {
     return res.status(500).json({ error: err.message });
   }

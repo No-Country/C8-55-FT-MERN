@@ -15,8 +15,7 @@ const Feed = () => {
   const [createPostVisibility, setCreatePostVisibility] = useState('none')
   const [posts, setPosts] = useState()
 
-  let [notifications, setNotifications] = useState();
-
+  
   const addPost = () => {
     if (createPostVisibility === 'none') {
       setCreatePostVisibility('inline')
@@ -24,18 +23,18 @@ const Feed = () => {
       setCreatePostVisibility('none')
     }
   }
-
-
+  
+  
   useEffect(() => {
     axios.get('http://localhost:3000/post/all_posts', getConfig())
       .then(res => {
         setPosts(res.data.posts)
       })
       .catch(err => console.log(err))
-  }, [])
+    }, [])
 
-  useEffect(()=> {
-    emitSocketIO(socket, "USERNAME", {token: localStorage.getItem("token")})
+    useEffect(()=> {
+      emitSocketIO(socket, "USERNAME", {token: localStorage.getItem("token")})
     onSocketIO(socket, "GET_NOTIFICATION")
   }, [])
  

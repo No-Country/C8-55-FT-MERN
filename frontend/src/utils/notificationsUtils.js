@@ -1,23 +1,31 @@
 export const generateNotification = (senderName, type) => {
-    switch (type) {
-        case type === "comment":
-            return `${senderName} ha comentado tu publicación`;
-        case type === "like":
-            return `A ${senderName} le gusta tu publicación`;
-        case type === "likeComment":
-            return `A ${senderName} le gusta tu commentario`;
-        case type === "responseComment":
-            return `${senderName} ha respondido tu commentario`;
-        case type === "sharePost":
-            return `${senderName} ha compartido tu publicación.`;
-        case type === "followYouRequest":
-            return `${senderName} quiere seguirte.`;
-        case type === "followYouResponse":
-            return `${senderName} ahora te sigue.`;
-        case type === "followResponse":
-            return `Sigues a ${senderName}.`;
     
-        default:
+    switch (type != undefined) {
+        case type === "Comment":
+            
+            return `${senderName} ha comentado tu publicación`;
+        case type === "LIKE":
+            
+            return `A ${senderName} le gusta tu publicación`;
+        case type === "LIKE_COMMENT":
+            
+            return `A ${senderName} le gusta tu commentario`;
+        case type === "RESPONSE_COMMENT":
+            
+            return `${senderName} ha respondido tu commentario`;
+        case type === "SHARE_POST":
+            
+            return `${senderName} ha compartido tu publicación.`;
+        case type === "FOLLOW_YOU_RESPONSE":
+            
+            return `${senderName} ahora te sigue.`;
+        case type === "FOLLOW_RESPONSE":
+            
+            return `Sigues a ${senderName}.`;
+            
+            default:
+                console.log("DEFAULT")
+                return `Sin notificaciones.`;
             break;
     }
 }

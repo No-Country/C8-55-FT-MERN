@@ -17,6 +17,7 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import { Badge, Box, Avatar } from '@mui/material';
 
 import { onSocketIO, emitSocketIO, socket } from "../../../socketIO/socketIO";
+import { generateNotification } from '../../../utils/notificationsUtils';
 
 const StyledMenu = styled((props) => (
   <Menu
@@ -60,6 +61,7 @@ const StyledMenu = styled((props) => (
 }));
 
 export default function Notifications({ notifications }) {
+
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -71,7 +73,10 @@ export default function Notifications({ notifications }) {
 
   return (
     <div>
-      <Badge badgeContent={notifications ? notifications.length : 0} color="primary">
+      <Badge 
+        badgeContent={notifications ? notifications.length : 0} 
+        color="primary"
+      >
         <NotificationsIcon
           id="demo-customized-button"
           aria-controls={open ? 'demo-customized-menu' : undefined}
@@ -97,29 +102,46 @@ export default function Notifications({ notifications }) {
         onClose={handleClose}
       >
         {
-          notifications
+          notifications.length > 0
             ?
             notifications.map((notification, id) => (
               <Box key={id}>
-                <MenuItem onClick={handleClose} disableRipple sx={{backgroundColor: !notification.read && "gainsboro", height: "100px", borderBottom: "solid 1px lightGray"}}>
+                <MenuItem 
+                  onClick={handleClose} 
+                  disableRipple 
+                  sx={
+                    {
+                      backgroundColor: !notification.read && "gainsboro", 
+                      height: "100px", 
+                      borderBottom: "solid 1px lightGray"
+                    }
+                  }
+                >
                 < Avatar
                     alt="avatar"
                     src={notification.profileImage}
                     sx={{marginRight: "10px"}}
                   />
-                  {`${notification.senderName} ha comentado tu publicación.`}
+                  {generateNotification(notification.senderName, notification.type)}
                 </MenuItem>
-                {/* <Divider sx={{ my: 0.5 }} /> */}
               </Box>
 
             ))
             :
             <Box>
-              <MenuItem onClick={handleClose} disableRipple>
+              <MenuItem 
+                onClick={handleClose} 
+                disableRipple 
+                sx={
+                  {
+                    height: "100px", 
+                    borderBottom: "solid 1px lightGray"
+                  }
+                }
+              >
                 <FileCopyIcon />
-                Sin notificaciones.
+                Sin notificaciones, nena.
               </MenuItem>
-              <Divider sx={{ my: 0.5 }} />
             </Box>
 
         }

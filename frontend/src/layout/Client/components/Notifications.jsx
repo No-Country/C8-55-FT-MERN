@@ -18,6 +18,8 @@ import { Badge, Box, Avatar } from '@mui/material';
 
 import { onSocketIO, emitSocketIO, socket } from "../../../socketIO/socketIO";
 import { generateNotification } from '../../../utils/notificationsUtils';
+import {useSelector, useDispatch} from "react-redux";
+import { fetchNotifications } from '../../../utils/notificationsUtils';
 
 const StyledMenu = styled((props) => (
   <Menu
@@ -34,6 +36,8 @@ const StyledMenu = styled((props) => (
   />
 ))(({ theme }) => ({
   '& .MuiPaper-root': {
+    overflow: "scroll",
+    maxHeight: "70vh",
     borderRadius: 1,
     marginTop: theme.spacing(4),
     minWidth: 430,
@@ -60,8 +64,8 @@ const StyledMenu = styled((props) => (
   },
 }));
 
-export default function Notifications({ notifications }) {
-
+export default function Notifications() {
+  
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -70,6 +74,15 @@ export default function Notifications({ notifications }) {
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+  const { notificationsList } = useSelector (state => state.notification);
+  let { notifications } = notificationsList;
+/* 
+  const dispatch = useDispatch()
+
+  React.useEffect(() => {
+    fetchNotifications(dispatch)
+  }) */
 
   return (
     <div>
@@ -102,7 +115,7 @@ export default function Notifications({ notifications }) {
         onClose={handleClose}
       >
         {
-          notifications.length > 0
+          notifications && notifications.length > 0
             ?
             notifications.map((notification, id) => (
               <Box key={id}>

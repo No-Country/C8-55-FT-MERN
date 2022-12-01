@@ -1,3 +1,7 @@
+import { get } from './apiUtils';
+import { setNotifications } from '../store/slices/notification.slice';
+//import { useDispatch, useSelector } from 'react-redux';
+
 export const generateNotification = (senderName, type) => {
     
     switch (type != undefined) {
@@ -29,3 +33,22 @@ export const generateNotification = (senderName, type) => {
             break;
     }
 }
+
+export async function fetchNotifications(dispatch) {
+
+    let url = "http://localhost:3000/user/getnotifications";
+    //const { notificationsList: notifications } = useSelector(state => state.notification)
+    
+    try {
+      const response = await get(url)
+      
+      if (response.status === 200) {
+        dispatch(setNotifications({
+          notificationsList : response.data
+        }))
+      }
+    } catch (error) {
+      return { title: "An error occurred. Try again.", error }
+    }
+
+  }

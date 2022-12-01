@@ -6,12 +6,14 @@ import axios from 'axios'
 import getConfig from '../../../config';
 
 import {onSocketIO, socket, emitSocketIO} from "../../../socketIO/socketIO";
+import { fetchNotifications } from '../../../utils/notificationsUtils';
+import { useDispatch } from 'react-redux';
 
 const Comments = ({ comments, postId }) => {
 
     const [commentsToGetDetails, setCommentToGetDetails] = useState(comments)
 
-
+    const dispatch = useDispatch();
 
     const getComments = postId => {
         axios.get(`http://localhost:3000/post/get_post/${postId}`, getConfig())
@@ -35,6 +37,9 @@ const Comments = ({ comments, postId }) => {
                 e.target.comment.value = ''
 
                 if(res.data.created === "successfully") {
+
+                    fetchNotifications(dispatch)
+                    
                     emitSocketIO(socket, "NEW_COMMENT", {
                         token: localStorage.getItem("token"),
                         postId

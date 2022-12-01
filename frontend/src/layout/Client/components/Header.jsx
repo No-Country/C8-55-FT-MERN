@@ -3,13 +3,14 @@ import React, { useEffect, useState, useCallback } from 'react'
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import ManageSearchIcon from '@mui/icons-material/ManageSearch';
 import MenuIcon from '@mui/icons-material/Menu';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import LockPersonOutlinedIcon from '@mui/icons-material/LockPersonOutlined';
 import SettingsApplicationsOutlinedIcon from '@mui/icons-material/SettingsApplicationsOutlined';
 import { useNavigate } from 'react-router-dom';
 
 import Notifications from "./Notifications";
-import { get } from '../../../utils/apiUtils';
+
+import { fetchNotifications } from '../../../utils/notificationsUtils';
 
 const style = {
   header: {
@@ -54,31 +55,6 @@ const Header = () => {
 
   }
 
-  let [notifications, setNotifications] = useState();
-  let url = "http://localhost:3000/user/getnotifications";
-
-  async function fetchNotifications() {
-    try {
-      const response = await get(url)
-
-      if (response.status === 200) {
-        setNotifications(response.data)
-      }
-    } catch (error) {
-      return { title: "An error occurred. Try again.", error }
-    }
-
-  }
-
-
-  useEffect(() => {
-    fetchNotifications()
-  }, [])
-
-
-  console.log(notifications)
-
-
   return (
     <Stack sx={style.header}>
 
@@ -107,7 +83,7 @@ const Header = () => {
       <Box sx={style.boxUser}>
 
         <Box>
-          <Notifications {...notifications} />
+          <Notifications />
         </Box>
 
         <Button variant='text' sx={{ color: 'white' }} >Crear Proyecto</Button>

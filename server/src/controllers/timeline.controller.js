@@ -2,8 +2,7 @@ const timelineServices = require("../services/timeline.service");
 
 const getTimeline = async (req, res) => {
   try {
-    const { id } = req.params;
-    // const id  = req.userId;
+    const id  = req.userId;
     const { page = 1, limit = 10 } = req.query;
     const start = (page - 1) * limit;
     if (id) {

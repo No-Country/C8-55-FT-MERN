@@ -4,7 +4,7 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const { SECRET } = require("../config");
 const UserRole = require("../models/UserRole");
-
+const Notification = require("../models/Notification.js")
 const signUp = async (req, res) => {
   if (
     _.isNil(req.body.name) ||
@@ -210,13 +210,18 @@ const getNotifications = async (req, res) => {
   try {
     const userId = req.userId;
     const user = await User.findById(userId).populate("notifications");
-    res.send({ notifications: user.notifications });
+    const obj = user.notifications.filter(n => n.read !== true)
+    res.send(obj);
   } catch (e) {
     res.status(404).send({ error: e.message });
   }
 };
 
 const updateNotifications = async (req, res) => {
+  const { id } = req.body;
+  const notification = await Notification.findByIdAndUpdate(id,{$set:{read: true}})
+  await notification.save()
+  res.send({msg: "notification read"})
   try {
   } catch (e) {
     res.status(404).send({ error: e.message });

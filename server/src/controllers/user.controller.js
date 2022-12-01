@@ -206,16 +206,28 @@ const userInfo = async (req, res) => {
   }
 };
 
+const getNotifications = async (req, res) => {
+  try {
+    const userId = req.userId;
+    const user = await User.findById(userId).populate("notifications");
+    res.send({ notifications: user.notifications });
+  } catch (e) {
+    res.status(404).send({ error: e.message });
+  }
+};
 
-const getNotifications = async(req,res)=>{
-  try{
-  const userId = req.userId
-  const user = await User.findById(userId)
-  res.send({notifications: user.notifications})
-}
-catch(e){
-  res.status(404).send({error: e.message})
-}
-}
+const updateNotifications = async (req, res) => {
+  try {
+  } catch (e) {
+    res.status(404).send({ error: e.message });
+  }
+};
 
-module.exports = { signUp, signIn, tokenInfo, userInfo, getNotifications };
+module.exports = {
+  signUp,
+  signIn,
+  tokenInfo,
+  userInfo,
+  getNotifications,
+  updateNotifications,
+};

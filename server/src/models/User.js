@@ -18,10 +18,10 @@ module.exports = model(
     following: [{ type: Schema.Types.ObjectId, ref: "User" }],
     followers: [{ type: Schema.Types.ObjectId, ref: "User" }],
     saved: { type: Schema.Types.ObjectId, ref: "Saved" },
-    notifications: [{type: Map}],
-    chat:{
-      type:Map,
-      of:{ type: Schema.Types.ObjectId, ref: "Chat" }
-    }
+    notifications: [{ type: Schema.Types.ObjectId, ref: "Notification" }],
+    chat: {
+      type: Map,
+      of: { type: Schema.Types.ObjectId, ref: "Chat" },
+    },
   })
 );

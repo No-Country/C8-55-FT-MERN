@@ -16,12 +16,12 @@ const Comments = ({ comments, postId }) => {
 
     const dispatch = useDispatch();
     
-    const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+    const { enqueueSnackbar } = useSnackbar();
     
     const handleClickVariant = (msg = "", variant = "") => () => {
         
-        console.log("handleClickVariant")
         enqueueSnackbar(msg, {variant});
+        localStorage.removeItem("socket");
     };
 
     const getComments = postId => {
@@ -47,7 +47,6 @@ const Comments = ({ comments, postId }) => {
 
                 getComments(postId)
                 e.target.comment.value = ''
-                console.log(res)
 
                 if (res.status === 200) {
                     emitSocketIO(socket, types.newComment, {
@@ -55,8 +54,8 @@ const Comments = ({ comments, postId }) => {
                         postId,
                         type: types.newComment
                     })
-                    console.log("HOLAAAA", onSocketIO(socket, "GET_NOTIFICATION"))
-                    handleClickVariant(generateNotification(onSocketIO(socket, "NEW_COMMENT"), types.newComment), "success")()
+
+                    handleClickVariant(generateNotification(JSON.parse(localStorage.getItem("socket")).senderName, types.newComment), "success")()
                 }
             })
             .catch(err => console.log(err))

@@ -205,6 +205,21 @@ const userInfo = async (req, res) => {
   }
 };
 
+const updateUser = async(req,res)=>{
+  try {
+    if(req.body.description || req.body.profileImage || req.body.bannerImage || req.body.assets){
+    const body = req.body
+    const id = req.userId
+    const user = await User.findByIdAndUpdate(id,({$set:body}))
+    
+    await user.save()
+    return res.send({msg: "Updated"})
+    }
+    return res.status(404).send({msg: "Couldn't update"})
+  } catch (e) {
+    res.status(404).send({error: e.message})
+  }
+}
 
 
 module.exports = {
@@ -212,5 +227,5 @@ module.exports = {
   signIn,
   tokenInfo,
   userInfo,
-
+  updateUser
 };

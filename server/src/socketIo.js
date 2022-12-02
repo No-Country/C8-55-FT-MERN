@@ -16,30 +16,23 @@ const socketOn = (io) => {
     return onlineUsers.find((user) => user.mail == mail);
   };
   io.on("connection", (socket) => {
-    let user = [];
     socket.on("USERNAME", async ({ data }) => {
       const { token } = data;
       try {
         const verifyToken = jwt.verify(token, SECRET);
         const userToken = await User.findById(verifyToken.id);
         console.log(onlineUsers);
-        user = [];
+
         addNewUser(userToken.mail, socket.id);
-        user.push({ socketId: socket.id, userId: userToken._id });
-        // console.log(user);
       } catch (e) {
         console.log(e.message);
       }
     });
     console.log("Nueva conexion");
 
-    socket.on("Prueba 2", (response) => {
-      console.log(response);
-      io.sockets.emit("prueba", { msg: "Me llego todo bien wacho" });
-    });
     socket.on("NEW_COMMENT", async ({ data }) => {
       try {
-        const { postId, token } = data;
+        const { postId, token, type } = data;
 
         const verifyToken = jwt.verify(token, SECRET);
         const userToken = await User.findById(verifyToken.id);
@@ -52,7 +45,7 @@ const socketOn = (io) => {
 
         const obj = {
           senderName: `${userToken.name} ${userToken.lastName}`,
-          type: "Comment",
+          type,
           receiverId: userPost._id,
           postId,
           read: false,
@@ -64,6 +57,9 @@ const socketOn = (io) => {
         await userPost.save();
         const receiver = getUser(mail);
         // console.log(receiver)
+        if(!receiver){
+          return []
+        }
         io.to(receiver.socketId).emit("GET_NOTIFICATION", obj);
       } catch (e) {
         console.log(e.message);

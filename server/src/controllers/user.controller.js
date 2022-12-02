@@ -210,7 +210,11 @@ const getNotifications = async (req, res) => {
   try {
     const userId = req.userId;
     const user = await User.findById(userId).populate("notifications");
+    if(!user.notifications){
+      return res.send({msg: "No notifications"})
+    }
     const obj = user.notifications.filter(n => n.read !== true)
+    
     res.send(obj);
   } catch (e) {
     res.status(404).send({ error: e.message });

@@ -6,7 +6,7 @@ import axios from 'axios'
 import getConfig from '../../../config';
 
 import { onSocketIO, socket, emitSocketIO } from "../../../socketIO/socketIO";
-import { fetchNotifications } from '../../../utils/notificationsUtils';
+import { fetchNotifications, types } from '../../../utils/notificationsUtils';
 import { useDispatch } from 'react-redux';
 
 const Comments = ({ comments, postId }) => {
@@ -35,15 +35,15 @@ const Comments = ({ comments, postId }) => {
 
         axios.post('http://localhost:3000/comment/', body, getConfig())
             .then(res => {
-                console.log(res.data)
+                
                 getComments(postId)
                 e.target.comment.value = ''
-                console.log(res)
 
-                if (res.data.created === "successfully") {
-                    emitSocketIO(socket, "NEW_COMMENT", {
+                if (res.status === 200) {
+                    emitSocketIO(socket, types.newComment, {
                         token: localStorage.getItem("token"),
-                        postId
+                        postId,
+                        type: types.newComment
                     })
                 }
             })

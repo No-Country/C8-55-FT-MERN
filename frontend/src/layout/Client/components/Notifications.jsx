@@ -17,8 +17,8 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import { Badge, Box, Avatar } from '@mui/material';
 
 import { onSocketIO, emitSocketIO, socket } from "../../../socketIO/socketIO";
-import { generateNotification, patchNotification } from '../../../utils/notificationsUtils';
-import { useSelector } from "react-redux";
+import { fetchNotifications, generateNotification, patchNotification } from '../../../utils/notificationsUtils';
+import { useSelector, useDispatch } from "react-redux";
 
 const StyledMenu = styled((props) => (
   <Menu
@@ -74,7 +74,14 @@ export default function Notifications() {
     setAnchorEl(null);
   };
 
-  const { notificationsList : notifications } = useSelector(state => state.notification);
+  const { notificationsList: notifications } = useSelector(state => state.notification);
+  let dispatch = useDispatch()
+
+  const setFormatDate = (date) => {
+    let newDate = new Date(date)
+
+    return newDate
+  }
 
   return (
     <div>
@@ -112,25 +119,35 @@ export default function Notifications() {
             notifications.map((notification, id) => (
               <Box key={id}>
                 <MenuItem
-                  onClick={()=> {
+                  onClick={() => {
                     handleClose()
-                    console.log(patchNotification(notification._id))
+                    patchNotification(notification._id)
+                    fetchNotifications(dispatch)
                   }}
                   disableRipple
                   sx={
                     {
                       backgroundColor: !notification.read && "gainsboro",
-                      height: "100px",
-                      borderBottom: "solid 1px lightGray"
+                      display: "flex",
+                      flexDirection: "column",
+                      justifyContent: "space-between",
+                      height: "90px",
+                      borderBottom: "solid 1px lightGray",
+                      paddingTop: "20px"
                     }
                   }
                 >
-                  < Avatar
-                    alt="avatar"
-                    src={notification.profileImage}
-                    sx={{ marginRight: "10px" }}
-                  />
-                  {generateNotification(notification.senderName, notification.type)}
+                  <Box sx={{ display: "flex", alignItems: "center", padding: 0 }}>
+                    < Avatar
+                      alt="avatar"
+                      src={notification.profileImage}
+                      sx={{ marginRight: "10px" }}
+                    />
+                    {generateNotification(notification.senderName, notification.type)}
+                  </Box>
+                  <Box sx={{fontSize: "14px", width: "100%", textAlign: "end", color: "gray"}}>
+                    {setFormatDate(notification.updatedAt).toLocaleString()}
+                  </Box>
                 </MenuItem>
               </Box>
 

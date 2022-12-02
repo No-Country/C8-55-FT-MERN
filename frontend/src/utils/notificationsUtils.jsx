@@ -15,25 +15,25 @@ export const generateNotification = (senderName, type) => {
 
     switch (type != undefined) {
         case type === types.newComment:
-            return `${senderName} ha comentado tu publicación`;
+            return <p><strong>{senderName}</strong> ha comentado tu publicación.</p>;
 
         case type === types.like:
-            return `A ${senderName} le gusta tu publicación`;
+            return <p>A <strong>{senderName}</strong> le gusta tu publicación.</p>;
 
         case type === types.likeComment:
-            return `A ${senderName} le gusta tu commentario`;
+            return <p>A <strong>{senderName}</strong> le gusta tu comentario.</p>;
 
         case type === types.responseComment:
-            return `${senderName} ha respondido tu commentario`;
+            return <p><strong>{senderName}</strong> ha respondido tu comentario.</p>;
 
         case type === types.sharePost:
-            return `${senderName} ha compartido tu publicación.`;
+            return <p><strong>{senderName}</strong> ha compartido tu publicación.</p>;
 
         case type === types.followYouResponse:
-            return `${senderName} ahora te sigue.`;
+            return <p><strong>{senderName}</strong> ahora te sigue.</p>;
 
         case type === types.followResponse:
-            return `Sigues a ${senderName}.`;
+            return <p>Sigues a <strong>{senderName}</strong>.</p>;
 
         default:
             return null;
@@ -46,7 +46,7 @@ export async function fetchNotifications(dispatch) {
 
     try {
         const response = await get(url)
-        
+
         if (response.status === 200) {
             dispatch(setNotifications({
                 notificationsList: response.data
@@ -55,14 +55,14 @@ export async function fetchNotifications(dispatch) {
     } catch (error) {
         return { title: "An error occurred. Try again.", error }
     }
-    
+
 }
 
 export const patchNotification = async (id) => {
-    
+
     try {
         const url = "/user/updatenotifications"
-        let response = await patch(url, {read: true, _id: id})
+        let response = await patch(url, { read: true, _id: id })
 
         return response;
 

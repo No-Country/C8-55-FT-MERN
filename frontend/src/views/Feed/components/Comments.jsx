@@ -35,7 +35,7 @@ const Comments = ({ comments, postId }) => {
 
         axios.post('http://localhost:3000/comment/', body, getConfig())
             .then(res => {
-                
+
                 getComments(postId)
                 e.target.comment.value = ''
 
@@ -52,15 +52,27 @@ const Comments = ({ comments, postId }) => {
 
     return (
         <Stack m='1em'>
-            <Divider />
-            {commentsToGetDetails && commentsToGetDetails.map(comment => <CommentDetails key={comment._id} comment={comment._id} getComments={getComments} />)}
-            <Divider sx={{ mb: '1em' }} />
             <Box onSubmit={postComment} component='form' sx={{ display: 'flex' }}>
-                <TextField fullWidth name="comment" label="Deja aqui tu veneno..." variant="outlined" />
-                <IconButton color='success' type='submit'>
+                <TextField 
+                    fullWidth 
+                    name="comment" 
+                    label="Deja aqui tu veneno..." 
+                    variant="outlined"
+                    size="small"
+                />
+                <IconButton sx={{color: "var(--color-complement-black)"}} type='submit'>
                     <SendIcon />
                 </IconButton>
             </Box>
+            {/* <Divider sx={{ mb: '1em' }} /> */}
+            {commentsToGetDetails && commentsToGetDetails.map(comment => (
+                <Box  key={comment._id}>
+                    <CommentDetails comment={comment._id} getComments={getComments} />
+                    <Divider />
+
+                </Box>
+            ))}
+
         </Stack>
     )
 }

@@ -17,8 +17,16 @@ const getNotifications = async (req, res) => {
   };
   
   const updateNotifications = async (req, res) => {
-    const { _id } = req.body;
-    const notification = await Notification.findByIdAndUpdate(_id,{$set:{read: true}})
+    const { _id : id} = req.body;
+    console.log(id)
+    
+    if (!id.match(/^[0-9a-fA-F]{24}$/)) {
+        return res.status(404).send({error: "ID Not found"})
+      }
+    const notification = await Notification.findByIdAndUpdate(id,{$set:{read: true}})
+    if(!notification){
+        return res.status(404).send({error: "Notification not found"})
+    }  
     await notification.save()
     res.send({update: "notification read"})
     try {

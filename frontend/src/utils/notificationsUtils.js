@@ -1,4 +1,4 @@
-import { get } from './apiUtils';
+import { get, patch } from './apiUtils';
 import { setNotifications } from '../store/slices/notification.slice';
 
 export const types = {
@@ -42,7 +42,7 @@ export const generateNotification = (senderName, type) => {
 
 export async function fetchNotifications(dispatch) {
 
-    let url = "http://localhost:3000/user/getnotifications";
+    let url = "/user/getnotifications";
 
     try {
         const response = await get(url)
@@ -52,6 +52,20 @@ export async function fetchNotifications(dispatch) {
                 notificationsList: response.data
             }))
         }
+    } catch (error) {
+        return { title: "An error occurred. Try again.", error }
+    }
+    
+}
+
+export const patchNotification = async (id) => {
+    
+    try {
+        const url = "/user/updatenotifications"
+        let response = await patch(url, {read: true, _id: id})
+
+        return response;
+
     } catch (error) {
         return { title: "An error occurred. Try again.", error }
     }

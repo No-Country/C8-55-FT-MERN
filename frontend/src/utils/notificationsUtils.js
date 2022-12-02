@@ -36,7 +36,7 @@ export async function fetchNotifications(dispatch) {
 
     try {
         const response = await get(url)
-
+        console.log("RESPONSE ", response)
         if (response.status === 200) {
             dispatch(setNotifications({
                 notificationsList: response.data

@@ -38,9 +38,9 @@ const Comments = ({ comments, postId }) => {
                 console.log(res.data)
                 getComments(postId)
                 e.target.comment.value = ''
+                console.log(res)
 
                 if (res.data.created === "successfully") {
-
                     emitSocketIO(socket, "NEW_COMMENT", {
                         token: localStorage.getItem("token"),
                         postId

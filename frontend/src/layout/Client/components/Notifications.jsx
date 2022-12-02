@@ -74,8 +74,7 @@ export default function Notifications() {
     setAnchorEl(null);
   };
 
-  const { notificationsList } = useSelector(state => state.notification);
-  let { notifications } = notificationsList;
+  const { notificationsList : notifications } = useSelector(state => state.notification);
 
   return (
     <div>
@@ -146,7 +145,7 @@ export default function Notifications() {
                 }
               >
                 <FileCopyIcon />
-                Sin notificaciones, nena.
+                Sin notificaciones.
               </MenuItem>
             </Box>
 

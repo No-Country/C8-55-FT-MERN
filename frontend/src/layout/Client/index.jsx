@@ -20,8 +20,6 @@ const ClientLayout = () => {
   const user = useSelector(account => account.user)
   const token = localStorage.getItem('token')
   
-  //const dispatch = useDispatch()
-  
   useEffect(() => {
     axios.get(`http://localhost:3000/user/tokeninfo`, getConfig())
       .then(res => {

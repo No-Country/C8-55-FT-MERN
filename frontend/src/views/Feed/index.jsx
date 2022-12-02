@@ -7,14 +7,12 @@ import axios from 'axios'
 import getConfig from '../../config';
 import { CloudinaryContext, Image } from 'cloudinary-react'
 
-
 import {emitSocketIO, socket, onSocketIO} from "../../socketIO/socketIO";
 
 const Feed = () => {
-
+  
   const [createPostVisibility, setCreatePostVisibility] = useState('none')
   const [posts, setPosts] = useState()
-
   
   const addPost = () => {
     if (createPostVisibility === 'none') {
@@ -27,15 +25,15 @@ const Feed = () => {
   
   useEffect(() => {
     axios.get('http://localhost:3000/post/all_posts', getConfig())
-      .then(res => {
-        setPosts(res.data.posts)
-      })
-      .catch(err => console.log(err))
-    }, [])
-
-    useEffect(()=> {
+    .then(res => {
+      setPosts(res.data.posts)
+    })
+    .catch(err => console.log(err))
+  }, [])
+  
+  useEffect(()=> {
       emitSocketIO(socket, "USERNAME", {token: localStorage.getItem("token")})
-    onSocketIO(socket, "GET_NOTIFICATION")
+      onSocketIO(socket, "GET_NOTIFICATION")
   }, [])
  
 

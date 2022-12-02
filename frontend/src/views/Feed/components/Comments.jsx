@@ -1,11 +1,11 @@
 import { Stack, Box, Divider, CardMedia, Typography, TextField, IconButton } from '@mui/material'
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import CommentDetails from './CommentDetails'
 import SendIcon from '@mui/icons-material/Send';
 import axios from 'axios'
 import getConfig from '../../../config';
 
-import {onSocketIO, socket, emitSocketIO} from "../../../socketIO/socketIO";
+import { onSocketIO, socket, emitSocketIO } from "../../../socketIO/socketIO";
 import { fetchNotifications } from '../../../utils/notificationsUtils';
 import { useDispatch } from 'react-redux';
 
@@ -17,7 +17,10 @@ const Comments = ({ comments, postId }) => {
 
     const getComments = postId => {
         axios.get(`http://localhost:3000/post/get_post/${postId}`, getConfig())
-            .then(res => setCommentToGetDetails(res.data.post.comments))
+            .then(res => {
+                setCommentToGetDetails(res.data.post.comments)
+                fetchNotifications(dispatch)
+            })
             .catch(err => console.log(err))
     }
 
@@ -36,22 +39,16 @@ const Comments = ({ comments, postId }) => {
                 getComments(postId)
                 e.target.comment.value = ''
 
-                if(res.data.created === "successfully") {
+                if (res.data.created === "successfully") {
 
-                    fetchNotifications(dispatch)
-                    
                     emitSocketIO(socket, "NEW_COMMENT", {
                         token: localStorage.getItem("token"),
                         postId
                     })
                 }
             })
-            .then(err => console.log(err))
-
+            .catch(err => console.log(err))
     }
-
-
-
 
     return (
         <Stack m='1em'>

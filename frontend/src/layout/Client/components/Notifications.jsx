@@ -18,8 +18,7 @@ import { Badge, Box, Avatar } from '@mui/material';
 
 import { onSocketIO, emitSocketIO, socket } from "../../../socketIO/socketIO";
 import { generateNotification } from '../../../utils/notificationsUtils';
-import {useSelector, useDispatch} from "react-redux";
-import { fetchNotifications } from '../../../utils/notificationsUtils';
+import { useSelector } from "react-redux";
 
 const StyledMenu = styled((props) => (
   <Menu
@@ -65,7 +64,7 @@ const StyledMenu = styled((props) => (
 }));
 
 export default function Notifications() {
-  
+
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -75,19 +74,13 @@ export default function Notifications() {
     setAnchorEl(null);
   };
 
-  const { notificationsList } = useSelector (state => state.notification);
+  const { notificationsList } = useSelector(state => state.notification);
   let { notifications } = notificationsList;
-/* 
-  const dispatch = useDispatch()
-
-  React.useEffect(() => {
-    fetchNotifications(dispatch)
-  }) */
 
   return (
     <div>
-      <Badge 
-        badgeContent={notifications ? notifications.length : 0} 
+      <Badge
+        badgeContent={notifications ? notifications.length : 0}
         color="primary"
       >
         <NotificationsIcon
@@ -95,7 +88,7 @@ export default function Notifications() {
           aria-controls={open ? 'demo-customized-menu' : undefined}
           aria-haspopup="true"
           aria-expanded={open ? 'true' : undefined}
-          sx={{ color: "gainsboro", cursor: "pointer"}}
+          sx={{ color: "gainsboro", cursor: "pointer" }}
           onClick={(e) => {
             console.log("OnCLick")
             handleClick(e)
@@ -119,21 +112,21 @@ export default function Notifications() {
             ?
             notifications.map((notification, id) => (
               <Box key={id}>
-                <MenuItem 
-                  onClick={handleClose} 
-                  disableRipple 
+                <MenuItem
+                  onClick={handleClose}
+                  disableRipple
                   sx={
                     {
-                      backgroundColor: !notification.read && "gainsboro", 
-                      height: "100px", 
+                      backgroundColor: !notification.read && "gainsboro",
+                      height: "100px",
                       borderBottom: "solid 1px lightGray"
                     }
                   }
                 >
-                < Avatar
+                  < Avatar
                     alt="avatar"
                     src={notification.profileImage}
-                    sx={{marginRight: "10px"}}
+                    sx={{ marginRight: "10px" }}
                   />
                   {generateNotification(notification.senderName, notification.type)}
                 </MenuItem>
@@ -142,12 +135,12 @@ export default function Notifications() {
             ))
             :
             <Box>
-              <MenuItem 
-                onClick={handleClose} 
-                disableRipple 
+              <MenuItem
+                onClick={handleClose}
+                disableRipple
                 sx={
                   {
-                    height: "100px", 
+                    height: "100px",
                     borderBottom: "solid 1px lightGray"
                   }
                 }

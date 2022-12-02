@@ -9,21 +9,25 @@ import axios from 'axios'
 import getConfig from '../../config'
 import { setUser } from '../../store/slices/user.slice'
 
+import { fetchNotifications } from '../../utils/notificationsUtils';
 
 const ClientLayout = () => {
-
+  
   const [useAuth, setUseAuth] = useState()
   
   const dispatch = useDispatch()
-
+  
   const user = useSelector(account => account.user)
   const token = localStorage.getItem('token')
-
+  
+  //const dispatch = useDispatch()
+  
   useEffect(() => {
     axios.get(`http://localhost:3000/user/tokeninfo`, getConfig())
       .then(res => {
         setUseAuth(res.data.auth)
         dispatch(setUser(res.data.user))
+        fetchNotifications(dispatch)
         //console.log(res.data.user)
       })
       .catch(err => {

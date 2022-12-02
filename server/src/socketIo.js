@@ -60,7 +60,7 @@ const socketOn = (io) => {
         if(!receiver){
           return []
         }
-        io.to(receiver.socketId).emit("GET_NOTIFICATION", obj);
+        io.to(receiver.socketId).emit("GET_NOTIFICATION", notification);
       } catch (e) {
         console.log(e.message);
       }

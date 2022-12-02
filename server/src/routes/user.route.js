@@ -5,12 +5,12 @@ const {
   signIn,
   userPosts,
   tokenInfo,
-  userInfo,
-  getNotifications,
-  updateNotifications,
+  userInfo
+ 
 } = require("../controllers/user.controller");
 const { verifyToken } = require("../middlewares/verifyToken");
 const { addFollowing } = require("../controllers/following.controllers");
+const { getNotifications, updateNotifications } = require("../controllers/notification.controller");
 
 const router = Router();
 

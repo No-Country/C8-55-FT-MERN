@@ -17,7 +17,7 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import { Badge, Box, Avatar } from '@mui/material';
 
 import { onSocketIO, emitSocketIO, socket } from "../../../socketIO/socketIO";
-import { generateNotification } from '../../../utils/notificationsUtils';
+import { generateNotification, patchNotification } from '../../../utils/notificationsUtils';
 import { useSelector } from "react-redux";
 
 const StyledMenu = styled((props) => (
@@ -112,7 +112,10 @@ export default function Notifications() {
             notifications.map((notification, id) => (
               <Box key={id}>
                 <MenuItem
-                  onClick={handleClose}
+                  onClick={()=> {
+                    handleClose()
+                    console.log(patchNotification(notification._id))
+                  }}
                   disableRipple
                   sx={
                     {

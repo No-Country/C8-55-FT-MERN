@@ -5,12 +5,15 @@ const {
   signIn,
   userPosts,
   tokenInfo,
-  userInfo
- 
+  userInfo,
+  updateUser,
 } = require("../controllers/user.controller");
 const { verifyToken } = require("../middlewares/verifyToken");
 const { addFollowing } = require("../controllers/following.controllers");
-const { getNotifications, updateNotifications } = require("../controllers/notification.controller");
+const {
+  getNotifications,
+  updateNotifications,
+} = require("../controllers/notification.controller");
 
 const router = Router();
 
@@ -28,4 +31,5 @@ router.get("/getnotifications", verifyToken, getNotifications);
 
 router.patch("/updatenotifications", verifyToken, updateNotifications);
 
+router.patch("/updateuser", verifyToken, updateUser);
 module.exports = router;

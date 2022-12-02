@@ -50,7 +50,7 @@ const Feed = () => {
 
         <CreatePost createPostVisibility={createPostVisibility} />
 
-        <Stack sx={{ display: 'flex', gap: '1em', overflow: 'scroll', maxHeight: 700, paddingBottom: '8em' }}>
+        <Stack sx={{ display: 'flex', gap: '1em', overflow: 'scroll', maxHeight: 500, paddingBottom: '3em' }}>
           {posts && posts.map(post => <PostShared key={post._id} post={post} />)}
 
         </Stack>

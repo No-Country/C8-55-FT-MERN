@@ -6,14 +6,23 @@ import axios from 'axios'
 import getConfig from '../../../config';
 
 import { onSocketIO, socket, emitSocketIO } from "../../../socketIO/socketIO";
-import { fetchNotifications, types } from '../../../utils/notificationsUtils';
+import { fetchNotifications, types, generateNotification } from '../../../utils/notificationsUtils';
 import { useDispatch } from 'react-redux';
+import { useSnackbar } from 'notistack';
 
 const Comments = ({ comments, postId }) => {
 
     const [commentsToGetDetails, setCommentToGetDetails] = useState(comments)
 
     const dispatch = useDispatch();
+    
+    const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+    
+    const handleClickVariant = (msg = "", variant = "") => () => {
+        
+        console.log("handleClickVariant")
+        enqueueSnackbar(msg, {variant});
+    };
 
     const getComments = postId => {
         axios.get(`http://localhost:3000/post/get_post/${postId}`, getConfig())
@@ -38,6 +47,7 @@ const Comments = ({ comments, postId }) => {
 
                 getComments(postId)
                 e.target.comment.value = ''
+                console.log(res)
 
                 if (res.status === 200) {
                     emitSocketIO(socket, types.newComment, {
@@ -45,6 +55,8 @@ const Comments = ({ comments, postId }) => {
                         postId,
                         type: types.newComment
                     })
+                    console.log("HOLAAAA", onSocketIO(socket, "GET_NOTIFICATION"))
+                    handleClickVariant(generateNotification(onSocketIO(socket, "NEW_COMMENT"), types.newComment), "success")()
                 }
             })
             .catch(err => console.log(err))
@@ -52,21 +64,27 @@ const Comments = ({ comments, postId }) => {
 
     return (
         <Stack m='1em'>
-            <Box onSubmit={postComment} component='form' sx={{ display: 'flex' }}>
-                <TextField 
-                    fullWidth 
-                    name="comment" 
-                    label="Deja aqui tu veneno..." 
+            <Box
+                onSubmit={e => {
+                    postComment(e)
+                }}
+                component='form'
+                sx={{ display: 'flex' }}
+            >
+                <TextField
+                    fullWidth
+                    name="comment"
+                    label="Deja aqui tu veneno..."
                     variant="outlined"
                     size="small"
                 />
-                <IconButton sx={{color: "var(--color-complement-black)"}} type='submit'>
+                <IconButton sx={{ color: "var(--color-complement-black)" }} type='submit'>
                     <SendIcon />
                 </IconButton>
             </Box>
             {/* <Divider sx={{ mb: '1em' }} /> */}
             {commentsToGetDetails && commentsToGetDetails.map(comment => (
-                <Box  key={comment._id}>
+                <Box key={comment._id}>
                     <CommentDetails comment={comment._id} getComments={getComments} />
                     <Divider />
 

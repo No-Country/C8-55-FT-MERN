@@ -127,7 +127,7 @@ export default function Notifications() {
                   disableRipple
                   sx={
                     {
-                      backgroundColor: !notification.read && "gainsboro",
+                      backgroundColor: '#edf2f4',
                       display: "flex",
                       flexDirection: "column",
                       justifyContent: "space-between",

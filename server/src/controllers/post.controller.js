@@ -1,9 +1,10 @@
 const postService = require("../services/post.service");
+const Post = require("../models/Post");
 
 const createPost = async (req, res) => {
   try {
-    const userId = req.userId
-    const {text, image } = req.body;
+    const userId = req.userId;
+    const { text, image } = req.body;
     if (!userId)
       return res.status(404).json({ message: "User id is required" });
     if (!text) return res.status(400).json({ message: "Text is required" });
@@ -39,8 +40,12 @@ const deletePost = async (req, res) => {
 const getUserPosts = async (req, res) => {
   try {
     let { id } = req.params;
-    const post = await postService.getUserPosts(id);
-    return res.status(200).json({ post: post });
+    const { page = 1, limit = 10 } = req.query; 
+    const start = (page - 1) * limit;
+    const post = await postService.getUserPosts(id, start, limit);
+    const total = await Post.countDocuments();//cuenta la cantidad de documentos
+    const pages = Math.ceil(total / limit);
+    return res.status(200).json({ posts: post, total, pages});
   } catch (err) {
     return res.status(500).json({ error: err.message });
   }
@@ -56,31 +61,35 @@ const getPostById = async (req, res) => {
   }
 };
 
-const getPosts = async (_req, res) => {
+const getPosts = async (req, res) => {
   try {
-    const posts = await postService.getPosts();
-    return res.status(200).json({ posts: posts });
+    const { page = 1, limit = 10 } = req.query; 
+    const start = (page - 1) * limit;
+    const total = await Post.countDocuments();//cuenta la cantidad de documentos
+    const pages = Math.ceil(total / limit);
+    const posts = await postService.getPosts(start, limit);
+    return res.status(200).json({ posts: posts, total, pages });
   } catch (err) {
     return res.status(500).json({ error: err.message });
   }
 };
 
 const likePost = async (req, res) => {
-  try{
+  try {
     let { id } = req.params;
     let userId = req.userId;
     const post = await postService.getPostById(id);
-    if(!post.likes.includes(userId)){
-      await postService.likePost(post, userId)
-      return res.status(200).json({"liked": "successfully"});
-    }else{
-      await postService.dislikePost(post, userId)
-      return res.status(200).json({"disliked": "successfully"});
+    if (!post.likes.includes(userId)) {
+      await postService.likePost(post, userId);
+      return res.status(200).json({ liked: "successfully" });
+    } else {
+      await postService.dislikePost(post, userId);
+      return res.status(200).json({ disliked: "successfully" });
     }
-  }catch(err){
+  } catch (err) {
     return res.status(500).json({ error: err.message });
   }
-}
+};
 
 module.exports = {
   createPost,
@@ -89,5 +98,5 @@ module.exports = {
   getPosts,
   updatePost,
   getPostById,
-  likePost
+  likePost,
 };

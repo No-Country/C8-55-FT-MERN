@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import axios from 'axios'
 import { setUser } from '../../../store/slices/user.slice'
 import { Navigate, useNavigate } from 'react-router-dom'
+import { fetchNotifications } from '../../../utils/notificationsUtils'
 
 const Login = ({ setLogStatus }) => {
 
@@ -22,6 +23,8 @@ const Login = ({ setLogStatus }) => {
       .then(res => {
         console.log(res.data.user)
         localStorage.setItem('token', res.data.token)
+
+        fetchNotifications(dispatch)
       })
       .catch(err => console.log(err.response))
   }

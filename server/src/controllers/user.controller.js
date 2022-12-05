@@ -4,8 +4,6 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const { SECRET } = require("../config");
 const UserRole = require("../models/UserRole");
-
-
 const signUp = async (req, res) => {
   if (
     _.isNil(req.body.name) ||
@@ -61,41 +59,42 @@ const signUp = async (req, res) => {
 
 const signIn = async (req, res) => {
   console.log("----------user----------");
-  try{if (_.isNil(req.body.mail) || _.isNil(req.body.password)) {
-    return res.send({ msg: "Faltan datos" });
-  }
-  const { mail, password } = req.body;
-  const user = await User.findOne({ mail });
-  console.log(user);
-  if (user) {
-    const validPassword = await bcrypt.compare(password, user.password);
-    if (validPassword) {
-      const token = jwt.sign({ id: user._id, mail: user.mail }, SECRET, {
-        expiresIn: 60 * 60 * 24,
-      });
-      return res.send({
-        auth: true,
-        token,
-        user: {
-          name: user.name,
-          lastName: user.lastName,
-          mail: user.mail,
-        },
-      });
+  try {
+    if (_.isNil(req.body.mail) || _.isNil(req.body.password)) {
+      return res.send({ msg: "Faltan datos" });
+    }
+    const { mail, password } = req.body;
+    const user = await User.findOne({ mail });
+    console.log(user);
+    if (user) {
+      const validPassword = await bcrypt.compare(password, user.password);
+      if (validPassword) {
+        const token = jwt.sign({ id: user._id, mail: user.mail }, SECRET, {
+          expiresIn: 60 * 60 * 24,
+        });
+        return res.send({
+          auth: true,
+          token,
+          user: {
+            name: user.name,
+            lastName: user.lastName,
+            mail: user.mail,
+          },
+        });
+      } else {
+        return res.status(404).send({
+          auth: false,
+          error: "Correo electronico o contrasena incorrectos",
+        });
+      }
     } else {
       return res.status(404).send({
         auth: false,
         error: "Correo electronico o contrasena incorrectos",
       });
     }
-  } else {
-    return res.status(404).send({
-      auth: false,
-      error: "Correo electronico o contrasena incorrectos",
-    });
-  }}
-  catch(e){
-    return res.status(404).send({error: e.message})
+  } catch (e) {
+    return res.status(404).send({ error: e.message });
   }
 };
 
@@ -130,77 +129,103 @@ const tokenInfo = async (req, res) => {
 };
 
 const userInfo = async (req, res) => {
-try
-{
-  const user = await User.findById(req.params.id,"name lastName profileImage description profileBanner saved mail")
-    .lean()
-    .populate({
-      path: "posts",
-      select: {
-        userId: 1,
-        comments: 1,
-        likes: 1,
-        text: 1,
-        userId: 1,
-      },
-      populate: [
-        {
-          path: "userId",
-          select: {
-            name: 1,
-            lastName: 1,
-            profileImage: 1,
-          },
+  try {
+    const user = await User.findById(
+      req.params.id,
+      "name lastName profileImage description profileBanner saved mail"
+    )
+      .lean()
+      .populate({
+        path: "posts",
+        select: {
+          userId: 1,
+          comments: 1,
+          likes: 1,
+          text: 1,
+          userId: 1,
         },
-
-        {
-          path: "comments",
-          select: {
-            userId: 1,
-            likes: 1,
-            text: 1,
-            replies: 1,
-          },
-          populate: [
-            {
-              path: "userId",
-              select: { name: 1, lastName: 1 , profileImage: 1},
+        populate: [
+          {
+            path: "userId",
+            select: {
+              name: 1,
+              lastName: 1,
+              profileImage: 1,
             },
-            {
-              path: "replies",
-              select: {
-                text: 1,
-                userId: 1,
-              },
-              populate: {
+          },
+
+          {
+            path: "comments",
+            select: {
+              userId: 1,
+              likes: 1,
+              text: 1,
+              replies: 1,
+            },
+            populate: [
+              {
                 path: "userId",
                 select: { name: 1, lastName: 1, profileImage: 1 },
               },
-            },
-          ],
-        },
-      ],
-    })
-    .lean()
-    .populate("userRole")
-    .lean()
-    .populate("following", { name: 1, lastName: 1, profileImage: 1 })
-    .lean()
-    .populate("followers", { name: 1, lastName: 1, profileImage: 1 });
-  if (!user) {
-    return res.status(404).send({
-      error: "User does not exists",
-    });
+              {
+                path: "replies",
+                select: {
+                  text: 1,
+                  userId: 1,
+                },
+                populate: {
+                  path: "userId",
+                  select: { name: 1, lastName: 1, profileImage: 1 },
+                },
+              },
+            ],
+          },
+        ],
+      })
+      .lean()
+      .populate("userRole")
+      .lean()
+      .populate("following", { name: 1, lastName: 1, profileImage: 1 })
+      .lean()
+      .populate("followers", { name: 1, lastName: 1, profileImage: 1 });
+    if (!user) {
+      return res.status(404).send({
+        error: "User does not exists",
+      });
+    }
+
+    const obj = user;
+    if (req.params.id == req.userId) {
+      return res.send({ auth: true, userData: obj, profileOwner: true });
+    }
+
+    return res.send({ auth: true, userData: obj, profileOwner: false });
+  } catch (e) {
+    return res.status(404).send({ error: e.message });
   }
-  
-  const obj = user;
-  if(req.params.id == req.userId){
-    return res.send({auth: true, userData:obj, profileOwner: true})
-  }
-  
- return res.send({auth: true, userData: obj, profileOwner: false});}
- catch(e){
-  return res.status(404).send({error: e.message})
- }
 };
-module.exports = { signUp, signIn, tokenInfo, userInfo };
+
+const updateUser = async(req,res)=>{
+  try {
+    if(req.body.description || req.body.profileImage || req.body.bannerImage || req.body.assets){
+    const body = req.body
+    const id = req.userId
+    const user = await User.findByIdAndUpdate(id,({$set:body}))
+    
+    await user.save()
+    return res.send({msg: "Updated"})
+    }
+    return res.status(404).send({msg: "Couldn't update"})
+  } catch (e) {
+    res.status(404).send({error: e.message})
+  }
+}
+
+
+module.exports = {
+  signUp,
+  signIn,
+  tokenInfo,
+  userInfo,
+  updateUser
+};

@@ -68,7 +68,7 @@ export default function TemporaryDrawer({navbar}) {
     <div style={{display: "flex", justifyContent: "space-around", width: "100%"}}>
       {navbar.map((anchor) => (
         <React.Fragment key={anchor.name}>
-          <Box onClick={toggleDrawer(anchor.side, true)}>{anchor.component}</Box>
+          <Box onClick={anchor.name !== "Notifications" && toggleDrawer(anchor.side, true)}>{anchor.component}</Box>
           <Drawer
             anchor={anchor.side}
             open={state[anchor.side]}

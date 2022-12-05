@@ -24,11 +24,12 @@ import {
   createTheme
 } from '@mui/material';
 import {
-  Notifications
+  Notifications as NotificationsIcon
 } from '@mui/icons-material';
 import { onSocketIO, emitSocketIO, socket } from "../../../../socketIO/socketIO";
 import NavbarMobile from './NavbarMobile';
 import TemporaryDrawer from "./TemporaryDrawer";
+import Notifications from "./Notifications";
 
 const style = {
   header: {
@@ -161,7 +162,7 @@ const Header = () => {
         </Box>
         <Box sx={style.boxUser}>
 
-          <Notifications
+          {/* <Notifications
             sx={{
               color: "gainsboro",
               cursor: "pointer",
@@ -174,7 +175,17 @@ const Header = () => {
               emitSocketIO(socket)
               onSocketIO(socket)
             }}
-          />
+          /> */}
+
+          <Box
+            sx={{
+              [theme.breakpoints.down("md")]: {
+                display: "none"
+              }
+            }}
+          >
+            <Notifications />
+          </Box>
 
           <Button
             variant='text'

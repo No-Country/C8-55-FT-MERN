@@ -9,11 +9,13 @@ import {
 import {
     Menu,
     Search,
-    Notifications,
+    /* Notifications, */
     Chat
 } from "@mui/icons-material";
 
 import TemporaryDrawer from "./TemporaryDrawer"
+import Notifications from "./Notifications";
+
 const theme = createTheme();
 
 const styles = {
@@ -57,9 +59,9 @@ const navbar = [
         component: <BottomNavigationAction label="Messages" icon={<Chat sx={styles.navbar} />} />
     },
     {
-        side: "top",
+        side: "",
         name: "Notifications",
-        component: <BottomNavigationAction label="Notifications" icon={<Notifications sx={styles.navbar} />} />
+        component: <BottomNavigationAction label="Notifications" icon={<Notifications />} />
     },
 
 ]

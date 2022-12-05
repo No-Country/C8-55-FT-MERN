@@ -1,15 +1,16 @@
 import { Stack, Box, Button, Paper, IconButton, InputBase, Divider, Drawer, Avatar, Typography, Popover } from '@mui/material'
-import React, {useEffect} from 'react'
+import React, { useEffect, useState, useCallback } from 'react'
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import ManageSearchIcon from '@mui/icons-material/ManageSearch';
 import MenuIcon from '@mui/icons-material/Menu';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import LockPersonOutlinedIcon from '@mui/icons-material/LockPersonOutlined';
 import SettingsApplicationsOutlinedIcon from '@mui/icons-material/SettingsApplicationsOutlined';
 import { useNavigate } from 'react-router-dom';
 
-import {Notifications} from '@mui/icons-material';
-import {onSocketIO, emitSocketIO, socket} from "../../../socketIO/socketIO";
+import Notifications from "./Notifications";
+
+import { fetchNotifications } from '../../../utils/notificationsUtils';
 
 const style = {
   header: {
@@ -41,7 +42,7 @@ const Header = () => {
   const navigate = useNavigate()
 
   const handleClick = (event) => {
-      setAnchorEl(event.currentTarget);
+    setAnchorEl(event.currentTarget);
   };
 
   const handleClose = () => {
@@ -81,14 +82,9 @@ const Header = () => {
       </Box>
       <Box sx={style.boxUser}>
 
-        <Notifications 
-          sx={{color: "gainsboro", cursor: "pointer"}}
-          onClick={()=> {
-            console.log("OnCLick")
-            emitSocketIO(socket)
-            onSocketIO(socket)
-          }}
-        />
+        <Box>
+          <Notifications />
+        </Box>
 
         <Button variant='text' sx={{ color: 'white' }} >Crear Proyecto</Button>
         <Button variant='text' sx={{ color: 'white' }} >Descubrir</Button>
@@ -99,29 +95,29 @@ const Header = () => {
             src={`${user?.profileImage}`}
           />
         </IconButton>
-          <Popover
-            id={id}
-            open={open}
-            anchorEl={anchorEl}
-            onClose={handleClose}
-            anchorOrigin={{
-              vertical: 'bottom',
-              horizontal: 'left',
-            }}
-          >
+        <Popover
+          id={id}
+          open={open}
+          anchorEl={anchorEl}
+          onClose={handleClose}
+          anchorOrigin={{
+            vertical: 'bottom',
+            horizontal: 'left',
+          }}
+        >
 
-            <Box sx={{ p: '1em', display: 'flex', gap: '0.5em', alignItems: 'center' }}>
-              <SettingsApplicationsOutlinedIcon />
-              <Typography >Configuration</Typography>
-            </Box>
+          <Box sx={{ p: '1em', display: 'flex', gap: '0.5em', alignItems: 'center' }}>
+            <SettingsApplicationsOutlinedIcon />
+            <Typography >Configuration</Typography>
+          </Box>
 
-            <Divider sx={{mx: '1em'}} />
-            <Box onClick={signOut} sx={{ p: '1em', display: 'flex', gap: '0.5em', alignItems: 'center' }}>
-              <LockPersonOutlinedIcon sx={{color:'error.main'}} />
-              <Typography >Sign out</Typography>
+          <Divider sx={{ mx: '1em' }} />
+          <Box onClick={signOut} sx={{ p: '1em', display: 'flex', gap: '0.5em', alignItems: 'center' }}>
+            <LockPersonOutlinedIcon sx={{ color: 'error.main' }} />
+            <Typography >Sign out</Typography>
 
-            </Box>
-          </Popover>
+          </Box>
+        </Popover>
       </Box>
     </Stack>
   )

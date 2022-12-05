@@ -1,3 +1,4 @@
+const { chat, chatRoute } = require("./docs/chat.doc");
 const { comment, commentRoutes } = require("./docs/comment.doc");
 const { groupRoute, group } = require("./docs/group.doc");
 const { post, postRoute } = require("./docs/post.doc");
@@ -39,6 +40,10 @@ const swaggerSpec = {
             description:"Timeline routes"
         },
         {
+            name:"Chat",
+            description:"Chat routes"
+        },
+        {
             name:"Group",
             description: "Group routes"
         },
@@ -53,6 +58,7 @@ const swaggerSpec = {
         ...commentRoutes,
         ...projectRoute,
         ...timelineRoute,
+        ...chatRoute,
         ...groupRoute,
         ...savedRoute,
     },
@@ -62,6 +68,7 @@ const swaggerSpec = {
             ...post,
             ...comment,
             ...project,
+            ...chat,
             ...group,
             ...saved,
         },

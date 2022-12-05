@@ -2,13 +2,13 @@ const Message = require("../models/Message");
 const User = require("../models/User");
 const Chat = require("../models/Chat");
 
-const searchChat = async (userId,destinataryId) =>{
+const searchChat = async (userId,intId) =>{
     try {
         const user = await User.findById(userId);
         if (!user) throw new Error('User Id not found');
-        const destinatary = await User.findById(destinataryId);
+        const destinatary = await User.findById(intId);
         if (!destinatary) throw new Error('destinatary Id not found');
-        const chatId = user.chat.get(destinataryId);
+        const chatId = user.chat.get(intId);
         return {user,chatId,destinatary};
     } catch (err) {
         throw err;
@@ -20,6 +20,7 @@ const loadChat = async (userId,destinataryId,idMessage)=>{
         if (!chatId){
             const chat = new Chat({messages:[idMessage]});
             await chat.save();
+            if (!user?.chat) user.chat = new Map();
             user.chat.set(destinataryId,chat);
             destinatary.chat.set(userId,chat);
             await user.save();

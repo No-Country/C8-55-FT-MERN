@@ -4,9 +4,10 @@ const messageService = require("./message.service");
 
 
   
-const getChat = async (userId,destinataryId) => {
+const getChat = async (userId,intId) => {
     try {
-        const {chatId} = await messageService.searchChat(userId,destinataryId);
+        console.log(intId);
+        const {chatId} = await messageService.searchChat(userId,intId);
         const chat = await Chat.findById(chatId);
         const messages = chat.messages.map(async id => {
             return await messageService.getMessage(id)
@@ -21,11 +22,15 @@ const getChat = async (userId,destinataryId) => {
 const getChats = async (userId)=>{
     try {
         const user = await User.findById(userId);
-        const arrChatsId = Array.from(user.chat.keys());
-        const arrChats = arrChatsId.map(async id => {
-            const userChat = await User.findById(id);
+        if (!user?.chat) return [];
+        const arrChatsInfo = Array.from(user.chat);
+        const arrChats = arrChatsInfo.map(async info => {
+            const userChat = await User.findById(info[0]);
+            const chat = await Chat.findById(info[1]);
+            const lastMessage = await messageService.getMessage(chat.messages[0]);
+            const id =info[0];
             const {name,lastName} = userChat;
-            return {name,lastName,id};
+            return {name,lastName,lastMessage,id};
         })
         return await Promise.all(arrChats);
     } catch (err) {

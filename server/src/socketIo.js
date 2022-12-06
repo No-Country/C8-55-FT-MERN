@@ -3,6 +3,7 @@ const { SECRET } = require("./config");
 const Notification = require("./models/Notification");
 const Post = require("./models/Post");
 const User = require("./models/User");
+const { sendMessage } = require("./services/message.service");
 const socketOn = (io) => {
   let onlineUsers = [];
   const addNewUser = (mail, socketId) => {
@@ -63,6 +64,39 @@ const socketOn = (io) => {
         io.to(receiver.socketId).emit("GET_NOTIFICATION", notification);
       } catch (e) {
         console.log(e.message);
+      }
+    });
+
+    //Mensajes del Chat escucho NEW_MESSAGE
+    socket.on("NEW_MESSAGE",async ({data})=>{
+      try {
+        //necesito que me pases en el data solamente el token,
+        //el Id del usuario interlocutor y por ultimo el texto.
+        //Los nombres de los 2 ultimos los tengo como intId y text
+        const { token, intId, text } = data;
+
+        //verificacion de token y obtencion del usuario y mail
+        const verifyToken = jwt.verify(token, SECRET);
+        const userToken = await User.findById(verifyToken.id);
+        const post = await Post.findById(postId).populate("userId", {
+          mail: 1,
+        });
+        const mail = post.userId.mail;
+
+        //guardo el mensaje en la base de datos de chat y mensajes
+        const userId = userToken._id
+        const message = await sendMessage(userId,intId,text);
+
+        //devuelvo la respuesta al front end con el nombre de GET_MESSAGE
+        const receiver = getUser(mail);
+        if(!receiver){
+          return []
+        }
+        io.to(receiver.socketId).emit("GET_MESSAGE", message);
+        //la respuesta por ahora es el id del usuario que envio, el mensaje,
+        //la fecha de envio y actualizacion si lo queres de otra forma avisame
+      } catch (err) {
+        console.log(err);
       }
     });
     socket.on("disconnect", () => {

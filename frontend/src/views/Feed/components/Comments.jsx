@@ -15,13 +15,13 @@ const Comments = ({ comments, postId }) => {
     const [commentsToGetDetails, setCommentToGetDetails] = useState(comments)
 
     const dispatch = useDispatch();
-    
+
     const { enqueueSnackbar } = useSnackbar();
-    
+
     const handleClickVariant = (msg = "", variant = "") => () => {
-        
-        enqueueSnackbar(msg, {variant});
-        localStorage.removeItem("socket");
+
+        enqueueSnackbar(msg, { variant });
+        //localStorage.removeItem("socket");
     };
 
     const getComments = postId => {
@@ -49,19 +49,46 @@ const Comments = ({ comments, postId }) => {
                 e.target.comment.value = ''
 
                 if (res.status === 200) {
+                    console.log("Creando socket")
                     emitSocketIO(socket, types.newComment, {
+                        
                         token: localStorage.getItem("token"),
                         postId,
                         type: types.newComment
                     })
 
-                    //handleClickVariant(generateNotification(JSON.parse(localStorage.getItem("socket")).senderName, types.newComment), "success")()
                 }
 
                 //onSocketIO(socket, types.newComment, handleClickVariant, "success")
+                socket.on("NEW_COMMENT", data => {
+                    console.log("Recibiendo NEW_COMMENT en el front. Estoy en Comments.")
+                    handleClickVariant(generateNotification(data.senderName, types.newComment), "success")()
+                    //fetchNotifications(dispatch)
+                })
+                socket.on("GET_NOTIFICATION", data => {
+                    console.log("Recibiendo GET_NOTIFICATION en el front. Estoy en Comments.")
+                    handleClickVariant(generateNotification(data.senderName, types.newComment), "success")()
+                    //fetchNotifications(dispatch)
+                })
             })
             .catch(err => console.log(err))
+    }
+
+    useEffect(() => {
+        socket.on("GET_NOTIFICATION", data => {
+            console.log("Recibiendo la notificacion desde el back. Estoy en Comments.")
+            return handleClickVariant(generateNotification(data.senderName, types.newComment), "success")()
+            //fetchNotifications(dispatch)
+        })
+        return () => {
+            socket.off("GET_NOTIFICATION", data => {
+                console.log("Recibiendo la notificacion desde el back. Estoy en Comments. OFF!!!")
+                return handleClickVariant(generateNotification(data.senderName, types.newComment), "success")()
+
+            })
+
         }
+    }, [socket])
 
     return (
         <Stack m='1em'>

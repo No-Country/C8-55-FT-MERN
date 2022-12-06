@@ -8,6 +8,9 @@ import getConfig from '../../config';
 import { CloudinaryContext, Image } from 'cloudinary-react'
 
 import {emitSocketIO, socket, onSocketIO} from "../../socketIO/socketIO";
+import { generateNotification, types } from '../../utils/notificationsUtils';
+
+import { useSnackbar } from 'notistack';
 
 const Feed = () => {
   
@@ -21,6 +24,14 @@ const Feed = () => {
       setCreatePostVisibility('none')
     }
   }
+
+  const { enqueueSnackbar } = useSnackbar();
+
+    const handleClickVariant = (msg = "", variant = "") => () => {
+
+        enqueueSnackbar(msg, { variant });
+        //localStorage.removeItem("socket");
+    };
   
   
   useEffect(() => {
@@ -33,7 +44,20 @@ const Feed = () => {
   
   useEffect(()=> {
       emitSocketIO(socket, "USERNAME", {token: localStorage.getItem("token")})
-      onSocketIO(socket, "GET_NOTIFICATION")
+      
+      /* socket.on("GET_NOTIFICATION", data => {
+        console.log("Llega la notificacion desde el back. Estoy en index del Feed.")
+        handleClickVariant(generateNotification(data.senderName, types.newComment), "success")()
+        //fetchNotifications(dispatch)
+      })
+      return () => {
+        socket.off("GET_NOTIFICATION", data => {
+          console.log("Llega la notificacion desde el back. Estoy en index del Feed. OFF!!")
+            handleClickVariant(generateNotification(data.senderName, types.newComment), "success")()
+
+        })
+
+    } */
   }, [])
  
 

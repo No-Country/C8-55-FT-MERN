@@ -7,6 +7,7 @@ import AccountBalanceOutlinedIcon from '@mui/icons-material/AccountBalanceOutlin
 import ShareOutlinedIcon from '@mui/icons-material/ShareOutlined';
 import RocketLaunchOutlinedIcon from '@mui/icons-material/RocketLaunchOutlined';
 import { useState } from 'react';
+import FormVertical from './components/FormVertical';
 
 const steps = [
     { name: 'Category', icon: CategoryOutlinedIcon, text: 'Hola como esta' },
@@ -42,21 +43,9 @@ const CreateProjects = () => {
 
     return (
         <Stack sx={{ flex: 1 }}>
-            <Box sx={{ width: '100%' }}>
-                <Stepper activeStep={formStep} alternativeLabel>
-                    {steps.map((label) => (
-                       
-                            <Step key={label.name}>
-                                <StepLabel StepIconComponent={label.icon}>{label.name}</StepLabel>
-                            </Step>
-                    
-                    ))}
-                </Stepper>
-                <ButtonGroup variant="text" color="primary" aria-label="">
-                    <Button onClick={backStep}>Back</Button>
-                    <Button onClick={nextStep}>Next</Button>
-                </ButtonGroup>
-            </Box>
+
+            <FormVertical/>
+
         </Stack>
     )
 }

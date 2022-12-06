@@ -16,6 +16,7 @@ const createProject = async (req, res) => {
     const uniqueProject = await projectServices.validateUniqueProject(name);
     if (uniqueProject.length === 0) {
       const project = await projectServices.createProject(
+        founder,
         title,
         subtitle,
         description,
@@ -24,7 +25,6 @@ const createProject = async (req, res) => {
         projectImg,
         amount,
         wallet,
-        founder,
       );
       return res.status(200).json({ created: "successfully", project });
     } else {

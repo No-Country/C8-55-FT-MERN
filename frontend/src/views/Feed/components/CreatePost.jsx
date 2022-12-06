@@ -27,8 +27,6 @@ const CreatePost = ({createPostVisibility}) => {
       }
     }, [quill])
 
-    console.log(postValue)
-
     const createPost = () => {
 
         const body = {

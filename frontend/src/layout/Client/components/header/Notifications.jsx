@@ -41,7 +41,6 @@ const StyledMenu = styled((props) => (
     borderRadius: 1,
     marginTop: theme.spacing(4),
     minWidth: 430,
-    border: "solid 1px red",
     [theme.breakpoints.down("md")]: {
       display: "none"
     },

@@ -10,7 +10,7 @@ import { SnackbarProvider } from 'notistack';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <SnackbarProvider maxSnack={3} autoHideDuration={1000}>
+    <SnackbarProvider maxSnack={1} autoHideDuration={1000}>
       <Provider store={store}>
         <HashRouter>
           <App />

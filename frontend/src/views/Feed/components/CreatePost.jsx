@@ -10,7 +10,7 @@ import getConfig from '../../../config';
 
 const modules = {
     toolbar: [
-        ['bold', 'italic', 'underline', 'strike', 'link']
+        ['bold', 'italic', 'underline', 'strike', 'link', "image"]
     ]
 }
 
@@ -26,6 +26,8 @@ const CreatePost = ({createPostVisibility}) => {
         })
       }
     }, [quill])
+
+    console.log(postValue)
 
     const createPost = () => {
 

@@ -1,5 +1,5 @@
 import { Stack, Box, Divider, CardMedia, Typography, TextField, IconButton } from '@mui/material'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import CommentDetails from './CommentDetails'
 import SendIcon from '@mui/icons-material/Send';
 import axios from 'axios'
@@ -55,11 +55,13 @@ const Comments = ({ comments, postId }) => {
                         type: types.newComment
                     })
 
-                    handleClickVariant(generateNotification(JSON.parse(localStorage.getItem("socket")).senderName, types.newComment), "success")()
+                    //handleClickVariant(generateNotification(JSON.parse(localStorage.getItem("socket")).senderName, types.newComment), "success")()
                 }
+
+                //onSocketIO(socket, types.newComment, handleClickVariant, "success")
             })
             .catch(err => console.log(err))
-    }
+        }
 
     return (
         <Stack m='1em'>

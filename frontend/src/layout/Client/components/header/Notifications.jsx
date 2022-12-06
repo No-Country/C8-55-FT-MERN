@@ -4,6 +4,7 @@ import { Notifications as NotificationsIcon } from '@mui/icons-material';
 
 import * as React from 'react';
 import { styled, alpha } from '@mui/material/styles';
+import {createTheme} from "@mui/material";
 import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
@@ -16,8 +17,8 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 
 import { Badge, Box, Avatar } from '@mui/material';
 
-import { onSocketIO, emitSocketIO, socket } from "../../../socketIO/socketIO";
-import { fetchNotifications, generateNotification, patchNotification } from '../../../utils/notificationsUtils';
+import { onSocketIO, emitSocketIO, socket } from "../../../../socketIO/socketIO";
+import { fetchNotifications, generateNotification, patchNotification } from '../../../../utils/notificationsUtils';
 import { useSelector, useDispatch } from "react-redux";
 
 const StyledMenu = styled((props) => (
@@ -40,6 +41,10 @@ const StyledMenu = styled((props) => (
     borderRadius: 1,
     marginTop: theme.spacing(4),
     minWidth: 430,
+    border: "solid 1px red",
+    [theme.breakpoints.down("md")]: {
+      display: "none"
+    },
     color:
       theme.palette.mode === 'light' ? 'rgb(55, 65, 81)' : theme.palette.grey[300],
     boxShadow:
@@ -67,6 +72,9 @@ export default function Notifications() {
 
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
+
+  const theme = createTheme()
+
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -77,24 +85,27 @@ export default function Notifications() {
   const { notificationsList: notifications } = useSelector(state => state.notification);
   let dispatch = useDispatch()
 
-  const setFormatDate = (date) => {
-    let newDate = new Date(date)
-
-    return newDate
-  }
-
   return (
     <div>
       <Badge
         badgeContent={notifications ? notifications.length : 0}
-        color="primary"
+        color="warning"
       >
         <NotificationsIcon
           id="demo-customized-button"
           aria-controls={open ? 'demo-customized-menu' : undefined}
           aria-haspopup="true"
           aria-expanded={open ? 'true' : undefined}
-          sx={{ color: "gainsboro", cursor: "pointer" }}
+          sx={{ 
+            color: "gainsboro", 
+            cursor: "pointer",
+            [theme.breakpoints.up("sm")]: {
+                fontSize: "35px"
+            },
+            [theme.breakpoints.down("md")]: {
+              color: "var(--color-complement-black)"
+            }
+           }}
           onClick={(e) => {
             console.log("OnCLick")
             handleClick(e)
@@ -118,37 +129,7 @@ export default function Notifications() {
             ?
             notifications.map((notification, id) => (
               <Box key={id}>
-                <MenuItem
-                  onClick={() => {
-                    handleClose()
-                    patchNotification(notification._id)
-                    fetchNotifications(dispatch)
-                  }}
-                  disableRipple
-                  sx={
-                    {
-                      backgroundColor: '#edf2f4',
-                      display: "flex",
-                      flexDirection: "column",
-                      justifyContent: "space-between",
-                      height: "90px",
-                      borderBottom: "solid 1px lightGray",
-                      paddingTop: "20px"
-                    }
-                  }
-                >
-                  <Box sx={{ display: "flex", alignItems: "center", padding: 0 }}>
-                    < Avatar
-                      alt="avatar"
-                      src={notification.profileImage}
-                      sx={{ marginRight: "10px" }}
-                    />
-                    {generateNotification(notification.senderName, notification.type)}
-                  </Box>
-                  <Box sx={{fontSize: "14px", width: "100%", textAlign: "end", color: "gray"}}>
-                    {setFormatDate(notification.updatedAt).toLocaleString()}
-                  </Box>
-                </MenuItem>
+                <NotificationsCard notification = {notification}/>
               </Box>
 
             ))

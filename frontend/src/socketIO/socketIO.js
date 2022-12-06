@@ -1,11 +1,13 @@
 import { io } from "socket.io-client";
+import { generateNotification, types } from "../utils/notificationsUtils";
 
 export const socket = io("http://localhost:3000");
 
-export const onSocketIO = (socket, name) => {
+export const onSocketIO = (socket, name, handleClickVariant, typeNotification) => {
 
     socket.on(name, (data) => {
-        localStorage.setItem("socket", JSON.stringify(data))
+        //localStorage.setItem("socket", JSON.stringify(data))
+        //handleClickVariant(generateNotification(data.senderName, name), typeNotification)()
     })
 }
 

@@ -1,9 +1,6 @@
-import React, { useEffect } from 'react'
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import ManageSearchIcon from '@mui/icons-material/ManageSearch';
+import React from 'react'
 import SearchIcon from '@mui/icons-material/Search';
 import MenuIcon from '@mui/icons-material/Menu';
-import ChatIcon from '@mui/icons-material/Chat';
 import { useSelector } from 'react-redux';
 import LockPersonOutlinedIcon from '@mui/icons-material/LockPersonOutlined';
 import SettingsApplicationsOutlinedIcon from '@mui/icons-material/SettingsApplicationsOutlined';
@@ -23,10 +20,7 @@ import {
   Popover,
   createTheme
 } from '@mui/material';
-import {
-  Notifications as NotificationsIcon
-} from '@mui/icons-material';
-import { onSocketIO, emitSocketIO, socket } from "../../../../socketIO/socketIO";
+
 import NavbarMobile from './NavbarMobile';
 import TemporaryDrawer from "./TemporaryDrawer";
 import Notifications from "./Notifications";
@@ -83,7 +77,6 @@ const Header = () => {
   const id = open ? 'simple-popover' : undefined;
 
   const theme = createTheme();
-  console.log(theme)
 
   const navigate = useNavigate()
 
@@ -121,7 +114,6 @@ const Header = () => {
           <IconButton
             sx={{
               color: 'var(--color-gray-lofi)',
-              /* p: '10px', */
               [theme.breakpoints.down("md")]: {
                 display: "none"
               }
@@ -134,7 +126,6 @@ const Header = () => {
           <Paper
             component="form"
             sx={{
-              /* p: '2px 4px', */
               display: 'flex',
               alignItems: 'center',
               height: "fit-content",
@@ -147,35 +138,12 @@ const Header = () => {
             }}
           >
             <InputBase
-              sx={{ pl: 5,/* ml: 30, */ /* flex: 1, */ width: "100%" }}
-            /* placeholder="Buscar Proyecto" */
-            // inputProps={{ 'aria-label': 'search google maps' }}
+              sx={{ pl: 5, width: "100%" }}
             />
-            {/* <IconButton
-              type="button"
-              sx={{ p: '1px', border: "solid 1px red" }}
-              aria-label="search"
-            > */}
             <SearchIcon sx={{ position: "absolute", left: 5 }} />
-            {/* </IconButton> */}
           </Paper>
         </Box>
         <Box sx={style.boxUser}>
-
-          {/* <Notifications
-            sx={{
-              color: "gainsboro",
-              cursor: "pointer",
-              [theme.breakpoints.down("md")]: {
-                display: "none"
-              }
-            }}
-            onClick={() => {
-              console.log("OnCLick")
-              emitSocketIO(socket)
-              onSocketIO(socket)
-            }}
-          /> */}
 
           <Box
             sx={{
@@ -214,12 +182,12 @@ const Header = () => {
           </Button>
 
           <IconButton aria-describedby={id} onClick={handleClick} sx={{ color: '#74F7AE' }}>
-            {/* <AccountCircleIcon /> */}
             <Avatar
               alt={`${user?.name} ${user?.lastName}`}
               src={`${user?.profileImage}`}
             />
           </IconButton>
+
           <Popover
             id={id}
             open={open}
@@ -231,13 +199,29 @@ const Header = () => {
             }}
           >
 
-            <Box sx={{ p: '1em', display: 'flex', gap: '0.5em', alignItems: 'center', cursor: "pointer" }}>
+            <Box sx={{
+              p: '1em',
+              display: 'flex',
+              gap: '0.5em',
+              alignItems: 'center',
+              cursor: "pointer"
+            }}
+            >
               <SettingsApplicationsOutlinedIcon />
               <Typography>Configuration</Typography>
             </Box>
 
             <Divider sx={{ mx: '1em' }} />
-            <Box onClick={signOut} sx={{ p: '1em', display: 'flex', gap: '0.5em', alignItems: 'center', cursor: "pointer" }}>
+            <Box
+              onClick={signOut}
+              sx={{
+                p: '1em',
+                display: 'flex',
+                gap: '0.5em',
+                alignItems: 'center',
+                cursor: "pointer"
+              }}
+            >
               <LockPersonOutlinedIcon sx={{ color: 'error.main' }} />
               <Typography>Sign out</Typography>
 

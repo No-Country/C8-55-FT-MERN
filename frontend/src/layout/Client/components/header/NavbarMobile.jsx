@@ -9,64 +9,66 @@ import {
 import {
     Menu,
     Search,
-    /* Notifications, */
     Chat
 } from "@mui/icons-material";
 
 import TemporaryDrawer from "./TemporaryDrawer"
 import Notifications from "./Notifications";
+import {useNavigate} from "react-router-dom"
 
-const theme = createTheme();
-
-const styles = {
-    navbar: {
-        color: "var(--color-complement-black)",
-        cursor: "pointer",
-        [theme.breakpoints.up("sm")]: {
-            fontSize: "35px"
-        }
-    }
-}
-
-const navbar = [
-    {
-        side: "left",
-        name: "Menu",
-        component: <BottomNavigationAction label="Menu" icon={<Menu sx={styles.navbar} />} />,
-        items: [
-            {
-                name: "Descubre",
-                icon: ""
-            },
-            {
-                name: "Crear Proyecto",
-                icon: ""
-            },
-            {
-                name: "Sobre Nosotros",
-                icon: ""
-            },
-        ]
-    },
-    {
-        side: "bottom",
-        name: "Search",
-        component: <BottomNavigationAction label="Search" icon={<Search sx={styles.navbar} />} />
-    },
-    {
-        side: "right",
-        name: "Messages",
-        component: <BottomNavigationAction label="Messages" icon={<Chat sx={styles.navbar} />} />
-    },
-    {
-        side: "",
-        name: "Notifications",
-        component: <BottomNavigationAction label="Notifications" icon={<Notifications />} />
-    },
-
-]
 
 export default function NavbarMobile() {
+    const theme = createTheme();
+    const navigate = useNavigate();
+    
+    const styles = {
+        navbar: {
+            color: "var(--color-complement-black)",
+            cursor: "pointer",
+            [theme.breakpoints.up("sm")]: {
+                fontSize: "35px"
+            }
+        }
+    }
+    
+    const navbar = [
+        {
+            side: "left",
+            name: "Menu",
+            component: <BottomNavigationAction label="Menu" icon={<Menu sx={styles.navbar} />} />,
+            items: [
+                {
+                    name: "Descubre",
+                    icon: ""
+                },
+                {
+                    name: "Crear Proyecto",
+                    icon: ""
+                },
+                {
+                    name: "Sobre Nosotros",
+                    icon: ""
+                },
+            ]
+        },
+        {
+            side: "bottom",
+            name: "Search",
+            component: <BottomNavigationAction label="Search" icon={<Search sx={styles.navbar} />} />
+        },
+        {
+            side: "right",
+            name: "Messages",
+            component: <BottomNavigationAction label="Messages" icon={<Chat sx={styles.navbar} />} />
+        },
+        {
+            side: "off",
+            name: "Notifications",
+            component: <BottomNavigationAction onClick={()=> navigate("notifications")} label="Notifications" icon={<Notifications />} />
+        },
+    
+    ]
+
     const [value, setValue] = React.useState(0);
 
     return (

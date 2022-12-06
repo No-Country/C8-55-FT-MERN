@@ -19,6 +19,7 @@ export default function TemporaryDrawer({navbar}) {
     left: false,
     bottom: false,
     right: false,
+    off: false
   });
 
   const toggleDrawer = (anchor, open) => (event) => {
@@ -26,7 +27,12 @@ export default function TemporaryDrawer({navbar}) {
       return;
     }
 
-    setState({ ...state, [anchor]: open });
+    anchor.name === "Notifications" 
+    ?
+    setState({ ...state, [anchor.side]: false })
+    :
+    setState({ ...state, [anchor.side]: open })
+
   };
 
   const list = (anchor, items = []) => (
@@ -68,11 +74,14 @@ export default function TemporaryDrawer({navbar}) {
     <div style={{display: "flex", justifyContent: "space-around", width: "100%"}}>
       {navbar.map((anchor) => (
         <React.Fragment key={anchor.name}>
-          <Box onClick={anchor.name !== "Notifications" && toggleDrawer(anchor.side, true)}>{anchor.component}</Box>
+          <Box onClick={toggleDrawer(anchor, true)}
+          >
+            {anchor.component}
+          </Box>
           <Drawer
             anchor={anchor.side}
             open={state[anchor.side]}
-            onClose={toggleDrawer(anchor.side, false)}
+            onClose={toggleDrawer(anchor, false)}
           >
             {list(anchor.side, anchor.items || [])}
           </Drawer>

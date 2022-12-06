@@ -43,10 +43,7 @@ const StyledMenu = styled((props) => (
     minWidth: 430,
     border: "solid 1px red",
     [theme.breakpoints.down("md")]: {
-      maxWidth: "auto",
-      /* marginTop: theme.spacing(2), */
-      margin: 0,
-      left: 0
+      display: "none"
     },
     color:
       theme.palette.mode === 'light' ? 'rgb(55, 65, 81)' : theme.palette.grey[300],
@@ -88,17 +85,11 @@ export default function Notifications() {
   const { notificationsList: notifications } = useSelector(state => state.notification);
   let dispatch = useDispatch()
 
-  const setFormatDate = (date) => {
-    let newDate = new Date(date)
-
-    return newDate
-  }
-
   return (
     <div>
       <Badge
         badgeContent={notifications ? notifications.length : 0}
-        color="primary"
+        color="warning"
       >
         <NotificationsIcon
           id="demo-customized-button"
@@ -108,6 +99,9 @@ export default function Notifications() {
           sx={{ 
             color: "gainsboro", 
             cursor: "pointer",
+            [theme.breakpoints.up("sm")]: {
+                fontSize: "35px"
+            },
             [theme.breakpoints.down("md")]: {
               color: "var(--color-complement-black)"
             }
@@ -129,44 +123,13 @@ export default function Notifications() {
         anchorEl={anchorEl}
         open={open}
         onClose={handleClose}
-        sx={{border:"solid 5px green", overflow: "hidden", padding: "0", margin: "0"}}
       >
         {
           notifications && notifications.length > 0
             ?
             notifications.map((notification, id) => (
               <Box key={id}>
-                <MenuItem
-                  onClick={() => {
-                    handleClose()
-                    patchNotification(notification._id)
-                    fetchNotifications(dispatch)
-                  }}
-                  disableRipple
-                  sx={
-                    {
-                      backgroundColor: '#edf2f4',
-                      display: "flex",
-                      flexDirection: "column",
-                      justifyContent: "space-between",
-                      height: "90px",
-                      borderBottom: "solid 1px lightGray",
-                      paddingTop: "20px"
-                    }
-                  }
-                >
-                  <Box sx={{ display: "flex", alignItems: "center", padding: 0 }}>
-                    < Avatar
-                      alt="avatar"
-                      src={notification.profileImage}
-                      sx={{ marginRight: "10px" }}
-                    />
-                    {generateNotification(notification.senderName, notification.type)}
-                  </Box>
-                  <Box sx={{fontSize: "14px", width: "100%", textAlign: "end", color: "gray"}}>
-                    {setFormatDate(notification.updatedAt).toLocaleString()}
-                  </Box>
-                </MenuItem>
+                <NotificationsCard notification = {notification}/>
               </Box>
 
             ))

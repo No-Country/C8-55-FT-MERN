@@ -99,11 +99,13 @@ const Header = () => {
       <Stack sx={style.header}>
 
         <Typography
+          onClick={() => navigate('/')}
           variant='h6'
           color="var(--color-gray-lofi)"
           sx={{
             fontFamily: "var(--font-secondary)",
-            flexGrow: 0.5
+            flexGrow: 0.5,
+            cursor: 'pointer',
           }}
         >
           RocketCup
@@ -155,7 +157,7 @@ const Header = () => {
             <Notifications />
           </Box>
 
-          <Button
+          <Button onClick={() => navigate('/projects/create')}
             variant='text'
             sx={{
               color: 'var(--color-gray-lofi)',
@@ -169,6 +171,7 @@ const Header = () => {
           </Button>
 
           <Button
+            onClick={() => navigate('/projects')}
             variant='text'
             sx={{
               color: 'var(--color-gray-lofi)',

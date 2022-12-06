@@ -1,17 +1,20 @@
 import React, { useState } from 'react'
-import { Box, Button, Paper, Step, StepContent, StepLabel, Stepper, Typography } from '@mui/material';
+import axios from 'axios'
+import { Alert, AlertTitle, Box, Button, Paper, Step, StepContent, StepLabel, Stepper, Typography } from '@mui/material';
 import CategoryForm from './CategoryForm';
 import DescriptionForm from './DescriptionForm';
 import FinancialForm from './FinancialForm';
+import { useNavigate } from 'react-router-dom'
+import getConfig from '../../../../config';
 
 const steps = [
     {
         label: 'Project Description',
-        form: <DescriptionForm/>,
+        form: <DescriptionForm />,
     },
     {
         label: 'Financial Description',
-        form: <FinancialForm/>,
+        form: <FinancialForm />,
     },
     {
         label: 'Create an ad',
@@ -26,6 +29,8 @@ const steps = [
 const FormVertical = () => {
 
     const [activeStep, setActiveStep] = useState(0);
+    const [descriptionData, setDescriptionData] = useState()
+    const [financialData, setFinancialData] = useState()
 
     const handleNext = () => {
         setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -39,49 +44,100 @@ const FormVertical = () => {
         setActiveStep(0);
     };
 
+    const navigate = useNavigate()
+
+    const createProject = () => {
+
+        const body = {
+            title: descriptionData.title,
+            subtitle: descriptionData.subtitle,
+            description: descriptionData.description,
+            risk: descriptionData.risk,
+            textUrl: descriptionData.url,
+            projectImg: descriptionData.img,
+            amount: financialData.amount,
+            wallet: financialData.wallet,
+
+        }
+
+        axios.post('http://localhost:3000/project/create' , body, getConfig())
+        .then(res => console.log(res.data))
+        .catch(err => console.log(err))
+
+        console.log(body)
+     
+
+        // handleNext()
+    }
+
+
+
     return (
         <Box sx={{ maxWidth: 1000, maxHeight: 710, overflow: 'scroll' }}>
             <Stepper activeStep={activeStep} orientation="vertical">
-                {steps.map((step, index) => (
-                    <Step key={step.label}>
-                        <StepLabel
-                            optional={
-                                index === 2 ? (
-                                    <Typography variant="caption">Last step</Typography>
-                                ) : null
-                            }
-                        >
-                            {step.label}
-                        </StepLabel>
-                        <StepContent>
-                            {step.form}
-                            <Box sx={{ mb: 2 }}>
-                                <div>
-                                    <Button
-                                        variant="contained"
-                                        onClick={handleNext}
-                                        sx={{ mt: 1, mr: 1 }}
-                                    >
-                                        {index === steps.length - 1 ? 'Finish' : 'Continue'}
-                                    </Button>
-                                    <Button
-                                        disabled={index === 0}
-                                        onClick={handleBack}
-                                        sx={{ mt: 1, mr: 1 }}
-                                    >
-                                        Back
-                                    </Button>
-                                </div>
-                            </Box>
-                        </StepContent>
-                    </Step>
-                ))}
+
+                <Step>
+                    <StepLabel
+
+                    >
+                        Project Description
+                    </StepLabel>
+                    <StepContent>
+                        <DescriptionForm handleBack={handleBack} handleNext={handleNext} setDescriptionData={setDescriptionData} />
+
+                    </StepContent>
+                </Step>
+                <Step>
+                    <StepLabel
+
+                    >
+                        Financial Description
+                    </StepLabel>
+                    <StepContent>
+                        <FinancialForm handleBack={handleBack} handleNext={handleNext} setFinancialData={setFinancialData} />
+
+                    </StepContent>
+                </Step>
+                <Step>
+                    <StepLabel
+
+                    >
+                        Finish
+                    </StepLabel>
+                    <StepContent>
+                        <Alert sx={{ width: '100%' }} severity="info">
+                            <AlertTitle>Info</AlertTitle>
+                            Esta a punto de crear un proyecto de exposicion global — <strong>Se precavido</strong>
+                        </Alert>
+                        <Box sx={{ mb: 2 }}>
+                            <div>
+                                <Button
+                                    variant="contained"
+                                    onClick={createProject}
+                                    sx={{ mt: 1, mr: 1 }}
+                                >
+                                    Finish
+                                </Button>
+
+                                <Button
+
+                                    onClick={handleBack}
+                                    sx={{ mt: 1, mr: 1 }}
+                                >
+                                    Back
+                                </Button>
+                            </div>
+                        </Box>
+                    </StepContent>
+                </Step>
+
+
             </Stepper>
             {activeStep === steps.length && (
                 <Paper square elevation={0} sx={{ p: 3 }}>
                     <Typography>All steps completed - you&apos;re finished</Typography>
-                    <Button onClick={handleReset} sx={{ mt: 1, mr: 1 }}>
-                        Reset
+                    <Button onClick={() => navigate('/projects')} sx={{ mt: 1, mr: 1 }}>
+                        Ver todos los proyectos
                     </Button>
                 </Paper>
             )}

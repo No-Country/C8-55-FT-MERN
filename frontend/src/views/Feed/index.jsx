@@ -43,11 +43,9 @@ const Feed = () => {
   }, [])
   
   useEffect(()=> {
-      emitSocketIO(socket, "USERNAME", {token: localStorage.getItem("token")})
-      //onSocketIO(socket, "GET_NOTIFICATION")
+        emitSocketIO(socket, "USERNAME", {token: localStorage.getItem("token")})
 
         socket.on("GET_NOTIFICATION", (data)=> {
-            console.log(data)
             handleClickVariant(generateNotification(data.senderName, types.newComment), "success")()
             fetchNotifications(dispatch)
         })

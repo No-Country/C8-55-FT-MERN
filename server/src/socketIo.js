@@ -30,7 +30,27 @@ const socketOn = (io) => {
       }
     });
     console.log("Nueva conexion");
+    socket.on("SEARCH_USER", async ({ data }) => {
+      const dataSplit = data.split(" ");
+      console.log(dataSplit[0]);
 
+      const users = await User.find(
+        {
+          name: { $regex: dataSplit[0], $options: "i" },
+          lastName: {
+            $regex: dataSplit[2]
+              ? ".*" + dataSplit[1] + " " + dataSplit[2] + ".*"
+              : dataSplit[1]
+              ? ".*" + dataSplit[1] + ".*"
+              : "",
+            $options: "i",
+          },
+        },
+        { name: 1, lastName: 1, profileImage: 1 }
+      ).limit(5);
+      console.log(users);
+      socket.emit("SEARCHED_USER", { data: users });
+    });
     socket.on("NEW_COMMENT", async ({ data }) => {
       try {
         const { postId, token, type } = data;

@@ -11,10 +11,23 @@ const path = require("path");
 
 //swagger
 const swaggerUI = require("swagger-ui-express");
-const documentation = require("./helpers/documentation")
-
+const documentation = require("./helpers/documentation");
+const { socketOn } = require("./socketIo");
 
 const app = express();
+const http = require("http")
+  .createServer(app)
+  .listen(PORT, () => {
+    console.log(`listening on port http://localhost:${PORT}/ ​​​🤟​😎​`);
+  });
+const io = require("socket.io")(http, {
+  cors: {
+    origin: "http://localhost:5173",
+  },
+});
+
+socketOn(io);
+
 db().then(() => {
   console.log("connected to database");
 });
@@ -25,20 +38,17 @@ app.use(express.json());
 app.use(urlencoded({ extended: true }));
 app.use(morgan("dev"));
 app.use(helmet());
-app.use('/', routes)
-app.use("/api-doc",swaggerUI.serve,swaggerUI.setup(documentation));
-
+app.use("/", routes);
+app.use("/api-doc", swaggerUI.serve, swaggerUI.setup(documentation));
 
 app.set("port", PORT || 3000);
 
 app.use((err, req, res, next) => {
   const statusCode = err.statusCode || 500;
   console.error(err.message, err.stack);
-  res.status(statusCode).json({'message': err.message});
-  
+  res.status(statusCode).json({ message: err.message });
+
   return;
 });
 
-app.listen(PORT, () => {
-  console.log(`listening on port http://localhost:${PORT}/ ​​​🤟​😎​`);
-});
+module.exports = { io };

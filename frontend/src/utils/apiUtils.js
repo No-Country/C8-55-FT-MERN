@@ -1,6 +1,7 @@
 import axios from 'axios';
 
-axios.defaults.baseURL = process.env.REACT_APP_API_URI;
+//axios.defaults.baseURL = process.env.REACT_APP_API_URI;
+axios.defaults.baseURL = "http://localhost:3000";
 
 const getHeaders = () => {
   const headers = { 'Content-Type': 'application/json' };

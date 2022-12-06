@@ -7,6 +7,7 @@ import Feed from "./views/Feed"
 import Home from "./views/Home"
 import LogIndex from "./views/Login"
 import Projects from "./views/Projects";
+import NotificationsMobile from "./views/NotificationsMobile/NotificationsMobile"
 
 import FormExample from "../FormExample";
 import CreateProjects from "./views/Projects/CreateProject"
@@ -20,6 +21,7 @@ function App() {
         <Route path="/feed" element={<Feed />} />
         <Route path="/projects" element={<Projects />} />
         <Route path="/projects/create" element={<CreateProjects/>}/>
+        <Route path="/notifications" element={<NotificationsMobile />} />
       </Route>
       <Route element={<PublicLayout />}>
         <Route path="/" element={<Home />} />

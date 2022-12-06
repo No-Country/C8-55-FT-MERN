@@ -13,6 +13,8 @@ import Comments from './Comments';
 import axios from 'axios'
 import getConfig from '../../../config';
 
+import {emitSocketIO, socket} from "../../../socketIO/socketIO";
+
 const style = {
     postSharedStyle: {
 
@@ -35,9 +37,11 @@ const PostShared = ({ post }) => {
         const body = {
             userId
         }
-        axios.put(`http://localhost:3000/comment/like/${userId}`, body, getConfig())
+        axios.put(`http://localhost:3000/comments/like/${userId}`, body, getConfig())
             .then(res => console.log(res.data))
             .catch(err => console.log(err))
+
+        //emitSocketIO(socket, "likePost", {postID: post._id})
     }
 
     const followUser = id => {

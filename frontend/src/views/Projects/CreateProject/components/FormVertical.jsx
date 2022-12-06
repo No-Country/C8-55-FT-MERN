@@ -31,6 +31,7 @@ const FormVertical = () => {
     const [activeStep, setActiveStep] = useState(0);
     const [descriptionData, setDescriptionData] = useState()
     const [financialData, setFinancialData] = useState()
+    const [img, setImg] = useState()
 
     const handleNext = () => {
         setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -57,7 +58,6 @@ const FormVertical = () => {
             projectImg: descriptionData.img,
             amount: financialData.amount,
             wallet: financialData.wallet,
-
         }
 
         axios.post('http://localhost:3000/project/create' , body, getConfig())
@@ -67,7 +67,7 @@ const FormVertical = () => {
         console.log(body)
      
 
-        // handleNext()
+        handleNext()
     }
 
 

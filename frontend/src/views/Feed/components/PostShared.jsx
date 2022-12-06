@@ -81,7 +81,6 @@ const PostShared = ({ post }) => {
                   </IconButton>
                 </Box>
                 <Box sx={{ marginX: '1em' }}>
-                    {/* {post.text} */}
                     <div dangerouslySetInnerHTML={{ __html: post.text }}  ></div>
                 </Box>
                 <Divider sx={{ marginTop: '1em' }} />

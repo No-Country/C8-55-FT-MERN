@@ -10,6 +10,12 @@ import {
 
 const FormExample = () => {
 
+    const ex = [1, 2, 3, 4, 5]
+
+     const example = ex.reverse()
+
+     console.log(example)
+
     const { name, email } = valuesSchema;
 
     let initValues = {
@@ -29,7 +35,7 @@ const FormExample = () => {
             onSubmit={(e, {setValues}) => handleSubmit(e, setValues)}
         >
             {({ errors, touched, handleChange, values }) => {
-                console.log(values)
+                // console.log(values)
                 return (
                 <Form>
                     <TextField

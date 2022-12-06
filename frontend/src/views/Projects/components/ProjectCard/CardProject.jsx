@@ -1,5 +1,6 @@
 import React, { useRef } from 'react'
 import { Grid, Box, Button, Typography, CardMedia, createTheme, Avatar } from '@mui/material'
+import AttachMoneyOutlinedIcon from '@mui/icons-material/AttachMoneyOutlined';
 
 //MUI Icons
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
@@ -9,9 +10,10 @@ import LoupeIcon from '@mui/icons-material/Loupe';
 //Utils
 import { HandleMouseEnter, HandleMouseLeave } from "../../../../utils/cardProjectUtils";
 import useScreenSize from "../../../../hooks/useScreenSize";
+import { AtmOutlined } from '@mui/icons-material';
 
-const CardProject = () => {
-
+const CardProject = ({ project }) => {
+    console.log(project)
     const theme = createTheme();
     const descriptionRef = useRef();
     const resize = useScreenSize();
@@ -56,7 +58,7 @@ const CardProject = () => {
                             }
                             }
                             component="img"
-                            image="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8cGVyc29ufGVufDB8fDB8fA%3D%3D&w=1000&q=80"
+                            image={`${project.projectImg}`}
                             alt="green iguana"
                             onMouseEnter={() => HandleMouseEnter(descriptionRef, resize.widthResize)}
                         />
@@ -84,7 +86,7 @@ const CardProject = () => {
                                 variant="h5"
                                 sx={{ color: "var(--color-gray-lofi)" }}
                             >
-                                Re:Clothes
+                                {project.title}
                             </Typography>
 
                             <Button
@@ -178,7 +180,7 @@ const CardProject = () => {
                                                                     }
                                                                 }
                                                             >
-                                                                Re:Clothes
+                                                                {project.title}
                                                             </Typography>
                                                             <Button
                                                                 sx={
@@ -209,7 +211,7 @@ const CardProject = () => {
                                                             }
                                                             variant="small"
                                                         >
-                                                            Esta es la descripción del proyecto.
+                                                            <div dangerouslySetInnerHTML={{ __html: project.description }} />
                                                         </Typography>
                                                     </Grid>
                                                 </Grid>
@@ -350,7 +352,7 @@ const CardProject = () => {
                                                     }
                                                 }
                                             >
-                                                < ModeCommentIcon
+                                                < AttachMoneyOutlinedIcon
                                                     sx={
                                                         {
                                                             color: "var(--color-complement-black)",
@@ -370,7 +372,7 @@ const CardProject = () => {
                                                         }
                                                     }
                                                 >
-                                                    4k
+                                                    {project.amount}
                                                 </Typography>
                                             </Box>
                                         </Grid>

@@ -1,6 +1,7 @@
 import { Box, CardMedia, Typography, IconButton } from '@mui/material'
 import React from 'react'
 import AddIcon from '@mui/icons-material/Add';
+import MobileScreenShareOutlinedIcon from '@mui/icons-material/MobileScreenShareOutlined';
 
 const style = {
     topProject: {
@@ -18,7 +19,6 @@ const style = {
 }
 
 const TopProject = ({project}) => {
-
     return (
         <Box sx={style.topProject}>
             <Box sx={{ backgroundColor: '#23222F', width: '3em', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
@@ -34,9 +34,9 @@ const TopProject = ({project}) => {
                         alt="green iguana"
                     />
                 </Box>
-                <Typography variant="body1" >{project.name}</Typography>
+                <Typography variant="body1" >{project.title}</Typography>
                 <IconButton sx={{position: 'absolute', right: 0}} >
-                  <AddIcon/>
+                  <MobileScreenShareOutlinedIcon/>
                 </IconButton>
             </Box>
         </Box>

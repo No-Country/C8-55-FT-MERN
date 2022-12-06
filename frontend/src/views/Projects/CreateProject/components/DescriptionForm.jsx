@@ -8,10 +8,11 @@ const modules = {
   ]
 }
 
-const DescriptionForm = ({ setDescriptionData, handleNext, handleBack }) => {
+const DescriptionForm = ({ setDescriptionData, handleNext, handleBack, setImg, img }) => {
 
   const { quill, quillRef } = useQuill({ modules });
   const [postValue, setPostValue] = useState()
+
 
   useEffect(() => {
     if (quill) {
@@ -23,17 +24,18 @@ const DescriptionForm = ({ setDescriptionData, handleNext, handleBack }) => {
 
   const creationDescription = () => {
 
+
     setDescriptionData({
       title: title.value,
       subtitle: subtitle.value,
       description: quillRef.current.firstChild.innerHTML,
       risk: risk.value,
       url: url.value,
-      img: img.value
+      img: 'https://cdn.akamai.steamstatic.com/steam/apps/108600/capsule_616x353.jpg?t=1644611871'
     })
+ 
+  handleNext()
 
-    handleNext()
-console.log(risk.value)
   }
 
 
@@ -95,7 +97,7 @@ console.log(risk.value)
 
           <Button variant="contained" component="label">
             Upload Image
-            <input id='img' hidden accept="image/*" multiple type="file" />
+            <input hidden accept="image/*" type="file" onChange={(e) => setImg(e.target.files[0])} />
           </Button>
         </Box>
         <Box sx={{ width: 700, padding: '1em', backgroundColor: '#23222F', borderRadius: '0.5em', textAlign: 'justify' }}>

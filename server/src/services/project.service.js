@@ -33,8 +33,8 @@ const getProject = async (id) => {
   return await Project.findById(id).lean().populate("members");
 };
 
-const validateUniqueProject = async (name) => {
-  const project = await Project.find({ name: name });
+const validateUniqueProject = async (title) => {
+  const project = await Project.find({ title: title });
   if (project) {
     return project;
   }

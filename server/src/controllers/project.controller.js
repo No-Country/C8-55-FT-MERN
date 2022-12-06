@@ -13,7 +13,7 @@ const createProject = async (req, res) => {
       wallet,
     } = req.body;
     const founder = req.userId;
-    const uniqueProject = await projectServices.validateUniqueProject(name);
+    const uniqueProject = await projectServices.validateUniqueProject(title);
     if (uniqueProject.length === 0) {
       const project = await projectServices.createProject(
         founder,

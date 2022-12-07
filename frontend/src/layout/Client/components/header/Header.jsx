@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import SearchIcon from '@mui/icons-material/Search';
 import MenuIcon from '@mui/icons-material/Menu';
 import { useSelector } from 'react-redux';
@@ -25,6 +25,8 @@ import NavbarMobile from './NavbarMobile';
 import TemporaryDrawer from "./TemporaryDrawer";
 import Notifications from "./Notifications";
 import { emitSocketIO, onSocketIO, socket } from '../../../../socketIO/socketIO';
+import SearchResults from "./SearchResults";
+import Search from "./Search";
 
 const style = {
   header: {
@@ -94,15 +96,7 @@ const Header = () => {
     navigate('/')
 
   }
-  const searchUser = (e)=>{
-    e.preventDefault()
-    console.log(e.target.value)
-    emitSocketIO(socket,"SEARCH_USER", e.target.value)
-    // onSocketIO(socket ,"SEARCHED_USER")
-    socket.on("SEARCHED_USER", data=>{
-      console.log(data)
-    })
-  }
+
   return (
     <Stack>
       <Stack sx={style.header}>
@@ -133,29 +127,16 @@ const Header = () => {
           >
             <TemporaryDrawer navbar={navbar} />
           </IconButton>
-
-          <Paper
-            component="form"
+          <Box 
             sx={{
-              display: 'flex',
-              alignItems: 'center',
-              height: "fit-content",
-              width: '100%',
-              maxWidth: 400,
-              position: "relative",
+              width: "100%",
               [theme.breakpoints.down("md")]: {
                 display: "none"
               }
             }}
           >
-            <InputBase
-            onChange={e => {
-              searchUser(e)
-             }}
-              sx={{ pl: 5, width: "100%" }}
-            />
-            <SearchIcon sx={{ position: "absolute", left: 5 }} />
-          </Paper>
+            <Search/>
+          </Box>
         </Box>
         <Box sx={style.boxUser}>
 

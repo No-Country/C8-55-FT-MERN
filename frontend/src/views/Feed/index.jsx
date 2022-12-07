@@ -8,6 +8,10 @@ import getConfig from '../../config';
 import { CloudinaryContext, Image } from 'cloudinary-react'
 
 import {emitSocketIO, socket, onSocketIO} from "../../socketIO/socketIO";
+import { useSnackbar } from 'notistack';
+import { fetchNotifications, types, generateNotification } from '../../utils/notificationsUtils';
+import { useDispatch } from 'react-redux';
+
 
 const Feed = () => {
   
@@ -21,7 +25,14 @@ const Feed = () => {
       setCreatePostVisibility('none')
     }
   }
+
+  const { enqueueSnackbar } = useSnackbar();
+  const dispatch = useDispatch();
   
+  const handleClickVariant = (msg = "", variant = "") => () => {
+        
+    enqueueSnackbar(msg, {variant});
+};
   
   useEffect(() => {
     axios.get('http://localhost:3000/post/all_posts', getConfig())
@@ -32,8 +43,18 @@ const Feed = () => {
   }, [])
   
   useEffect(()=> {
-      emitSocketIO(socket, "USERNAME", {token: localStorage.getItem("token")})
-      onSocketIO(socket, "GET_NOTIFICATION")
+        emitSocketIO(socket, "USERNAME", {token: localStorage.getItem("token")})
+
+        socket.on("GET_NOTIFICATION", (data)=> {
+            handleClickVariant(generateNotification(data.senderName, types.newComment), "success")()
+            fetchNotifications(dispatch)
+        })
+
+        /* return () => {
+           socket.off("GET_NOTIFICATION", (data)=> {
+             console.log(data)
+          })
+        } */
   }, [])
  
 
@@ -51,7 +72,7 @@ const Feed = () => {
         <CreatePost createPostVisibility={createPostVisibility} />
 
         <Stack sx={{ display: 'flex', gap: '1em', overflow: 'scroll', maxHeight: 500, paddingBottom: '3em' }}>
-          {posts && posts.map(post => <PostShared key={post._id} post={post} />)}
+          {posts && posts.map(post => <PostShared key={post._id} post={post} />).reverse()}
 
         </Stack>
       </Stack>

@@ -24,6 +24,7 @@ import {
 import NavbarMobile from './NavbarMobile';
 import TemporaryDrawer from "./TemporaryDrawer";
 import Notifications from "./Notifications";
+import { emitSocketIO, onSocketIO, socket } from '../../../../socketIO/socketIO';
 
 const style = {
   header: {
@@ -93,17 +94,27 @@ const Header = () => {
     navigate('/')
 
   }
-
+  const searchUser = (e)=>{
+    e.preventDefault()
+    console.log(e.target.value)
+    emitSocketIO(socket,"SEARCH_USER", e.target.value)
+    // onSocketIO(socket ,"SEARCHED_USER")
+    socket.on("SEARCHED_USER", data=>{
+      console.log(data)
+    })
+  }
   return (
     <Stack>
       <Stack sx={style.header}>
 
         <Typography
+          onClick={() => navigate('/feed')}
           variant='h6'
           color="var(--color-gray-lofi)"
           sx={{
             fontFamily: "var(--font-secondary)",
-            flexGrow: 0.5
+            flexGrow: 0.5,
+            cursor: 'pointer',
           }}
         >
           RocketCup
@@ -138,6 +149,9 @@ const Header = () => {
             }}
           >
             <InputBase
+            onChange={e => {
+              searchUser(e)
+             }}
               sx={{ pl: 5, width: "100%" }}
             />
             <SearchIcon sx={{ position: "absolute", left: 5 }} />
@@ -155,7 +169,7 @@ const Header = () => {
             <Notifications />
           </Box>
 
-          <Button
+          <Button onClick={() => navigate('/projects/create')}
             variant='text'
             sx={{
               color: 'var(--color-gray-lofi)',
@@ -169,6 +183,7 @@ const Header = () => {
           </Button>
 
           <Button
+            onClick={() => navigate('/projects')}
             variant='text'
             sx={{
               color: 'var(--color-gray-lofi)',

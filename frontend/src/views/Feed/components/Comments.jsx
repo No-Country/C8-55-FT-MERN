@@ -7,22 +7,11 @@ import getConfig from '../../../config';
 
 import { onSocketIO, socket, emitSocketIO } from "../../../socketIO/socketIO";
 import { fetchNotifications, types, generateNotification } from '../../../utils/notificationsUtils';
-import { useDispatch } from 'react-redux';
 import { useSnackbar } from 'notistack';
 
 const Comments = ({ comments, postId }) => {
 
     const [commentsToGetDetails, setCommentToGetDetails] = useState(comments)
-
-    const dispatch = useDispatch();
-    
-    const { enqueueSnackbar } = useSnackbar();
-    
-    const handleClickVariant = (msg = "", variant = "") => () => {
-        
-        enqueueSnackbar(msg, {variant});
-        localStorage.removeItem("socket");
-    };
 
     const getComments = postId => {
         axios.get(`http://localhost:3000/post/get_post/${postId}`, getConfig())
@@ -55,10 +44,7 @@ const Comments = ({ comments, postId }) => {
                         type: types.newComment
                     })
 
-                    //handleClickVariant(generateNotification(JSON.parse(localStorage.getItem("socket")).senderName, types.newComment), "success")()
                 }
-
-                //onSocketIO(socket, types.newComment, handleClickVariant, "success")
             })
             .catch(err => console.log(err))
         }

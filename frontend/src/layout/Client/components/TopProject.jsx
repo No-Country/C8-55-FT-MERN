@@ -2,6 +2,7 @@ import { Box, CardMedia, Typography, IconButton } from '@mui/material'
 import React from 'react'
 import AddIcon from '@mui/icons-material/Add';
 import MobileScreenShareOutlinedIcon from '@mui/icons-material/MobileScreenShareOutlined';
+import { useNavigate } from 'react-router-dom';
 
 const style = {
     topProject: {
@@ -19,6 +20,10 @@ const style = {
 }
 
 const TopProject = ({project}) => {
+
+    console.log(project._id)
+
+    const navigate = useNavigate()
     return (
         <Box sx={style.topProject}>
             <Box sx={{ backgroundColor: '#23222F', width: '3em', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
@@ -34,8 +39,8 @@ const TopProject = ({project}) => {
                         alt="green iguana"
                     />
                 </Box>
-                <Typography variant="body1" >{project.title}</Typography>
-                <IconButton sx={{position: 'absolute', right: 0}} >
+                <Typography onClick={()=> navigate(`/project/${project._id}`)} variant="body1" >{project.title}</Typography>
+                <IconButton onClick={()=> navigate(`/project/${project._id}`)} sx={{position: 'absolute', right: 0}} >
                   <MobileScreenShareOutlinedIcon/>
                 </IconButton>
             </Box>

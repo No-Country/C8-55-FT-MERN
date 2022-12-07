@@ -5,6 +5,7 @@ import projectsDB from '../../../utils/topProjectsDB'
 import { useEffect } from 'react'
 import axios from 'axios'
 import getConfig from '../../../config'
+import { useNavigate } from 'react-router-dom'
 
 
 const style = {
@@ -29,6 +30,8 @@ const style = {
 const SideBar = () => {
 
     const [projects, setProjects] = useState()
+
+    const navigate = useNavigate()
    
     useEffect(() => {
       axios.get('http://localhost:3000/project/all_projects', getConfig())
@@ -45,7 +48,7 @@ const SideBar = () => {
             <Box sx={style.topProjectStyle}>
                 <Box sx={{ minWidth: 300, justifyContent: 'space-between', display: 'flex' }}>
                     <Typography variant="h6" color="initial"> Last Projects</Typography>
-                    <Button variant="outlined" color="success">
+                    <Button variant="outlined" color="success" onClick={() => navigate('/projects')}>
                         View All
                     </Button>
                 </Box>

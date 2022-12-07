@@ -24,7 +24,6 @@ import {
 import NavbarMobile from './NavbarMobile';
 import TemporaryDrawer from "./TemporaryDrawer";
 import Notifications from "./Notifications";
-import { emitSocketIO, onSocketIO, socket } from '../../../../socketIO/socketIO';
 import SearchResults from "./SearchResults";
 import Search from "./Search";
 

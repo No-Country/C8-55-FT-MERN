@@ -17,7 +17,7 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 
 import { Badge, Box, Avatar } from '@mui/material';
 
-import { onSocketIO, emitSocketIO, socket } from "../../../../socketIO/socketIO";
+//import { onSocketIO, emitSocketIO, socket } from "../../../../socketIO/socketIO";
 import { fetchNotifications, generateNotification, patchNotification } from '../../../../utils/notificationsUtils';
 import { useSelector, useDispatch } from "react-redux";
 
@@ -106,10 +106,7 @@ export default function Notifications() {
             }
            }}
           onClick={(e) => {
-            console.log("OnCLick")
             handleClick(e)
-            emitSocketIO(socket)
-            onSocketIO(socket)
           }}
         />
       </Badge>

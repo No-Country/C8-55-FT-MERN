@@ -5,7 +5,7 @@ import SendIcon from '@mui/icons-material/Send';
 import axios from 'axios'
 import getConfig from '../../../config';
 
-import { onSocketIO, socket, emitSocketIO } from "../../../socketIO/socketIO";
+import { socket, emitSocketIO } from "../../../socketIO/socketIO";
 import { fetchNotifications, types, generateNotification } from '../../../utils/notificationsUtils';
 import { useSnackbar } from 'notistack';
 

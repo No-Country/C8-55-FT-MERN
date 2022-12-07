@@ -36,7 +36,7 @@ const ChatWindow = () => {
     const postMsg = () => {
         socket.emit(typesSocket.newMessage, {
             token: localStorage.getItem("token"),
-            intId: ,
+            intId: "6387f05fbcc725a93ac1a443",
             text: currentMsg
         })
     }

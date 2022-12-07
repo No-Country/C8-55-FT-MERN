@@ -8,7 +8,7 @@ import {
 } from "@mui/material";
 
 import SearchIcon from "@mui/icons-material/Search";
-import { emitSocketIO, onSocketIO, socket } from '../../../../socketIO/socketIO';
+import { emitSocketIO, socket } from '../../../../socketIO/socketIO';
 import SearchResults from "./SearchResults";
 import { useDispatch, useSelector } from 'react-redux';
 import { setSearchResults } from '../../../../store/slices/searchResults.slice';

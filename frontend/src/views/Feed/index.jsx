@@ -7,7 +7,7 @@ import axios from 'axios'
 import getConfig from '../../config';
 import { CloudinaryContext, Image } from 'cloudinary-react'
 
-import {emitSocketIO, socket, onSocketIO} from "../../socketIO/socketIO";
+import {emitSocketIO, socket} from "../../socketIO/socketIO";
 import { useSnackbar } from 'notistack';
 import { fetchNotifications, types, generateNotification } from '../../utils/notificationsUtils';
 import { useDispatch } from 'react-redux';

@@ -7,11 +7,6 @@ import {
 } from "@mui/material";
 
 import { 
-  onSocketIO, 
-  emitSocketIO, 
-  socket } from "../../../../socketIO/socketIO";
-
-import { 
   fetchNotifications, 
   generateNotification, 
   patchNotification } from '../../../../utils/notificationsUtils';

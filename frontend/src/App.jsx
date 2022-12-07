@@ -36,6 +36,7 @@ function App() {
       <Route element={<PublicLayout />}>
         <Route path="/" element={<LandingPage />} />
       </Route>
+        <Route path="/notifications" element={<NotificationsMobile />} />
         <Route path="/form" element={<FormExample />} />
     </Routes>
   )

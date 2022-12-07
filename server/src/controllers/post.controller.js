@@ -63,7 +63,7 @@ const getPostById = async (req, res) => {
 
 const getPosts = async (req, res) => {
   try {
-    const { page = 1, limit = 10 } = req.query; 
+    const { page = 1, limit = 100 } = req.query; 
     const start = (page - 1) * limit;
     const total = await Post.countDocuments();//cuenta la cantidad de documentos
     const pages = Math.ceil(total / limit);

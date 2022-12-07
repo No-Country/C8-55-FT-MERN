@@ -10,6 +10,8 @@ import getConfig from '../../../config';
 
 const CommentDetails = ({ comment, getComments }) => {
 
+    const URL_BASE = import.meta.env.VITE_REACT_APP_API_URI
+
     const [commentDetails, setCommentDetails] = useState()
     const [replyShow, setReplyShow] = useState(false)
     const [repliesCount, setRepliesCount] = useState(0)
@@ -18,7 +20,7 @@ const CommentDetails = ({ comment, getComments }) => {
     const hour = new Date(commentDetails?.comment.createdAt)
 
     const getCommentDetails = () => {
-        axios.get(`http://localhost:3000/comment/get_comment/${comment}`, getConfig())
+        axios.get(`${URL_BASE}/comment/get_comment/${comment}`, getConfig())
             .then(res => {
                 setCommentDetails(res.data)
                 setRepliesCount(res.data.comment.replies.length)
@@ -38,7 +40,7 @@ const CommentDetails = ({ comment, getComments }) => {
             text
         }
         if (commentDetails) {
-            axios.put('http://localhost:3000/comment/reply', body, getConfig())
+            axios.put(`${URL_BASE}/comment/reply`, body, getConfig())
                 .then(res => {
                     getComments(commentDetails.comment.postId)
                     getCommentDetails()
@@ -54,13 +56,13 @@ const CommentDetails = ({ comment, getComments }) => {
         const body = {
             userId
         }
-        axios.put(`http://localhost:3000/comment/like/${userId}`, body, getConfig())
+        axios.put(`${URL_BASE}/comment/like/${userId}`, body, getConfig())
         .then(res => console.log(res.data))
         .catch(err => console.log(err))
     }
 
     useEffect(() => {
-        axios.get(`http://localhost:3000/comment/get_comment/${comment}`, getConfig())
+        axios.get(`${URL_BASE}/comment/get_comment/${comment}`, getConfig())
             .then(res => {
                 setCommentDetails(res.data)
                 setRepliesCount(res.data.comment.replies.length)

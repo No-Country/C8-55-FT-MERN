@@ -24,6 +24,8 @@ const style = {
 }
 
 const PostShared = ({ post }) => {
+    const URL_BASE = import.meta.env.VITE_REACT_APP_API_URI
+
 
     const [commentShow, setCommentShow] = useState(false)
 
@@ -39,7 +41,7 @@ const PostShared = ({ post }) => {
         const body = {
             userId
         }
-        axios.put(`http://localhost:3000/comments/like/${userId}`, body, getConfig())
+        axios.put(`${URL_BASE}/comments/like/${userId}`, body, getConfig())
             .then(res => console.log(res.data))
             .catch(err => console.log(err))
 
@@ -49,7 +51,7 @@ const PostShared = ({ post }) => {
     const followUser = id => {
         console.log(id)
 
-        axios.post(`http://localhost:3000/user/addfollowing/${id}`, id, getConfig())
+        axios.post(`${URL_BASE}/user/addfollowing/${id}`, id, getConfig())
         .then(res => console.log(res.data))
         .catch(err => console.log(err, `aqui hay algo raro`))
     }

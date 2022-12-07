@@ -14,7 +14,9 @@ import { useDispatch } from 'react-redux';
 
 
 const Feed = () => {
-  
+
+  const URL_BASE = import.meta.env.VITE_REACT_APP_API_URI
+
   const [createPostVisibility, setCreatePostVisibility] = useState('none')
   const [posts, setPosts] = useState()
   
@@ -33,13 +35,17 @@ const Feed = () => {
         
     enqueueSnackbar(msg, {variant});
 };
-  
-  useEffect(() => {
-    axios.get('http://localhost:3000/post/all_posts', getConfig())
+
+  const getAllPosts = () => {
+    axios.get(`${URL_BASE}/post/all_posts`, getConfig())
     .then(res => {
       setPosts(res.data.posts)
     })
     .catch(err => console.log(err))
+  }
+  
+  useEffect(() => {
+    getAllPosts()
   }, [])
   
   useEffect(()=> {

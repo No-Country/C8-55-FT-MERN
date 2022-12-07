@@ -17,12 +17,15 @@ const styles = {
 
 const TabsProjects = () => {
 
+    const URL_BASE = import.meta.env.VITE_REACT_APP_API_URI
+
+
     let theme = createTheme();
     const [value, setValue] = useState('one');
     const [projects, setProjects] = useState()
    
     useEffect(() => {
-      axios.get('http://localhost:3000/project/all_projects', getConfig())
+      axios.get(`${URL_BASE}/project/all_projects`, getConfig())
       .then(res => setProjects(res.data))
       .catch(err => console.log(err))
     }, [])

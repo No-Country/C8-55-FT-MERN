@@ -29,8 +29,8 @@ const getChats = async (userId)=>{
             const chat = await Chat.findById(info[1]);
             const lastMessage = await messageService.getMessage(chat.messages[0]);
             const id =info[0];
-            const {name,lastName} = userChat;
-            return {name,lastName,lastMessage,id};
+            const {name,lastName,profileImage} = userChat;
+            return {name,lastName,lastMessage,profileImage,id};
         })
         return await Promise.all(arrChats);
     } catch (err) {

@@ -1,6 +1,8 @@
 import axios from 'axios';
 
-axios.defaults.baseURL = process.env.REACT_APP_API_URI;
+//axios.defaults.baseURL = process.env.REACT_APP_API_URI;
+
+axios.defaults.baseURL = import.meta.env.VITE_REACT_APP_API_URI
 
 const getHeaders = () => {
   const headers = { 'Content-Type': 'application/json' };

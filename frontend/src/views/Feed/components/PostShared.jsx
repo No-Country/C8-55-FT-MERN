@@ -13,6 +13,8 @@ import Comments from './Comments';
 import axios from 'axios'
 import getConfig from '../../../config';
 
+import {emitSocketIO, socket} from "../../../socketIO/socketIO";
+
 const style = {
     postSharedStyle: {
 
@@ -22,8 +24,12 @@ const style = {
 }
 
 const PostShared = ({ post }) => {
+    const URL_BASE = import.meta.env.VITE_REACT_APP_API_URI
+
 
     const [commentShow, setCommentShow] = useState(false)
+
+    console.log(post.userId)
 
 
     const commentView = () => {
@@ -35,15 +41,17 @@ const PostShared = ({ post }) => {
         const body = {
             userId
         }
-        axios.put(`http://localhost:3000/comment/like/${userId}`, body, getConfig())
+        axios.put(`${URL_BASE}/comments/like/${userId}`, body, getConfig())
             .then(res => console.log(res.data))
             .catch(err => console.log(err))
+
+        //emitSocketIO(socket, "likePost", {postID: post._id})
     }
 
     const followUser = id => {
         console.log(id)
 
-        axios.post(`http://localhost:3000/user/addfollowing/${id}`, id, getConfig())
+        axios.post(`${URL_BASE}/user/addfollowing/${id}`, id, getConfig())
         .then(res => console.log(res.data))
         .catch(err => console.log(err, `aqui hay algo raro`))
     }
@@ -77,7 +85,6 @@ const PostShared = ({ post }) => {
                   </IconButton>
                 </Box>
                 <Box sx={{ marginX: '1em' }}>
-                    {/* {post.text} */}
                     <div dangerouslySetInnerHTML={{ __html: post.text }}  ></div>
                 </Box>
                 <Divider sx={{ marginTop: '1em' }} />

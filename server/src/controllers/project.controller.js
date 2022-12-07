@@ -2,15 +2,29 @@ const projectServices = require("../services/project.service");
 
 const createProject = async (req, res) => {
   try {
-    const { name, description, category } = req.body;
-    const founder = req.userId
-    const uniqueProject = await projectServices.validateUniqueProject(name);
+    const {
+      title,
+      subtitle,
+      description,
+      risk,
+      textUrl,
+      projectImg,
+      amount,
+      wallet,
+    } = req.body;
+    const founder = req.userId;
+    const uniqueProject = await projectServices.validateUniqueProject(title);
     if (uniqueProject.length === 0) {
       const project = await projectServices.createProject(
-        name,
         founder,
+        title,
+        subtitle,
         description,
-        category
+        risk,
+        textUrl,
+        projectImg,
+        amount,
+        wallet,
       );
       return res.status(200).json({ created: "successfully", project });
     } else {
@@ -64,7 +78,7 @@ const deleteProject = async (req, res) => {
 
 const addMembers = async (req, res) => {
   const { id } = req.params;
-  const userId  = req.userId;
+  const userId = req.userId;
   try {
     const project = await projectServices.getProject(id);
     if (!project.members.includes(userId)) {

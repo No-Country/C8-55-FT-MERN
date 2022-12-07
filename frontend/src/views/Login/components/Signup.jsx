@@ -7,6 +7,8 @@ import PhotoCamera from '@mui/icons-material/PhotoCamera';
 
 const Signup = ({ setLogStatus }) => {
 
+  const URL_BASE = import.meta.env.VITE_REACT_APP_API_URI
+
   const [userCreate, setUserCreate] = useState()
   const [image, setImage] = useState()
   const [imageURL, setImageURL] = useState()
@@ -48,7 +50,7 @@ const Signup = ({ setLogStatus }) => {
 
       if (e.target.password.value.trim().length >= 6) {
 
-        axios.post('http://localhost:3000/user/signup', userData)
+        axios.post(`${URL_BASE}/user/signup`, userData)
           .then(res => {
             console.log(res.data)
           })

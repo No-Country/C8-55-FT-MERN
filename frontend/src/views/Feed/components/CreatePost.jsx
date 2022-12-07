@@ -10,11 +10,13 @@ import getConfig from '../../../config';
 
 const modules = {
     toolbar: [
-        ['bold', 'italic', 'underline', 'strike', 'link']
+        ['bold', 'italic', 'underline', 'strike', 'link', "image"]
     ]
 }
 
-const CreatePost = ({createPostVisibility}) => {
+const CreatePost = ({createPostVisibility, getAllPosts}) => {
+    const URL_BASE = import.meta.env.VITE_REACT_APP_API_URI
+
 
     const { quill, quillRef } = useQuill({modules});
     const [postValue, setPostValue] = useState()
@@ -32,9 +34,10 @@ const CreatePost = ({createPostVisibility}) => {
         const body = {
             text: postValue.toString()
         }
-            axios.post('http://localhost:3000/post/create', body, getConfig())
+            axios.post(`${URL_BASE}/post/create`, body, getConfig())
             .then(res => {
                 quillRef.current.firstChild.innerHTML = ''
+                return getAllPosts()
             })
             .catch(err => console.log(err.data))
     }

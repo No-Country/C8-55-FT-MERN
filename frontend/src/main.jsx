@@ -5,13 +5,17 @@ import App from './App'
 import { Provider } from 'react-redux'
 import store from './store/index'
 import './index.css'
+import { SnackbarProvider } from 'notistack';
+
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <Provider store={store}>
-      <HashRouter>
-        <App />
-      </HashRouter>
-    </Provider>
+    <SnackbarProvider maxSnack={1} autoHideDuration={1000}>
+      <Provider store={store}>
+        <HashRouter>
+          <App />
+        </HashRouter>
+      </Provider>
+    </SnackbarProvider>
   </React.StrictMode>
 )

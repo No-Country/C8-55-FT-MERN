@@ -1,6 +1,8 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Box, Tabs, Tab, createTheme, Button } from '@mui/material'
 import CardProject from '../ProjectCard/CardProject';
+import axios from 'axios';
+import getConfig from '../../../../config';
 
 const styles = {
     tab: {
@@ -15,8 +17,18 @@ const styles = {
 
 const TabsProjects = () => {
 
+    const URL_BASE = import.meta.env.VITE_REACT_APP_API_URI
+
+
     let theme = createTheme();
-    const [value, setValue] = React.useState('one');
+    const [value, setValue] = useState('one');
+    const [projects, setProjects] = useState()
+   
+    useEffect(() => {
+      axios.get(`${URL_BASE}/project/all_projects`, getConfig())
+      .then(res => setProjects(res.data))
+      .catch(err => console.log(err))
+    }, [])
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
@@ -69,10 +81,10 @@ const TabsProjects = () => {
                     }
                 }
             >
-                <CardProject />
-                <CardProject />
-                <CardProject />
-                <CardProject />
+                {projects && projects.map(project => {
+                       return  <CardProject project={project} />
+                })}
+        
             </Box>
 
             <Box sx={{ textAlign: "center", padding: "20px" }}>

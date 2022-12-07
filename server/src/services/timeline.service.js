@@ -1,7 +1,9 @@
 const User = require("../models/User");
 
-const getTimeline = async (id) => {
+const getTimeline = async (id, start, limit) => {
   const getTimeline = await User.findById(id, "following")
+    .skip(start)
+    .limit(limit)
     .lean()
     .populate({
       path: "following",

@@ -19,21 +19,15 @@ import { useNavigate } from 'react-router-dom';
 
 const style = {
     postSharedStyle: {
-
         padding: '0.8em',
-
     }
 }
 
 const PostShared = ({ post }) => {
     const URL_BASE = import.meta.env.VITE_REACT_APP_API_URI
 
-
     const [commentShow, setCommentShow] = useState(false)
     const navigate = useNavigate()
-
-    console.log(post.userId._id)
-
 
     const commentView = () => {
         setCommentShow(!commentShow)
@@ -52,7 +46,6 @@ const PostShared = ({ post }) => {
     }
 
     const followUser = id => {
-        console.log(id)
 
         axios.post(`${URL_BASE}/user/addfollowing/${id}`, id, getConfig())
             .then(res => console.log(res.data))

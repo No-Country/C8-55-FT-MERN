@@ -40,7 +40,7 @@ const NotificationsCard = ({notification}) => {
       disableRipple
       sx={
         {
-          backgroundColor: '#edf2f4',
+          backgroundColor: 'var(--color-background-notifications)',
           display: "flex",
           flexDirection: "column",
           justifyContent: "space-between",

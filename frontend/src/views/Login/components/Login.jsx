@@ -9,6 +9,8 @@ import { fetchNotifications } from '../../../utils/notificationsUtils'
 
 const Login = ({ setLogStatus }) => {
 
+  const URL_BASE = import.meta.env.VITE_REACT_APP_API_URI
+
   const [log, setLog] = useState()
   const user = useSelector(state => state.user)
   const token = localStorage.getItem('token')
@@ -19,7 +21,7 @@ const Login = ({ setLogStatus }) => {
   const dispatch = useDispatch()
 
   const getUser = user => {
-    axios.post('http://localhost:3000/user/signin', user)
+    axios.post(`${URL_BASE}/user/signin`, user)
       .then(res => {
         console.log(res.data.user)
         localStorage.setItem('token', res.data.token)

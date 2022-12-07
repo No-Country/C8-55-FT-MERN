@@ -15,6 +15,7 @@ import ProjectDetails from "./views/Projects/ProjectDetails"
 
 function App() {
 
+
   return (
     <Routes>
       <Route path="/log" element={<LogIndex />} />

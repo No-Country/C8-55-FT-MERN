@@ -11,6 +11,9 @@ import DoneIcon from '@mui/icons-material/Done';
 
 const ProjectDetails = () => {
 
+  const URL_BASE = import.meta.env.VITE_REACT_APP_API_URI
+
+
   const { id } = useParams()
   const [project, setProject] = useState()
   const [principalUserInfo, setPrincipalUserInfo] = useState()
@@ -18,7 +21,7 @@ const ProjectDetails = () => {
   console.log(principalUserInfo?.userData)
 
   const getUserInfo = idUser => {
-    axios.get(`http://localhost:3000/user/userinfo/${idUser}`, getConfig())
+    axios.get(`${URL_BASE}/user/userinfo/${idUser}`, getConfig())
       .then(res => {
         setPrincipalUserInfo(res.data)
       })
@@ -26,13 +29,13 @@ const ProjectDetails = () => {
   }
 
   useEffect(() => {
-    axios.get(`http://localhost:3000/project/${id}`, getConfig())
+    axios.get(`${URL_BASE}/project/${id}`, getConfig())
       .then(res => {
         setProject(res.data)
         getUserInfo(res.data.founder)
       })
       .catch(err => console.log(err))
-  }, [])
+  }, [id])
 
   const createPost = () => {
 
@@ -52,7 +55,7 @@ const ProjectDetails = () => {
               <a href='http://localhost:5173/?#/project/${id}'>Link</a>
               `
     }
-    axios.post('http://localhost:3000/post/create', body, getConfig())
+    axios.post(`${URL_BASE}/post/create`, body, getConfig())
       .then(res => console.log(res.data))
       .catch(err => console.log(err.data))
     console.log(body)

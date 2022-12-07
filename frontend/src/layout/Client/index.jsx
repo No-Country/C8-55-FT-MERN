@@ -13,6 +13,8 @@ import { fetchNotifications } from '../../utils/notificationsUtils';
 import SearchResults from "./components/header/SearchResults"
 
 const ClientLayout = () => {
+  const URL_BASE = import.meta.env.VITE_REACT_APP_API_URI
+
   
   const [useAuth, setUseAuth] = useState()
   
@@ -23,7 +25,7 @@ const ClientLayout = () => {
   const token = localStorage.getItem('token')
   
   useEffect(() => {
-    axios.get(`http://localhost:3000/user/tokeninfo`, getConfig())
+    axios.get(`${URL_BASE}/user/tokeninfo`, getConfig())
       .then(res => {
         setUseAuth(res.data.auth)
         dispatch(setUser(res.data.user))

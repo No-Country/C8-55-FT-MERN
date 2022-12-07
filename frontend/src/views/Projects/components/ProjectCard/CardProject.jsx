@@ -11,12 +11,14 @@ import LoupeIcon from '@mui/icons-material/Loupe';
 import { HandleMouseEnter, HandleMouseLeave } from "../../../../utils/cardProjectUtils";
 import useScreenSize from "../../../../hooks/useScreenSize";
 import { AtmOutlined } from '@mui/icons-material';
+import { useNavigate } from 'react-router-dom';
 
 const CardProject = ({ project }) => {
     console.log(project)
     const theme = createTheme();
     const descriptionRef = useRef();
     const resize = useScreenSize();
+    const navigate = useNavigate()
 
     return (
         <Box
@@ -224,6 +226,7 @@ const CardProject = ({ project }) => {
                                             lg={4}
                                         >
                                             <Box
+                                            onClick={()=> navigate(`/project/${project._id}`)}
                                                 sx={
                                                     {
                                                         alignItems: "center",

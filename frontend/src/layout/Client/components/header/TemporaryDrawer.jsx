@@ -78,13 +78,7 @@ export default function TemporaryDrawer({navbar}) {
           >
             {anchor.component}
           </Box>
-          <Drawer
-            anchor={anchor.side}
-            open={state[anchor.side]}
-            onClose={toggleDrawer(anchor, false)}
-          >
-            {list(anchor.side, anchor.items || [])}
-          </Drawer>
+        
         </React.Fragment>
       ))}
     </div>

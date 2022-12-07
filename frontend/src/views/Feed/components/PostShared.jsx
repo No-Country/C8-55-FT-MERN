@@ -27,6 +27,8 @@ const PostShared = ({ post }) => {
 
     const [commentShow, setCommentShow] = useState(false)
 
+    console.log(post.userId)
+
 
     const commentView = () => {
         setCommentShow(!commentShow)

@@ -12,6 +12,12 @@ import NotificationsMobile from "./views/NotificationsMobile/NotificationsMobile
 import FormExample from "../FormExample";
 import CreateProjects from "./views/Projects/CreateProject"
 import ProjectDetails from "./views/Projects/ProjectDetails"
+import Profile from "./views/Profile"
+
+import "bootstrap/scss/bootstrap.scss";
+import "./assets/scss/paper-kit.scss?v=1.3.0";
+import "./assets/demo/demo.css?v=1.3.0";
+import LandingPage from "./views/Landing"
 
 function App() {
 
@@ -25,10 +31,12 @@ function App() {
         <Route path="/projects/create" element={<CreateProjects/>}/>
         <Route path="/project/:id" element={<ProjectDetails/>}/>
         <Route path="/notifications" element={<NotificationsMobile />} />
+        <Route path="/profile/:id" element={<Profile />} />
       </Route>
       <Route element={<PublicLayout />}>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<LandingPage />} />
       </Route>
+        <Route path="/notifications" element={<NotificationsMobile />} />
         <Route path="/form" element={<FormExample />} />
     </Routes>
   )

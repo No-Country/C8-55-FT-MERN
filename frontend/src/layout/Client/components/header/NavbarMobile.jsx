@@ -15,11 +15,15 @@ import {
 import TemporaryDrawer from "./TemporaryDrawer"
 import Notifications from "./Notifications";
 import {useNavigate} from "react-router-dom"
+import {useDispatch, useSelector} from "react-redux";
+import { setDisplaySearch } from '../../../../store/slices/searchResults.slice';
 
 
 export default function NavbarMobile() {
     const theme = createTheme();
     const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const {results, displaySearch} = useSelector(state => state.searchResults);
     
     const styles = {
         navbar: {
@@ -30,6 +34,21 @@ export default function NavbarMobile() {
             }
         }
     }
+
+    const toggleDisplay = () => {
+
+        if(displaySearch == "none") {
+            dispatch(setDisplaySearch({
+                displaySearch: "block"
+            }))
+        } else {
+            dispatch(setDisplaySearch({
+                displaySearch: "none"
+            }))
+
+        }
+    }
+
     
     const navbar = [
         {
@@ -54,7 +73,7 @@ export default function NavbarMobile() {
         {
             side: "bottom",
             name: "Search",
-            component: <BottomNavigationAction label="Search" icon={<Search sx={styles.navbar} />} />
+            component: <BottomNavigationAction onClick={toggleDisplay} label="Search" icon={<Search sx={styles.navbar} />} />
         },
         {
             side: "right",

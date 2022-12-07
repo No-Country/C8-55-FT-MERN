@@ -19,7 +19,7 @@ const Feed = () => {
 
   const [createPostVisibility, setCreatePostVisibility] = useState('none')
   const [posts, setPosts] = useState()
-  
+
   const addPost = () => {
     if (createPostVisibility === 'none') {
       setCreatePostVisibility('inline')

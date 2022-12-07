@@ -24,7 +24,7 @@ const CreatePost = ({createPostVisibility, getAllPosts}) => {
     useEffect(() => {
       if (quill) {
         quill.on('text-change', () => {
-            setPostValue(quillRef.current.firstChild.innerHTML)
+            setPostValue(quillRef.current.firstChild.innerHTML.trim())
         })
       }
     }, [quill])

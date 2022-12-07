@@ -23,11 +23,11 @@ function App() {
         <Route path="/projects" element={<Projects />} />
         <Route path="/projects/create" element={<CreateProjects/>}/>
         <Route path="/project/:id" element={<ProjectDetails/>}/>
-        <Route path="/notifications" element={<NotificationsMobile />} />
       </Route>
       <Route element={<PublicLayout />}>
         <Route path="/" element={<Home />} />
       </Route>
+        <Route path="/notifications" element={<NotificationsMobile />} />
         <Route path="/form" element={<FormExample />} />
     </Routes>
   )

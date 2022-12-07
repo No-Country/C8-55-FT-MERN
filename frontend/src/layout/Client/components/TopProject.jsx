@@ -21,8 +21,6 @@ const style = {
 
 const TopProject = ({project}) => {
 
-    console.log(project._id)
-
     const navigate = useNavigate()
     return (
         <Box sx={style.topProject}>

@@ -1,14 +1,18 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
 
 import {
     Box,
     Avatar,
-    Typography
+    Typography,
+    createTheme
 } from "@mui/material"
 
 const ResultItem = ({ item }) => {
 
-    console.log(item)
+    const theme = createTheme()
+    const navigate = useNavigate();
+
     return (
         <Box
             sx={{
@@ -18,8 +22,11 @@ const ResultItem = ({ item }) => {
                 display: "flex",
                 height: "100px",
                 maxWidth: "600px",
-                transition: "all 4s ease-in 5s"
+                transition: "all 4s ease-in 5s",
+                margin: "0 auto"
             }}
+            
+            onClick={()=> navigate("/feed")}
         >
             <Box
                 sx={{
@@ -31,7 +38,12 @@ const ResultItem = ({ item }) => {
                     sx={{
                         height: "60px",
                         width: "60px",
-                        margin: "0 auto"
+                        margin: "0 auto",
+                        [theme.breakpoints.down("md")] : {
+                            height: "40px",
+                            width: "40px",
+
+                        }
                     }}
                 />
 

@@ -27,9 +27,6 @@ const PostShared = ({ post }) => {
 
     const [commentShow, setCommentShow] = useState(false)
 
-    console.log(post.userId)
-
-
     const commentView = () => {
         setCommentShow(!commentShow)
     }
@@ -47,7 +44,6 @@ const PostShared = ({ post }) => {
     }
 
     const followUser = id => {
-        console.log(id)
 
         axios.post(`http://localhost:3000/user/addfollowing/${id}`, id, getConfig())
         .then(res => console.log(res.data))

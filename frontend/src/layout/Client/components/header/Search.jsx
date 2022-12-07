@@ -17,23 +17,20 @@ const Search = () => {
 
     const theme = createTheme();
     const dispatch = useDispatch();
-    const {results} = useSelector(state => state.searchResults);
+    const {results, displaySearch} = useSelector(state => state.searchResults);
 
     const searchUser = (e) => {
 
         e.preventDefault()
 
         emitSocketIO(socket, "SEARCH_USER", e.target.value)
-        // onSocketIO(socket ,"SEARCHED_USER")
+        
         socket.on("SEARCHED_USER", data => {
-            console.log(data)
             dispatch(setSearchResults({
                 results: data
             }))
         })
     }
-
-    console.log("Results", results)
 
     return (
         <Box sx={{width: "100%"}}>
@@ -42,13 +39,14 @@ const Search = () => {
                 sx={{
                     display: 'flex',
                     alignItems: 'center',
+                    margin: "0 auto",
                     height: "fit-content",
                     width: '100%',
                     maxWidth: 400,
-                    position: "relative",
+                    position: "relative"/* ,
                     [theme.breakpoints.down("md")]: {
-                        display: "none"
-                    }
+                        display: `${displaySearch}`
+                    } */
                 }}
             >
                 <InputBase

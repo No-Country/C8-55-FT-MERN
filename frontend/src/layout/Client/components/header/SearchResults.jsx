@@ -1,47 +1,72 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 
 import {
-    Box
+    Box,
+    createTheme
 } from "@mui/material";
 
 import ResultItem from './ResultItem';
+import Search from "./Search";
+import {useSelector, useDispatch} from "react-redux";
+import { setDisplaySearch } from '../../../../store/slices/searchResults.slice';
 
-const SearchResults = ({ items = [] }) => {
+const SearchResults = ({ items = []}) => {
 
     let [display, setDisplay] = useState("none");
+    const theme = createTheme();
+    const {displaySearch} = useSelector(state => state.searchResults)
+    const dispatch = useDispatch();
 
     const handleDisplay = (display) => {
-        if(display === "block") {
+        if (display === "block") {
             setDisplay("none")
-        }else {
+        } else {
             setDisplay("block")
         }
     }
 
-    useEffect(()=> {
+    useEffect(() => {
         items.length > 0 && setDisplay("block")
     }, [items])
 
     return (
         <Box
             sx={{
-                display: {display},
+                display: { display },
                 backgroundColor: "rgba(0, 0, 0, 0.2)",
                 position: "relative",
-                height: "88vh",
-                width: "100%"
+                width: "100%",
+                margin: "0 auto",
+                overflow: "scroll",
+                height: "87vh",
+                [theme.breakpoints.down("md")]: {
+                    height: "79vh",
+                    display: `${displaySearch}`
+                }
             }}
-            onClick={()=> {
-                console.log("hola")
+            onClick={() => {
                 handleDisplay(display)
             }}
         >
-           { <Box 
+            <Box sx={{
+                [theme.breakpoints.up("md")]: {
+                    display: "none"
+                }
+            }}>
+                <Search />
+
+            </Box>
+            {<Box
                 sx={{
-                    maxWidth: "500px",
+                    width: "auto",
                     margin: "0 auto",
-                    overflow: "hidden",
                     transition: "height 5s ease-in-out"
+                }}
+
+                onClick={() => {
+                    dispatch(setDisplaySearch({
+                        displaySearch: "none"
+                    }))
                 }}
             >
                 {
@@ -55,7 +80,27 @@ const SearchResults = ({ items = [] }) => {
 
                         ))
                         :
-                        <p style={{ border: "solid 2px green" }}>Sin resultados.</p>
+                        <p
+                            style={{
+                                alignItems: "center",
+                                justifyContent: "center",
+                                background: "var(--color-background-notifications)",
+                                cursor: "pointer",
+                                display: "flex",
+                                height: "100px",
+                                maxWidth: "600px",
+                                transition: "all 4s ease-in 5s",
+                                margin: "0 auto"
+                            }}
+
+                            onClick={() => {
+                                dispatch(setDisplaySearch({
+                                    displaySearch: "none"
+                                }))
+                            }}
+                        >
+                            Sin resultados.
+                        </p>
                 }
             </Box>}
         </Box>

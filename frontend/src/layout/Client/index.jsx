@@ -19,7 +19,7 @@ const ClientLayout = () => {
   const dispatch = useDispatch()
   
   const user = useSelector(account => account.user)
-  const { results } = useSelector(state => state.searchResults)
+  const { results, displaySearch } = useSelector(state => state.searchResults)
   const token = localStorage.getItem('token')
   
   useEffect(() => {

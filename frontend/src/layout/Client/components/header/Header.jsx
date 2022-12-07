@@ -127,31 +127,16 @@ const Header = () => {
           >
             <TemporaryDrawer navbar={navbar} />
           </IconButton>
-
-          {/* <Paper
-            component="form"
+          <Box 
             sx={{
-              display: 'flex',
-              alignItems: 'center',
-              height: "fit-content",
-              width: '100%',
-              maxWidth: 400,
-              position: "relative",
+              width: "100%",
               [theme.breakpoints.down("md")]: {
                 display: "none"
               }
             }}
           >
-            <InputBase
-            onChange={e => {
-              searchUser(e)
-             }}
-              sx={{ pl: 5, width: "100%" }}
-            />
-            <SearchIcon sx={{ position: "absolute", left: 5 }} />
-          </Paper> */}
-
-          <Search /* items = {results} *//>
+            <Search/>
+          </Box>
         </Box>
         <Box sx={style.boxUser}>
 

@@ -75,7 +75,7 @@ const Feed = () => {
           </IconButton>
         </Box>
 
-        <CreatePost createPostVisibility={createPostVisibility} />
+        <CreatePost createPostVisibility={createPostVisibility} getAllPosts={getAllPosts} />
 
         <Stack sx={{ display: 'flex', gap: '1em', overflow: 'scroll', maxHeight: 500, paddingBottom: '3em' }}>
           {posts && posts.map(post => <PostShared key={post._id} post={post} />).reverse()}

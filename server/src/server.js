@@ -10,7 +10,7 @@ const http = require("http")
   });
 const io = require("socket.io")(http, {
   cors: {
-    origin: "https://c8-55-ft-mern.vercel.app/",
+    origin: "*",
   },
 });
 

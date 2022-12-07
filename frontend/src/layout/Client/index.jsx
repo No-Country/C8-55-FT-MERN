@@ -1,7 +1,7 @@
 import { Stack, Box } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 import { Navigate, Outlet } from 'react-router-dom'
-import Chat from './components/Chat'
+import Chat from './components/chat/Chat'
 import Header from './components/header/Header'
 import SideBar from './components/SideBar'
 import { useDispatch, useSelector } from 'react-redux'
@@ -10,7 +10,8 @@ import getConfig from '../../config'
 import { setUser } from '../../store/slices/user.slice'
 
 import { fetchNotifications } from '../../utils/notificationsUtils';
-import SearchResults from "./components/header/SearchResults"
+import SearchResults from "./components/header/SearchResults";
+import ChatWindow from "./components/chat/ChatWindow";
 
 const ClientLayout = () => {
   const URL_BASE = import.meta.env.VITE_REACT_APP_API_URI
@@ -54,6 +55,9 @@ const ClientLayout = () => {
           <Stack p='1em'>
             <Outlet />
           </Stack>
+        </Box>
+        <Box sx={{ position: 'fixed', right: 320, bottom: 0 }}>
+          <ChatWindow />
         </Box>
         <Box sx={{ position: 'fixed', right: 0, bottom: 0 }}>
           <Chat />

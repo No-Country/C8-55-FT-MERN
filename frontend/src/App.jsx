@@ -31,7 +31,7 @@ function App() {
         <Route path="/projects/create" element={<CreateProjects/>}/>
         <Route path="/project/:id" element={<ProjectDetails/>}/>
         <Route path="/notifications" element={<NotificationsMobile />} />
-        <Route path="/profile" element={<Profile />} />
+        <Route path="/profile/:id" element={<Profile />} />
       </Route>
       <Route element={<PublicLayout />}>
         <Route path="/" element={<LandingPage />} />

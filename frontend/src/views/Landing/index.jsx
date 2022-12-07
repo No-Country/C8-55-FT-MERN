@@ -1,24 +1,6 @@
-/*!
 
-=========================================================
-* Paper Kit React - v1.3.1
-=========================================================
+import React, { useEffect } from "react";
 
-* Product Page: https://www.creative-tim.com/product/paper-kit-react
-
-* Copyright 2022 Creative Tim (https://www.creative-tim.com)
-* Licensed under MIT (https://github.com/creativetimofficial/paper-kit-react/blob/main/LICENSE.md)
-
-* Coded by Creative Tim
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-*/
-import React from "react";
-
-// reactstrap components
 import {
   Button,
   Card,
@@ -38,10 +20,20 @@ import {
 // core components
 import Header from "./components/Header";
 import Footer from "./components/Footer";
+import { Stack } from "@mui/material";
+import { useNavigate } from "react-router-dom";
+import PsychologyOutlinedIcon from '@mui/icons-material/PsychologyOutlined';
+import RocketLaunchOutlinedIcon from '@mui/icons-material/RocketLaunchOutlined';
+import CodeOffOutlinedIcon from '@mui/icons-material/CodeOffOutlined';
+import PaymentsOutlinedIcon from '@mui/icons-material/PaymentsOutlined';
 
 function LandingPage() {
+
+    const navigate = useNavigate()
+
+
   document.documentElement.classList.remove("nav-open");
-  React.useEffect(() => {
+  useEffect(() => {
     document.body.classList.add("profile-page");
     return function cleanup() {
       document.body.classList.remove("profile-page");
@@ -52,101 +44,86 @@ function LandingPage() {
       <Header />
       <div className="main">
         <div className="section text-center">
-          <Container>
-            <Row>
+            <Stack sx={{display: 'flex', alignItems: 'center', justifyContent: 'center', paddingX: '2em'}}>
+
               <Col className="ml-auto mr-auto" md="8">
-                <h2 className="title">Let's talk product</h2>
+                <h2 className="title">Acerca de</h2>
                 <h5 className="description">
-                  This is the paragraph where you can write more details about
-                  your product. Keep you user engaged by providing meaningful
-                  information. Remember that by this time, the user is curious,
-                  otherwise he wouldn't scroll to get here. Add a button if you
-                  want the user to see more.
+                En RocketCup puedes explorar ideas con mucha libertad pero además formar
+                <br/>
+                 lazos con gente que compartem intereses y formar un equipo.
                 </h5>
                 <br />
                 <Button
                   className="btn-round"
-                  color="info"
-                  href="#pablo"
-                  onClick={(e) => e.preventDefault()}
+                  style={{backgroundColor: '#FF9F1C', border: 'none'}}
+                  onClick={() => navigate('/projects')}
                 >
-                  See Details
+                  Ver proyectos creados
                 </Button>
               </Col>
-            </Row>
             <br />
             <br />
             <Row>
               <Col md="3">
                 <div className="info">
-                  <div className="icon icon-info">
-                    <i className="nc-icon nc-album-2" />
+                  <div className="icon" style={{color: '#FF9F1C'}}>
+                    <PsychologyOutlinedIcon fontSize="60" />
                   </div>
                   <div className="description">
-                    <h4 className="info-title">Beautiful Gallery</h4>
+                    <h4 className="info-title">Piensa en un proyecto</h4>
                     <p className="description">
-                      Spend your time generating new ideas. You don't have to
-                      think of implementing.
+                      Conceptualiza el proyecto que tanto haz querido compartir con el mundo
                     </p>
-                    <Button className="btn-link" color="info" href="#pablo">
-                      See more
-                    </Button>
+             
                   </div>
                 </div>
               </Col>
               <Col md="3">
                 <div className="info">
-                  <div className="icon icon-info">
-                    <i className="nc-icon nc-bulb-63" />
+                  <div className="icon" style={{color: '#FF9F1C'}}>
+                    <RocketLaunchOutlinedIcon fontSize="60" />
                   </div>
                   <div className="description">
-                    <h4 className="info-title">New Ideas</h4>
+                    <h4 className="info-title">Publica tu proyecto</h4>
                     <p>
-                      Larger, yet dramatically thinner. More powerful, but
-                      remarkably power efficient.
+                     Comparte tu proyecto con el mundo para que puedas encontrar otros colaboradores e inversionistas
                     </p>
-                    <Button className="btn-link" color="info" href="#pablo">
-                      See more
-                    </Button>
+                    
                   </div>
                 </div>
               </Col>
               <Col md="3">
                 <div className="info">
-                  <div className="icon icon-info">
-                    <i className="nc-icon nc-chart-bar-32" />
+                  <div className="icon" style={{color: '#FF9F1C'}}>
+                    <CodeOffOutlinedIcon fontSize="60" />
                   </div>
                   <div className="description">
-                    <h4 className="info-title">Statistics</h4>
+                    <h4 className="info-title">Programa en comunidad</h4>
                     <p>
-                      Choose from a veriety of many colors resembling sugar
-                      paper pastels.
+                    Encuentra otros programadores y
+                      desarrollar tu idea en equipo
                     </p>
-                    <Button className="btn-link" color="info" href="#pablo">
-                      See more
-                    </Button>
+              
                   </div>
                 </div>
               </Col>
               <Col md="3">
                 <div className="info">
-                  <div className="icon icon-info">
-                    <i className="nc-icon nc-sun-fog-29" />
+                  <div className="icon" style={{color: '#FF9F1C'}}>
+                    <PaymentsOutlinedIcon fontSize="60"/>
                   </div>
                   <div className="description">
-                    <h4 className="info-title">Delightful design</h4>
+                    <h4 className="info-title">Encuentra Financiamiento</h4>
                     <p>
-                      Find unique and handmade delightful designs related items
-                      directly from our sellers.
+                     Publica cuanto dinero necesita tu proyecto y encuentra inversionistas que crean en ti
                     </p>
-                    <Button className="btn-link" color="info" href="#pablo">
-                      See more
-                    </Button>
+        
                   </div>
                 </div>
               </Col>
             </Row>
-          </Container>
+          </Stack>
         </div>
         <div className="section section-dark text-center">
           <Container>
@@ -308,9 +285,166 @@ function LandingPage() {
                 </Card>
               </Col>
             </Row>
+            <Row>
+              <Col md="4">
+                <Card className="card-profile card-plain">
+                  <div className="card-avatar">
+                    <a href="#pablo" onClick={(e) => e.preventDefault()}>
+                      <img
+                        alt="..."
+                        src="assets/img/faces/clem-onojeghuo-3.jpg"
+                      />
+                    </a>
+                  </div>
+                  <CardBody>
+                    <a href="#pablo" onClick={(e) => e.preventDefault()}>
+                      <div className="author">
+                        <CardTitle tag="h4">Henry Ford</CardTitle>
+                        <h6 className="card-category">Product Manager</h6>
+                      </div>
+                    </a>
+                    <p className="card-description text-center">
+                      Teamwork is so important that it is virtually impossible
+                      for you to reach the heights of your capabilities or make
+                      the money that you want without becoming very good at it.
+                    </p>
+                  </CardBody>
+                  <CardFooter className="text-center">
+                    <Button
+                      className="btn-just-icon btn-neutral"
+                      color="link"
+                      href="#pablo"
+                      onClick={(e) => e.preventDefault()}
+                    >
+                      <i className="fa fa-twitter" />
+                    </Button>
+                    <Button
+                      className="btn-just-icon btn-neutral ml-1"
+                      color="link"
+                      href="#pablo"
+                      onClick={(e) => e.preventDefault()}
+                    >
+                      <i className="fa fa-google-plus" />
+                    </Button>
+                    <Button
+                      className="btn-just-icon btn-neutral ml-1"
+                      color="link"
+                      href="#pablo"
+                      onClick={(e) => e.preventDefault()}
+                    >
+                      <i className="fa fa-linkedin" />
+                    </Button>
+                  </CardFooter>
+                </Card>
+              </Col>
+              <Col md="4">
+                <Card className="card-profile card-plain">
+                  <div className="card-avatar">
+                    <a href="#pablo" onClick={(e) => e.preventDefault()}>
+                      <img
+                        alt="..."
+                        src="assets/img/faces/joe-gardner-2.jpg"
+                      />
+                    </a>
+                  </div>
+                  <CardBody>
+                    <a href="#pablo" onClick={(e) => e.preventDefault()}>
+                      <div className="author">
+                        <CardTitle tag="h4">Sophie West</CardTitle>
+                        <h6 className="card-category">Designer</h6>
+                      </div>
+                    </a>
+                    <p className="card-description text-center">
+                      A group becomes a team when each member is sure enough of
+                      himself and his contribution to praise the skill of the
+                      others. No one can whistle a symphony. It takes an
+                      orchestra to play it.
+                    </p>
+                  </CardBody>
+                  <CardFooter className="text-center">
+                    <Button
+                      className="btn-just-icon btn-neutral"
+                      color="link"
+                      href="#pablo"
+                      onClick={(e) => e.preventDefault()}
+                    >
+                      <i className="fa fa-twitter" />
+                    </Button>
+                    <Button
+                      className="btn-just-icon btn-neutral ml-1"
+                      color="link"
+                      href="#pablo"
+                      onClick={(e) => e.preventDefault()}
+                    >
+                      <i className="fa fa-google-plus" />
+                    </Button>
+                    <Button
+                      className="btn-just-icon btn-neutral ml-1"
+                      color="link"
+                      href="#pablo"
+                      onClick={(e) => e.preventDefault()}
+                    >
+                      <i className="fa fa-linkedin" />
+                    </Button>
+                  </CardFooter>
+                </Card>
+              </Col>
+              <Col md="4">
+                <Card className="card-profile card-plain">
+                  <div className="card-avatar">
+                    <a href="#pablo" onClick={(e) => e.preventDefault()}>
+                      <img
+                        alt="..."
+                        src="assets/img/faces/erik-lucatero-2.jpg"
+                      />
+                    </a>
+                  </div>
+                  <CardBody>
+                    <a href="#pablo" onClick={(e) => e.preventDefault()}>
+                      <div className="author">
+                        <CardTitle tag="h4">Robert Orben</CardTitle>
+                        <h6 className="card-category">Developer</h6>
+                      </div>
+                    </a>
+                    <p className="card-description text-center">
+                      The strength of the team is each individual member. The
+                      strength of each member is the team. If you can laugh
+                      together, you can work together, silence isn’t golden,
+                      it’s deadly.
+                    </p>
+                  </CardBody>
+                  <CardFooter className="text-center">
+                    <Button
+                      className="btn-just-icon btn-neutral"
+                      color="link"
+                      href="#pablo"
+                      onClick={(e) => e.preventDefault()}
+                    >
+                      <i className="fa fa-twitter" />
+                    </Button>
+                    <Button
+                      className="btn-just-icon btn-neutral ml-1"
+                      color="link"
+                      href="#pablo"
+                      onClick={(e) => e.preventDefault()}
+                    >
+                      <i className="fa fa-google-plus" />
+                    </Button>
+                    <Button
+                      className="btn-just-icon btn-neutral ml-1"
+                      color="link"
+                      href="#pablo"
+                      onClick={(e) => e.preventDefault()}
+                    >
+                      <i className="fa fa-linkedin" />
+                    </Button>
+                  </CardFooter>
+                </Card>
+              </Col>
+            </Row>
           </Container>
         </div>
-        <div className="section landing-section">
+        {/* <div className="section landing-section">
           <Container>
             <Row>
               <Col className="ml-auto mr-auto" md="8">
@@ -357,9 +491,9 @@ function LandingPage() {
               </Col>
             </Row>
           </Container>
-        </div>
+        </div> */}
       </div>
-      <Footer />
+
     </>
   );
 }

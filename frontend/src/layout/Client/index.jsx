@@ -40,6 +40,14 @@ const ClientLayout = () => {
 
   if (token) {
     return (
+      <Stack>
+         <Box sx={{ position: 'fixed', top: 0, right: 0, left: 0, zIndex: 100 }}>
+          <Header />
+        </Box>
+        <Outlet />
+      </Stack>
+    )
+    return (
       <Stack pt='5em' sx={{ width: '100%', height: '100vh', display: 'flex', position: 'relative', overflow: 'hidden' }}>
         <Box sx={{ position: 'fixed', top: 0, right: 0, left: 0, zIndex: 1 }}>
           <Header />

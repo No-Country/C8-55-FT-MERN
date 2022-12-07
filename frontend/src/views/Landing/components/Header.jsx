@@ -17,6 +17,7 @@
 
 */
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 // reactstrap components
 import { Button, Container } from "reactstrap";
@@ -25,6 +26,8 @@ import { Button, Container } from "reactstrap";
 
 function Header() {
   let pageHeader = React.createRef();
+  
+  const navigate = useNavigate()
 
   React.useEffect(() => {
     if (window.innerWidth < 991) {
@@ -44,7 +47,7 @@ function Header() {
     <>
       <div
         style={{
-          backgroundImage: `url:(assets/img/daniel-olahh.jpg)`
+          backgroundImage: `url('https://img.freepik.com/free-vector/laptop-with-program-code-isometric-icon-software-development-programming-applications-dark-neon_39422-971.jpg?w=2000')`
         }}
         className="page-header"
         data-parallax={true}
@@ -53,8 +56,8 @@ function Header() {
         <div className="filter" />
         <Container>
           <div className="motto text-center">
-            <h1>Example page</h1>
-            <h3>Start designing your landing page here.</h3>
+            <h1>RocketCup</h1>
+            <h3>Start designing your proyect with us here.</h3>
             <br />
             <Button
               href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
@@ -66,8 +69,8 @@ function Header() {
               <i className="fa fa-play" />
               Watch video
             </Button>
-            <Button className="btn-round" color="neutral" type="button" outline>
-              Download
+            <Button onClick={() =>navigate('/projects/create')} className="btn-round" color="neutral" type="button" outline>
+              Crear proyecto
             </Button>
           </div>
         </Container>

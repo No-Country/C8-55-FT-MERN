@@ -10,11 +10,13 @@ import { fetchNotifications, types, generateNotification } from '../../../utils/
 import { useSnackbar } from 'notistack';
 
 const Comments = ({ comments, postId }) => {
+    const URL_BASE = import.meta.env.VITE_REACT_APP_API_URI
+
 
     const [commentsToGetDetails, setCommentToGetDetails] = useState(comments)
 
     const getComments = postId => {
-        axios.get(`http://localhost:3000/post/get_post/${postId}`, getConfig())
+        axios.get(`${URL_BASE}/post/get_post/${postId}`, getConfig())
             .then(res => {
                 setCommentToGetDetails(res.data.post.comments)
                 fetchNotifications(dispatch)
@@ -31,7 +33,7 @@ const Comments = ({ comments, postId }) => {
             text: textComment
         }
 
-        axios.post('http://localhost:3000/comment/', body, getConfig())
+        axios.post(`${URL_BASE}/comment/`, body, getConfig())
             .then(res => {
 
                 getComments(postId)

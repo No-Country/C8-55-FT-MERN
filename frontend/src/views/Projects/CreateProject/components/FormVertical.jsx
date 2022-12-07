@@ -28,6 +28,9 @@ const steps = [
 
 const FormVertical = () => {
 
+    const URL_BASE = import.meta.env.VITE_REACT_APP_API_URI
+
+
     const [activeStep, setActiveStep] = useState(0);
     const [descriptionData, setDescriptionData] = useState()
     const [financialData, setFinancialData] = useState()
@@ -60,7 +63,7 @@ const FormVertical = () => {
             wallet: financialData.wallet,
         }
 
-        axios.post('http://localhost:3000/project/create' , body, getConfig())
+        axios.post(`${URL_BASE}/project/create` , body, getConfig())
         .then(res => console.log(res.data))
         .catch(err => console.log(err))
 

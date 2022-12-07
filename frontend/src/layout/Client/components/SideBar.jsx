@@ -29,12 +29,14 @@ const style = {
 
 const SideBar = () => {
 
+    const URL_BASE = import.meta.env.VITE_REACT_APP_API_URI
+
     const [projects, setProjects] = useState()
 
     const navigate = useNavigate()
    
     useEffect(() => {
-      axios.get('http://localhost:3000/project/all_projects', getConfig())
+      axios.get(`${URL_BASE}/project/all_projects`, getConfig())
       .then(res => setProjects(res.data))
       .catch(err => console.log(err))
     }, [])

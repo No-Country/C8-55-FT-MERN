@@ -10,6 +10,7 @@ import getConfig from '../../config'
 import { setUser } from '../../store/slices/user.slice'
 
 import { fetchNotifications } from '../../utils/notificationsUtils';
+import SearchResults from "./components/header/SearchResults"
 
 const ClientLayout = () => {
   
@@ -18,6 +19,7 @@ const ClientLayout = () => {
   const dispatch = useDispatch()
   
   const user = useSelector(account => account.user)
+  const { results } = useSelector(state => state.searchResults)
   const token = localStorage.getItem('token')
   
   useEffect(() => {
@@ -41,6 +43,7 @@ const ClientLayout = () => {
       <Stack pt='5em' sx={{ width: '100%', height: '100vh', display: 'flex', position: 'relative', overflow: 'hidden' }}>
         <Box sx={{ position: 'fixed', top: 0, right: 0, left: 0, zIndex: 1 }}>
           <Header />
+          <SearchResults items={results?.data}/>
         </Box>
         <Box sx={{ display: 'flex', height: '100%', position: 'relative' }}>
           <Box sx={{ position: 'sticky', right: 0 }}>

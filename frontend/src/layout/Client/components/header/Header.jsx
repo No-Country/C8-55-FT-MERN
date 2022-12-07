@@ -102,7 +102,7 @@ const Header = () => {
       <Stack sx={style.header}>
 
         <Typography
-          onClick={() => navigate('/')}
+          onClick={() => navigate('/feed')}
           variant='h6'
           color="var(--color-gray-lofi)"
           sx={{

@@ -27,6 +27,8 @@ const PostShared = ({ post }) => {
 
     const [commentShow, setCommentShow] = useState(false)
 
+    console.log(post.userId)
+
 
     const commentView = () => {
         setCommentShow(!commentShow)
@@ -81,7 +83,6 @@ const PostShared = ({ post }) => {
                   </IconButton>
                 </Box>
                 <Box sx={{ marginX: '1em' }}>
-                    {/* {post.text} */}
                     <div dangerouslySetInnerHTML={{ __html: post.text }}  ></div>
                 </Box>
                 <Divider sx={{ marginTop: '1em' }} />

@@ -2,6 +2,10 @@ import { Stack, Box, Typography, Button, Divider, LinearProgress } from '@mui/ma
 import React, { useState } from 'react'
 import TopProject from './TopProject'
 import projectsDB from '../../../utils/topProjectsDB'
+import { useEffect } from 'react'
+import axios from 'axios'
+import getConfig from '../../../config'
+import { useNavigate } from 'react-router-dom'
 
 
 const style = {
@@ -25,7 +29,17 @@ const style = {
 
 const SideBar = () => {
 
-    const [projects, setProjects] = useState(projectsDB)
+    const [projects, setProjects] = useState()
+
+    const navigate = useNavigate()
+   
+    useEffect(() => {
+      axios.get('http://localhost:3000/project/all_projects', getConfig())
+      .then(res => setProjects(res.data))
+      .catch(err => console.log(err))
+    }, [])
+    
+
 
     return (
         //? TopProjects 
@@ -33,8 +47,8 @@ const SideBar = () => {
         <Stack p='1em' sx={style.sideBar}>
             <Box sx={style.topProjectStyle}>
                 <Box sx={{ minWidth: 300, justifyContent: 'space-between', display: 'flex' }}>
-                    <Typography variant="h6" color="initial">Top Projects</Typography>
-                    <Button variant="outlined" color="success">
+                    <Typography variant="h6" color="initial"> Last Projects</Typography>
+                    <Button variant="outlined" color="success" onClick={() => navigate('/projects')}>
                         View All
                     </Button>
                 </Box>
@@ -42,8 +56,8 @@ const SideBar = () => {
 
                 <Box sx={{ display: 'flex', flexDirection: 'column', gap: '1em' }}>
                     {
-                        projects.map(project =>
-                            <TopProject key={project.name} project={project} />
+                        projects?.map(project =>
+                            <TopProject key={project.wallet} project={project} />
 
                         )
                     }

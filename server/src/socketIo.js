@@ -95,13 +95,11 @@ const socketOn = (io) => {
         //Los nombres de los 2 ultimos los tengo como intId y text
         const { token, intId, text } = data;
 
-        //verificacion de token y obtencion del usuario y mail
+        //verificacion de token y obtencion del usuario y mail del interlocutor
         const verifyToken = jwt.verify(token, SECRET);
         const userToken = await User.findById(verifyToken.id);
-        const post = await Post.findById(postId).populate("userId", {
-          mail: 1,
-        });
-        const mail = post.userId.mail;
+        const intL = await User.findById(intId)
+        const mail = intL.mail;
 
         //guardo el mensaje en la base de datos de chat y mensajes
         const userId = userToken._id

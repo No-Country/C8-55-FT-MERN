@@ -10,6 +10,8 @@ import {
 
 const ResultItem = ({ item }) => {
 
+    console.log(item)
+
     const theme = createTheme()
     const navigate = useNavigate();
 
@@ -26,7 +28,7 @@ const ResultItem = ({ item }) => {
                 margin: "0 auto"
             }}
             
-            onClick={()=> navigate("/feed")}
+            onClick={()=> navigate(`/profile/${item._id}`)}
         >
             <Box
                 sx={{

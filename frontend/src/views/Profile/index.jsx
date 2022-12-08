@@ -2,7 +2,7 @@
 import { Avatar, Divider, IconButton, Stack, Typography } from "@mui/material";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import PersonAddAltIcon from '@mui/icons-material/PersonAddAlt';
 
@@ -33,7 +33,7 @@ import PostShared from "../Feed/components/PostShared";
 function Profile() {
   const [activeTab, setActiveTab] = useState("1");
   const [userInfo, setUserInfo] = useState()
-
+  const navigate = useNavigate()
   const toggle = (tab) => {
     if (activeTab !== tab) {
       setActiveTab(tab);
@@ -54,31 +54,31 @@ function Profile() {
 
   const getUserInfo = () => {
     axios.get(`${URL_BASE}/user/userInfo/${id}`, getConfig())
-    .then(res => setUserInfo(res.data.userData))
-    .catch(err => console.log(err))
-  }
+      .then(res => setUserInfo(res.data.userData))
+      .catch(err => console.log(err))
+  }   
 
   useEffect(() => {
     return getUserInfo()
-  }, [])
+  }, [id])
 
 
   const followUser = id => {
 
     axios.post(`${URL_BASE}/user/addfollowing/${id}`, id, getConfig())
-        .then(res => {
-          console.log(res.data)
-          getUserInfo()
-        })
-        .catch(err => console.log(err, `aqui hay algo raro`))
-}
+      .then(res => {
+        console.log(res.data)
+        getUserInfo()
+      })
+      .catch(err => console.log(err, `aqui hay algo raro`))
+  }
 
   console.log(userInfo)
   return (
     <>
       <Header />
       <div className="section profile-content">
-        <Container>
+        <Container style={{maxHeight: 350}}>
           <div className="owner">
             <div className="avatar">
               <Avatar
@@ -95,7 +95,7 @@ function Profile() {
             </div>
           </div>
 
-          <div className="nav-tabs-navigation">
+          <div  className="nav-tabs-navigation">
             <div className="nav-tabs-wrapper">
               <Nav role="tablist" tabs>
                 <NavItem>
@@ -124,7 +124,7 @@ function Profile() {
             </div>
           </div>
 
-          <TabContent className="following" activeTab={activeTab}>
+          <TabContent style={{ maxHeight: 200, overflow: 'scroll', cursor: 'pointer'}} className="following" activeTab={activeTab}>
             <TabPane tabId="1" id="follows">
               <Row>
                 <Col className="ml-auto mr-auto" md="6">
@@ -132,15 +132,20 @@ function Profile() {
                     {userInfo?.followers.map(follower =>
                       <>
                         <li>
-                          <Row>
-                          <Col className="ml-auto mr-auto" lg="2" md="4" xs="4">
-                            <Avatar
+                          <Row >
+                            <Col className="ml-auto mr-auto" lg="2" md="4" xs="4">
+                              <Avatar
+                                onClick={() => navigate(`/profile/${follower._id}`)}
+
                                 alt={<AccountCircleIcon />}
                                 src={follower?.profileImage}
                                 sx={{ width: 60, height: 60 }}
                               />
                             </Col>
-                            <Col className="ml-auto mr-auto" lg="7" md="4" xs="4">
+                            <Col
+                              onClick={() => navigate(`/profile/${follower._id}`)}
+
+                              className="ml-auto mr-auto" lg="7" md="4" xs="4">
                               <h6>
                                 {`${follower.name} ${follower.lastName}`} <br />
                                 <small>Developer</small>
@@ -149,12 +154,12 @@ function Profile() {
                             <Col className="ml-auto mr-auto" lg="3" md="4" xs="4">
                               <FormGroup check>
                                 <Label check>
-                                  <IconButton onClick={()=> followUser(follower._id)}>
+                                  <IconButton >
 
-                                  <PersonAddAltIcon/>
+                                    <PersonAddAltIcon />
                                   </IconButton>
                                 </Label>
-                              </FormGroup> 
+                              </FormGroup>
                             </Col>
                           </Row>
                         </li>
@@ -174,27 +179,31 @@ function Profile() {
                         <li>
                           <Row>
                             <Col className="ml-auto mr-auto" lg="2" md="4" xs="4">
-                            <Avatar
+                              <Avatar
+                                onClick={() => navigate(`/profile/${follower._id}`)}
+
                                 alt={<AccountCircleIcon />}
                                 src={follower?.profileImage}
                                 sx={{ width: 60, height: 60 }}
                               />
                             </Col>
-                            <Col className="ml-auto mr-auto" lg="7" md="4" xs="4">
+                            <Col
+                              onClick={() => navigate(`/profile/${follower._id}`)}
+                              className="ml-auto mr-auto" lg="7" md="4" xs="4">
                               <h6>
                                 {`${follower.name} ${follower.lastName}`} <br />
                                 <small>Developer</small>
                               </h6>
                             </Col>
                             <Col className="ml-auto mr-auto" lg="3" md="4" xs="4">
-                            <FormGroup check>
+                              <FormGroup check>
                                 <Label check>
-                                  <IconButton onClick={()=> followUser(follower._id)}>
+                                  <IconButton onClick={() => followUser(follower._id)}>
 
-                                  <PersonAddAltIcon/>
+                                    <PersonAddAltIcon />
                                   </IconButton>
                                 </Label>
-                              </FormGroup> 
+                              </FormGroup>
                             </Col>
                           </Row>
                         </li>
@@ -208,15 +217,15 @@ function Profile() {
           </TabContent>
         </Container>
       </div>
-      <Stack sx={{padding: '1em', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
-       <Stack sx={{width: '100%', mb: '1em'}}>
+      <Stack sx={{ padding: '1em', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+        <Stack sx={{ width: '100%', mb: '1em' }}>
 
-       <Divider><Typography variant="h5" color="initial"><strong>Posts</strong></Typography></Divider>
-       </Stack>
-       <Stack sx={{maxWidth: 600, display: 'flex', gap: '1em'}} >
+          <Divider><Typography variant="h5" color="initial"><strong>Posts</strong></Typography></Divider>
+        </Stack>
+        <Stack sx={{ maxWidth: 600, display: 'flex', gap: '1em' }} >
 
-       {userInfo?.posts.map(post => <PostShared key={post._id} post={post}/>).reverse()}
-       </Stack>
+          {userInfo?.posts.map(post => <PostShared key={post._id} post={post} />).reverse()}
+        </Stack>
       </Stack>
       {/* <DemoFooter /> */}
     </>

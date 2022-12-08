@@ -34,7 +34,6 @@ const TabsProjects = () => {
         setValue(newValue);
     };
 
-    console.log(theme)
 
     return (
         <Box

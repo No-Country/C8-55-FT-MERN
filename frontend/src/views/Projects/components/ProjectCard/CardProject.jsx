@@ -14,7 +14,6 @@ import { AtmOutlined } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
 
 const CardProject = ({ project }) => {
-    console.log(project)
     const theme = createTheme();
     const descriptionRef = useRef();
     const resize = useScreenSize();

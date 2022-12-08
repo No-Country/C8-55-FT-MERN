@@ -32,7 +32,6 @@ const PostShared = ({ post }) => {
     const navigate = useNavigate()
 
     const user = useSelector(state => state.user)
-console.log(post)
     const commentView = () => {
         setCommentShow(!commentShow)
     }
@@ -40,7 +39,8 @@ console.log(post)
     const putLike = () => {
 
         const body = {
-            userId: user.id
+            // userId: user.id,
+            id: post._id
         }
         axios.put(`${URL_BASE}/post/like/${post._id}`, body, getConfig())
             .then(res => console.log(res.data))

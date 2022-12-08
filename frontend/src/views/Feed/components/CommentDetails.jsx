@@ -22,8 +22,7 @@ const CommentDetails = ({ comment, getComments }) => {
 
     const navigate = useNavigate()
     const hour = new Date(commentDetails?.comment.createdAt)
-    console.log(commentDetails?.comment.userId.profileImage
-        )
+       
     const getCommentDetails = () => {
         axios.get(`${URL_BASE}/comment/get_comment/${comment}`, getConfig())
             .then(res => {
@@ -76,7 +75,6 @@ const CommentDetails = ({ comment, getComments }) => {
             .catch(err => console.log(err))
     }, [])
 
-    console.log(commentDetails?.comment.userId._id)
 
     if (commentDetails) {
         return (

@@ -106,7 +106,6 @@ export default function Notifications() {
             }
            }}
           onClick={(e) => {
-            console.log("OnCLick")
             handleClick(e)
             emitSocketIO(socket)
             onSocketIO(socket)

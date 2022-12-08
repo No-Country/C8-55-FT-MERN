@@ -8,12 +8,15 @@ import getConfig from '../../../config';
 import { onSocketIO, socket, emitSocketIO } from "../../../socketIO/socketIO";
 import { fetchNotifications, types, generateNotification } from '../../../utils/notificationsUtils';
 import { useSnackbar } from 'notistack';
+import { useSelector } from 'react-redux';
 
 const Comments = ({ comments, postId }) => {
     const URL_BASE = import.meta.env.VITE_REACT_APP_API_URI
 
 
     const [commentsToGetDetails, setCommentToGetDetails] = useState(comments)
+
+    const user = useSelector(state => state.user)
 
     const getComments = postId => {
         axios.get(`${URL_BASE}/post/get_post/${postId}`, getConfig())
@@ -28,10 +31,11 @@ const Comments = ({ comments, postId }) => {
         e.preventDefault()
         const textComment = e.target.comment.value
         const body = {
-            userId: '63743f57d8c106bb72a1c066',
+            userId: user.id,
             postId,
             text: textComment
         }
+
 
         axios.post(`${URL_BASE}/comment/`, body, getConfig())
             .then(res => {

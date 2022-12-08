@@ -10,8 +10,6 @@ import {
 
 const ResultItem = ({ item }) => {
 
-    console.log(item)
-
     const theme = createTheme()
     const navigate = useNavigate();
 

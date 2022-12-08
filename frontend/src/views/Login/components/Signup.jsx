@@ -63,7 +63,6 @@ const Signup = ({ setLogStatus }) => {
     }
 
   }
-console.log(imageURL)
   return (
     <Stack component='form' onSubmit={submit} p='2em' sx={{ width: '350px', borderRadius: '0.8em', backgroundColor: 'white', gap: '1em' }} >
       <Box sx={{ textAlign: 'center' }}>

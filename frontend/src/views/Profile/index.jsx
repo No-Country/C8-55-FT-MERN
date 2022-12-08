@@ -77,7 +77,6 @@ function Profile() {
       .catch(err => console.log(err, `aqui hay algo raro`))
   }
 
-  console.log(userInfo)
   return (
     <>
       <Header />

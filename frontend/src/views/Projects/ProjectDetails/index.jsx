@@ -18,7 +18,6 @@ const ProjectDetails = () => {
   const [project, setProject] = useState()
   const [principalUserInfo, setPrincipalUserInfo] = useState()
 
-  console.log(principalUserInfo?.userData)
 
   const getUserInfo = idUser => {
     axios.get(`${URL_BASE}/user/userinfo/${idUser}`, getConfig())
@@ -58,10 +57,9 @@ const ProjectDetails = () => {
     axios.post(`${URL_BASE}/post/create`, body, getConfig())
       .then(res => console.log(res.data))
       .catch(err => console.log(err.data))
-    console.log(body)
+  
   }
 
-  console.log(id)
   return (
     <Stack sx={{ display: 'flex', flexDirection: 'row', gap: '2em' }}>
       <Card sx={{ width: 900 }}>

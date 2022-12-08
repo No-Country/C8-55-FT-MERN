@@ -40,7 +40,7 @@ const SideBar = () => {
       .then(res => setProjects(res.data))
       .catch(err => console.log(err))
     }, [])
-    
+    console.log(projects)
 
 
     return (

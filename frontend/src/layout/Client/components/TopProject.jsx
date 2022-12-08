@@ -1,8 +1,9 @@
-import { Box, CardMedia, Typography, IconButton } from '@mui/material'
+import { Box, CardMedia, Typography, IconButton, Avatar } from '@mui/material'
 import React from 'react'
 import AddIcon from '@mui/icons-material/Add';
 import MobileScreenShareOutlinedIcon from '@mui/icons-material/MobileScreenShareOutlined';
 import { useNavigate } from 'react-router-dom';
+import BuildCircleOutlinedIcon from '@mui/icons-material/BuildCircleOutlined';
 
 const style = {
     topProject: {
@@ -29,13 +30,11 @@ const TopProject = ({project}) => {
             </Box>
             <Box sx={{position: 'relative', flex: 1, height: '100%', paddingX: '0.5em', display: 'flex', alignItems: 'center', flexDirection: 'row', gap: '0.5em' }}>
                 <Box sx={{ maxWidth: 40, borderRadius: '100%', overflow: 'hidden' }}>
-                    <CardMedia
-                        component="img"
-                        height="40"
-                        width="40"
-                        image="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8cGVyc29ufGVufDB8fDB8fA%3D%3D&w=1000&q=80"
-                        alt="green iguana"
-                    />
+                <Avatar
+                alt={<BuildCircleOutlinedIcon />}
+                src={project.projectImg}
+                sx={{ width: 35, height: 35 }}
+              />
                 </Box>
                 <Typography onClick={()=> navigate(`/project/${project._id}`)} variant="body1" >{project.title}</Typography>
                 <IconButton onClick={()=> navigate(`/project/${project._id}`)} sx={{position: 'absolute', right: 0}} >

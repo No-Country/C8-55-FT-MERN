@@ -10,17 +10,17 @@ const modules = {
 
 const DescriptionForm = ({ setDescriptionData, handleNext, handleBack, setImg, img }) => {
 
-  const { quill, quillRef } = useQuill({ modules });
-  const [postValue, setPostValue] = useState()
+  // // const { quill, quillRef } = useQuill({ modules });
+  // const [postValue, setPostValue] = useState()
 
 
-  useEffect(() => {
-    if (quill) {
-      quill.on('text-change', () => {
-        setPostValue(quillRef.current.firstChild.innerHTML)
-      })
-    }
-  }, [quill])
+  // // useEffect(() => {
+  // //   if (quill) {
+  // //     quill.on('text-change', () => {
+  // //       setPostValue(quillRef.current.firstChild.innerHTML)
+  // //     })
+  // //   }
+  // // }, [quill])
 
   const creationDescription = () => {
 
@@ -28,7 +28,7 @@ const DescriptionForm = ({ setDescriptionData, handleNext, handleBack, setImg, i
     setDescriptionData({
       title: title.value,
       subtitle: subtitle.value,
-      description: quillRef.current.firstChild.innerHTML,
+      description: description.value,
       risk: risk.value,
       url: url.value,
       img: 'https://cdn.akamai.steamstatic.com/steam/apps/108600/capsule_616x353.jpg?t=1644611871'
@@ -63,9 +63,12 @@ const DescriptionForm = ({ setDescriptionData, handleNext, handleBack, setImg, i
       </Box>
       <Box sx={{ display: 'flex', gap: '1em', alignItems: 'center' }}>
         <Box sx={{ display: 'flex', flexDirection: 'column', gap: '1em', width: 700 }}>
-          <div style={{ width: '100%', height: 100, marginBottom: '2.5em' }}>
-            <div ref={quillRef} />
-          </div>
+        <TextField
+            fullWidth
+            label='Description'
+            size='small'
+            id='description'
+            required />
           <TextField
             fullWidth
             label='risks and challenges'

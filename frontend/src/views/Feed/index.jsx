@@ -1,12 +1,10 @@
 import { Stack, Box, Typography, IconButton, Button } from '@mui/material'
 import React, { useEffect, useState } from 'react'
-import CreatePost from './components/CreatePost'
+// import CreatePost from './components/CreatePost'
 import PostShared from './components/PostShared'
 import AddIcon from '@mui/icons-material/Add';
 import axios from 'axios'
 import getConfig from '../../config';
-import { CloudinaryContext, Image } from 'cloudinary-react'
-
 import {emitSocketIO, socket, onSocketIO} from "../../socketIO/socketIO";
 import { useSnackbar } from 'notistack';
 import { fetchNotifications, types, generateNotification } from '../../utils/notificationsUtils';
@@ -75,7 +73,7 @@ const Feed = () => {
           </IconButton>
         </Box>
 
-        <CreatePost createPostVisibility={createPostVisibility} />
+        {/* <CreatePost createPostVisibility={createPostVisibility} /> */}
 
         <Stack sx={{ display: 'flex', gap: '1em', overflow: 'scroll', maxHeight: 500, paddingBottom: '3em' }}>
           {posts && posts.map(post => <PostShared key={post._id} post={post} />).reverse()}

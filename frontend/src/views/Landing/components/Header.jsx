@@ -1,21 +1,4 @@
-/*!
 
-=========================================================
-* Paper Kit React - v1.3.1
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/paper-kit-react
-
-* Copyright 2022 Creative Tim (https://www.creative-tim.com)
-* Licensed under MIT (https://github.com/creativetimofficial/paper-kit-react/blob/main/LICENSE.md)
-
-* Coded by Creative Tim
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-*/
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -47,7 +30,7 @@ function Header() {
     <>
       <div
         style={{
-          backgroundImage: `url('https://img.freepik.com/free-vector/laptop-with-program-code-isometric-icon-software-development-programming-applications-dark-neon_39422-971.jpg?w=2000')`
+          backgroundImage: `url('front.jpeg')`
         }}
         className="page-header"
         data-parallax={true}
@@ -57,9 +40,9 @@ function Header() {
         <Container>
           <div className="motto text-center">
             <h1>RocketCup</h1>
-            <h3>Start designing your proyect with us here.</h3>
+            <h3>Start designing your proyect with us!</h3>
             <br />
-            <Button
+            {/* <Button
               href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
               className="btn-round mr-1"
               color="neutral"
@@ -68,7 +51,7 @@ function Header() {
             >
               <i className="fa fa-play" />
               Watch video
-            </Button>
+            </Button> */}
             <Button onClick={() =>navigate('/projects/create')} className="btn-round" color="neutral" type="button" outline>
               Crear proyecto
             </Button>

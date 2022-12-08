@@ -1,26 +1,10 @@
-/*!
 
-=========================================================
-* Paper Kit React - v1.3.1
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/paper-kit-react
-
-* Copyright 2022 Creative Tim (https://www.creative-tim.com)
-* Licensed under MIT (https://github.com/creativetimofficial/paper-kit-react/blob/main/LICENSE.md)
-
-* Coded by Creative Tim
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-*/
-import { Avatar } from "@mui/material";
+import { Avatar, Divider, IconButton, Stack, Typography } from "@mui/material";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import PersonAddAltIcon from '@mui/icons-material/PersonAddAlt';
 
 // reactstrap components
 import {
@@ -44,6 +28,7 @@ import getConfig from "../../config";
 // import ProfilePageHeader from "components/Headers/ProfilePageHeader.js";
 // import DemoFooter from "components/Footers/DemoFooter.js";
 import Header from "./components/Header";
+import PostShared from "../Feed/components/PostShared";
 
 function Profile() {
   const [activeTab, setActiveTab] = useState("1");
@@ -67,13 +52,26 @@ function Profile() {
 
   const URL_BASE = import.meta.env.VITE_REACT_APP_API_URI
 
-  useEffect(() => {
+  const getUserInfo = () => {
     axios.get(`${URL_BASE}/user/userInfo/${id}`, getConfig())
-      .then(res => setUserInfo(res.data.userData))
-      .catch(err => console.log(err))
+    .then(res => setUserInfo(res.data.userData))
+    .catch(err => console.log(err))
+  }
+
+  useEffect(() => {
+    return getUserInfo()
   }, [])
 
 
+  const followUser = id => {
+
+    axios.post(`${URL_BASE}/user/addfollowing/${id}`, id, getConfig())
+        .then(res => {
+          console.log(res.data)
+          getUserInfo()
+        })
+        .catch(err => console.log(err, `aqui hay algo raro`))
+}
 
   console.log(userInfo)
   return (
@@ -84,7 +82,7 @@ function Profile() {
           <div className="owner">
             <div className="avatar">
               <Avatar
-                alt={<AccountCircleIcon/>}
+                alt={<AccountCircleIcon />}
                 src={userInfo?.profileImage}
                 sx={{ width: 150, height: 150 }}
               />
@@ -108,7 +106,7 @@ function Profile() {
                       toggle("1");
                     }}
                   >
-                    Follows
+                    Followers
                   </NavLink>
                 </NavItem>
                 <NavItem>
@@ -119,7 +117,7 @@ function Profile() {
                       toggle("2");
                     }}
                   >
-                    Following
+                    following
                   </NavLink>
                 </NavItem>
               </Nav>
@@ -135,11 +133,11 @@ function Profile() {
                       <>
                         <li>
                           <Row>
-                            <Col className="ml-auto mr-auto" lg="2" md="4" xs="4">
-                              <img
-                                alt={`${follower.name} ${follower.lastName}`}
-                                className="img-circle img-no-padding img-responsive"
-                                src={`${follower.profileImage}`}
+                          <Col className="ml-auto mr-auto" lg="2" md="4" xs="4">
+                            <Avatar
+                                alt={<AccountCircleIcon />}
+                                src={follower?.profileImage}
+                                sx={{ width: 60, height: 60 }}
                               />
                             </Col>
                             <Col className="ml-auto mr-auto" lg="7" md="4" xs="4">
@@ -151,14 +149,12 @@ function Profile() {
                             <Col className="ml-auto mr-auto" lg="3" md="4" xs="4">
                               <FormGroup check>
                                 <Label check>
-                                  <Input
-                                    defaultChecked
-                                    defaultValue=""
-                                    type="checkbox"
-                                  />
-                                  <span className="form-check-sign" />
+                                  <IconButton onClick={()=> followUser(follower._id)}>
+
+                                  <PersonAddAltIcon/>
+                                  </IconButton>
                                 </Label>
-                              </FormGroup>
+                              </FormGroup> 
                             </Col>
                           </Row>
                         </li>
@@ -178,10 +174,10 @@ function Profile() {
                         <li>
                           <Row>
                             <Col className="ml-auto mr-auto" lg="2" md="4" xs="4">
-                              <img
-                                alt={`${follower.name} ${follower.lastName}`}
-                                className="img-circle img-no-padding img-responsive"
-                                src={`${follower.profileImage}`}
+                            <Avatar
+                                alt={<AccountCircleIcon />}
+                                src={follower?.profileImage}
+                                sx={{ width: 60, height: 60 }}
                               />
                             </Col>
                             <Col className="ml-auto mr-auto" lg="7" md="4" xs="4">
@@ -191,16 +187,14 @@ function Profile() {
                               </h6>
                             </Col>
                             <Col className="ml-auto mr-auto" lg="3" md="4" xs="4">
-                              <FormGroup check>
+                            <FormGroup check>
                                 <Label check>
-                                  <Input
-                                    defaultChecked
-                                    defaultValue=""
-                                    type="checkbox"
-                                  />
-                                  <span className="form-check-sign" />
+                                  <IconButton onClick={()=> followUser(follower._id)}>
+
+                                  <PersonAddAltIcon/>
+                                  </IconButton>
                                 </Label>
-                              </FormGroup>
+                              </FormGroup> 
                             </Col>
                           </Row>
                         </li>
@@ -214,6 +208,16 @@ function Profile() {
           </TabContent>
         </Container>
       </div>
+      <Stack sx={{padding: '1em', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+       <Stack sx={{width: '100%', mb: '1em'}}>
+
+       <Divider><Typography variant="h5" color="initial"><strong>Posts</strong></Typography></Divider>
+       </Stack>
+       <Stack sx={{maxWidth: 600, display: 'flex', gap: '1em'}} >
+
+       {userInfo?.posts.map(post => <PostShared key={post._id} post={post}/>).reverse()}
+       </Stack>
+      </Stack>
       {/* <DemoFooter /> */}
     </>
   );

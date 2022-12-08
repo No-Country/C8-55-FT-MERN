@@ -102,7 +102,7 @@ const socketOn = (io) => {
         const mail = intL.mail;
 
         //guardo el mensaje en la base de datos de chat y mensajes
-        const userId = userToken._id
+        const userId = userToken._id.toString()
         const message = await sendMessage(userId,intId,text);
 
         //devuelvo la respuesta al front end con el nombre de GET_MESSAGE

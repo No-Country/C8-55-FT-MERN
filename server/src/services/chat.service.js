@@ -9,7 +9,7 @@ const getChat = async (userId,intId) => {
         console.log(intId);
         const {chatId} = await messageService.searchChat(userId,intId);
         const chat = await Chat.findById(chatId);
-        const messages = chat.messages.map(async id => {
+        const messages = chat?.messages?.map(async id => {
             return await messageService.getMessage(id)
         });
         return await Promise.all(messages);

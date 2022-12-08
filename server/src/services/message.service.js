@@ -8,7 +8,7 @@ const searchChat = async (userId,intId) =>{
         if (!user) throw new Error('User Id not found');
         const destinatary = await User.findById(intId);
         if (!destinatary) throw new Error('destinatary Id not found');
-        const chatId = user.chat.get(intId);
+        const chatId = user?.chat?.get(intId);
         return {user,chatId,destinatary};
     } catch (err) {
         throw err;

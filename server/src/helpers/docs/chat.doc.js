@@ -68,7 +68,7 @@ const getChats = {
 }
 
 const chatRoute = {
-    "/chat/get/{intId}":{
+    "/chat/get/{id}":{
         get:getChat
     },
     "/chat/get_chats":{

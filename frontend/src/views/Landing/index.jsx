@@ -127,7 +127,7 @@ function LandingPage() {
         </div>
         <div className="section section-dark text-center">
           <Container>
-            <h2 className="title">Let's talk about us</h2>
+            <h2 className="title">Developer Team | <em>C8-FT-55-MERN</em></h2>
             <Row>
               <Col md="4">
                 <Card className="card-profile card-plain">
@@ -135,49 +135,20 @@ function LandingPage() {
                     <a href="#pablo" onClick={(e) => e.preventDefault()}>
                       <img
                         alt="..."
-                        src="assets/img/faces/clem-onojeghuo-3.jpg"
+                        src="jere.png"
                       />
                     </a>
                   </div>
                   <CardBody>
                     <a href="#pablo" onClick={(e) => e.preventDefault()}>
                       <div className="author">
-                        <CardTitle tag="h4">Henry Ford</CardTitle>
-                        <h6 className="card-category">Product Manager</h6>
+                        <CardTitle tag="h4">Jeremias Gomez</CardTitle>
+                        <h6 className="card-category">UI / UX Designer</h6>
                       </div>
                     </a>
-                    <p className="card-description text-center">
-                      Teamwork is so important that it is virtually impossible
-                      for you to reach the heights of your capabilities or make
-                      the money that you want without becoming very good at it.
-                    </p>
+                   
                   </CardBody>
-                  <CardFooter className="text-center">
-                    <Button
-                      className="btn-just-icon btn-neutral"
-                      color="link"
-                      href="#pablo"
-                      onClick={(e) => e.preventDefault()}
-                    >
-                      <i className="fa fa-twitter" />
-                    </Button>
-                    <Button
-                      className="btn-just-icon btn-neutral ml-1"
-                      color="link"
-                      href="#pablo"
-                      onClick={(e) => e.preventDefault()}
-                    >
-                      <i className="fa fa-google-plus" />
-                    </Button>
-                    <Button
-                      className="btn-just-icon btn-neutral ml-1"
-                      color="link"
-                      href="#pablo"
-                      onClick={(e) => e.preventDefault()}
-                    >
-                      <i className="fa fa-linkedin" />
-                    </Button>
-                  </CardFooter>
+               
                 </Card>
               </Col>
               <Col md="4">
@@ -185,51 +156,19 @@ function LandingPage() {
                   <div className="card-avatar">
                     <a href="#pablo" onClick={(e) => e.preventDefault()}>
                       <img
-                        alt="..."
-                        src="assets/img/faces/joe-gardner-2.jpg"
+                        alt="Deriam Suarez"
+                        src="deriam.png"
                       />
                     </a>
                   </div>
                   <CardBody>
-                    <a href="#pablo" onClick={(e) => e.preventDefault()}>
                       <div className="author">
-                        <CardTitle tag="h4">Sophie West</CardTitle>
-                        <h6 className="card-category">Designer</h6>
+                        <CardTitle tag="h4">Deriam Suarez</CardTitle>
+                        <h6 className="card-category">Front-End Developer</h6>
                       </div>
-                    </a>
-                    <p className="card-description text-center">
-                      A group becomes a team when each member is sure enough of
-                      himself and his contribution to praise the skill of the
-                      others. No one can whistle a symphony. It takes an
-                      orchestra to play it.
-                    </p>
+               
                   </CardBody>
-                  <CardFooter className="text-center">
-                    <Button
-                      className="btn-just-icon btn-neutral"
-                      color="link"
-                      href="#pablo"
-                      onClick={(e) => e.preventDefault()}
-                    >
-                      <i className="fa fa-twitter" />
-                    </Button>
-                    <Button
-                      className="btn-just-icon btn-neutral ml-1"
-                      color="link"
-                      href="#pablo"
-                      onClick={(e) => e.preventDefault()}
-                    >
-                      <i className="fa fa-google-plus" />
-                    </Button>
-                    <Button
-                      className="btn-just-icon btn-neutral ml-1"
-                      color="link"
-                      href="#pablo"
-                      onClick={(e) => e.preventDefault()}
-                    >
-                      <i className="fa fa-linkedin" />
-                    </Button>
-                  </CardFooter>
+               
                 </Card>
               </Col>
               <Col md="4">
@@ -237,210 +176,83 @@ function LandingPage() {
                   <div className="card-avatar">
                     <a href="#pablo" onClick={(e) => e.preventDefault()}>
                       <img
-                        alt="..."
-                        src="assets/img/faces/erik-lucatero-2.jpg"
+                        alt="agustin"
+                        src="agustin.png"
                       />
                     </a>
                   </div>
                   <CardBody>
-                    <a href="#pablo" onClick={(e) => e.preventDefault()}>
                       <div className="author">
-                        <CardTitle tag="h4">Robert Orben</CardTitle>
-                        <h6 className="card-category">Developer</h6>
+                        <CardTitle tag="h4">Federico Montenegro</CardTitle>
+                        <h6 className="card-category">front-end developer</h6>
                       </div>
-                    </a>
-                    <p className="card-description text-center">
-                      The strength of the team is each individual member. The
-                      strength of each member is the team. If you can laugh
-                      together, you can work together, silence isn’t golden,
-                      it’s deadly.
-                    </p>
+              
                   </CardBody>
-                  <CardFooter className="text-center">
-                    <Button
-                      className="btn-just-icon btn-neutral"
-                      color="link"
-                      href="#pablo"
-                      onClick={(e) => e.preventDefault()}
-                    >
-                      <i className="fa fa-twitter" />
-                    </Button>
-                    <Button
-                      className="btn-just-icon btn-neutral ml-1"
-                      color="link"
-                      href="#pablo"
-                      onClick={(e) => e.preventDefault()}
-                    >
-                      <i className="fa fa-google-plus" />
-                    </Button>
-                    <Button
-                      className="btn-just-icon btn-neutral ml-1"
-                      color="link"
-                      href="#pablo"
-                      onClick={(e) => e.preventDefault()}
-                    >
-                      <i className="fa fa-linkedin" />
-                    </Button>
-                  </CardFooter>
+               
                 </Card>
               </Col>
             </Row>
             <Row>
+            <Col md="4">
+                <Card className="card-profile card-plain">
+                  <div className="card-avatar">
+                      <img
+                        alt="..."
+                        src="mateo.png"
+                      />
+                  </div>
+                  <CardBody>
+                      <div className="author">
+                        <CardTitle tag="h4">Mateo del Campillo</CardTitle>
+                        <h6 className="card-category">back-end developer</h6>
+                      </div>
+                   
+                  </CardBody>
+               
+                </Card>
+              </Col>
+            <Col md="4">
+                <Card className="card-profile card-plain">
+                  <div className="card-avatar">
+                    <a href="#pablo" onClick={(e) => e.preventDefault()}>
+                      <img
+                        alt="..."
+                        src="francis.png"
+                      />
+                    </a>
+                  </div>
+                  <CardBody>
+                      <div className="author">
+                        <CardTitle tag="h4">Francisco Gimenez</CardTitle>
+                        <h6 className="card-category">back-end developer</h6>
+                      </div>
+
+        
+                  </CardBody>
+               
+                </Card>
+              </Col>
+             
               <Col md="4">
                 <Card className="card-profile card-plain">
                   <div className="card-avatar">
                     <a href="#pablo" onClick={(e) => e.preventDefault()}>
                       <img
                         alt="..."
-                        src="assets/img/faces/clem-onojeghuo-3.jpg"
+                        src="agustin.png"
                       />
                     </a>
                   </div>
                   <CardBody>
-                    <a href="#pablo" onClick={(e) => e.preventDefault()}>
                       <div className="author">
-                        <CardTitle tag="h4">Henry Ford</CardTitle>
-                        <h6 className="card-category">Product Manager</h6>
+                        <CardTitle tag="h4">Agustin Sandoval</CardTitle>
+                        <h6 className="card-category">back-end developer</h6>
                       </div>
-                    </a>
-                    <p className="card-description text-center">
-                      Teamwork is so important that it is virtually impossible
-                      for you to reach the heights of your capabilities or make
-                      the money that you want without becoming very good at it.
-                    </p>
                   </CardBody>
-                  <CardFooter className="text-center">
-                    <Button
-                      className="btn-just-icon btn-neutral"
-                      color="link"
-                      href="#pablo"
-                      onClick={(e) => e.preventDefault()}
-                    >
-                      <i className="fa fa-twitter" />
-                    </Button>
-                    <Button
-                      className="btn-just-icon btn-neutral ml-1"
-                      color="link"
-                      href="#pablo"
-                      onClick={(e) => e.preventDefault()}
-                    >
-                      <i className="fa fa-google-plus" />
-                    </Button>
-                    <Button
-                      className="btn-just-icon btn-neutral ml-1"
-                      color="link"
-                      href="#pablo"
-                      onClick={(e) => e.preventDefault()}
-                    >
-                      <i className="fa fa-linkedin" />
-                    </Button>
-                  </CardFooter>
+               
                 </Card>
               </Col>
-              <Col md="4">
-                <Card className="card-profile card-plain">
-                  <div className="card-avatar">
-                    <a href="#pablo" onClick={(e) => e.preventDefault()}>
-                      <img
-                        alt="..."
-                        src="assets/img/faces/joe-gardner-2.jpg"
-                      />
-                    </a>
-                  </div>
-                  <CardBody>
-                    <a href="#pablo" onClick={(e) => e.preventDefault()}>
-                      <div className="author">
-                        <CardTitle tag="h4">Sophie West</CardTitle>
-                        <h6 className="card-category">Designer</h6>
-                      </div>
-                    </a>
-                    <p className="card-description text-center">
-                      A group becomes a team when each member is sure enough of
-                      himself and his contribution to praise the skill of the
-                      others. No one can whistle a symphony. It takes an
-                      orchestra to play it.
-                    </p>
-                  </CardBody>
-                  <CardFooter className="text-center">
-                    <Button
-                      className="btn-just-icon btn-neutral"
-                      color="link"
-                      href="#pablo"
-                      onClick={(e) => e.preventDefault()}
-                    >
-                      <i className="fa fa-twitter" />
-                    </Button>
-                    <Button
-                      className="btn-just-icon btn-neutral ml-1"
-                      color="link"
-                      href="#pablo"
-                      onClick={(e) => e.preventDefault()}
-                    >
-                      <i className="fa fa-google-plus" />
-                    </Button>
-                    <Button
-                      className="btn-just-icon btn-neutral ml-1"
-                      color="link"
-                      href="#pablo"
-                      onClick={(e) => e.preventDefault()}
-                    >
-                      <i className="fa fa-linkedin" />
-                    </Button>
-                  </CardFooter>
-                </Card>
-              </Col>
-              <Col md="4">
-                <Card className="card-profile card-plain">
-                  <div className="card-avatar">
-                    <a href="#pablo" onClick={(e) => e.preventDefault()}>
-                      <img
-                        alt="..."
-                        src="assets/img/faces/erik-lucatero-2.jpg"
-                      />
-                    </a>
-                  </div>
-                  <CardBody>
-                    <a href="#pablo" onClick={(e) => e.preventDefault()}>
-                      <div className="author">
-                        <CardTitle tag="h4">Robert Orben</CardTitle>
-                        <h6 className="card-category">Developer</h6>
-                      </div>
-                    </a>
-                    <p className="card-description text-center">
-                      The strength of the team is each individual member. The
-                      strength of each member is the team. If you can laugh
-                      together, you can work together, silence isn’t golden,
-                      it’s deadly.
-                    </p>
-                  </CardBody>
-                  <CardFooter className="text-center">
-                    <Button
-                      className="btn-just-icon btn-neutral"
-                      color="link"
-                      href="#pablo"
-                      onClick={(e) => e.preventDefault()}
-                    >
-                      <i className="fa fa-twitter" />
-                    </Button>
-                    <Button
-                      className="btn-just-icon btn-neutral ml-1"
-                      color="link"
-                      href="#pablo"
-                      onClick={(e) => e.preventDefault()}
-                    >
-                      <i className="fa fa-google-plus" />
-                    </Button>
-                    <Button
-                      className="btn-just-icon btn-neutral ml-1"
-                      color="link"
-                      href="#pablo"
-                      onClick={(e) => e.preventDefault()}
-                    >
-                      <i className="fa fa-linkedin" />
-                    </Button>
-                  </CardFooter>
-                </Card>
-              </Col>
+
             </Row>
           </Container>
         </div>

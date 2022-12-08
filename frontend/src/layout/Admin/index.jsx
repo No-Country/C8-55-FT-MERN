@@ -1,18 +1,17 @@
 import { Stack, Box } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 import { Navigate, Outlet } from 'react-router-dom'
-import Chat from './components/Chat'
-import Header from './components/header/Header'
-import SideBar from './components/SideBar'
+import Chat from '../Client/components/Chat'
+import Header from '../Client/components/header/Header'
 import { useDispatch, useSelector } from 'react-redux'
 import axios from 'axios'
 import getConfig from '../../config'
 import { setUser } from '../../store/slices/user.slice'
 
 import { fetchNotifications } from '../../utils/notificationsUtils';
-import SearchResults from "./components/header/SearchResults"
+import SearchResults from "../Client/components/header/SearchResults"
 
-const ClientLayout = () => {
+const PersonalLayout = () => {
   const URL_BASE = import.meta.env.VITE_REACT_APP_API_URI
 
   
@@ -55,7 +54,7 @@ const ClientLayout = () => {
 
   } else {
     return <Navigate to='/log' />
-  } 
+  }
 }
 
-export default ClientLayout
+export default PersonalLayout

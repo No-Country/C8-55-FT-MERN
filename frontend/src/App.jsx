@@ -27,7 +27,7 @@ function App() {
     <Routes>
       <Route path="/log" element={<LogIndex />} />
       <Route element={<ClientLayout />}>
-        <Route path="/feed" element={<Feed />} />
+        <Route path="/feed" element={<p>Hola</p>} />
         <Route path="/projects" element={<Projects />} />
         <Route path="/projects/create" element={<CreateProjects/>}/>
         <Route path="/project/:id" element={<ProjectDetails/>}/>

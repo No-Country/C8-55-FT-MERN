@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import {
     Stack,
     Box,
@@ -13,6 +13,7 @@ import SendIcon from '@mui/icons-material/Send';
 
 import CloudMessage from "./CloudMessage";
 import { socket, typesSocket } from '../../../../socketIO/socketIO';
+import { post } from '../../../../utils/apiUtils';
 
 const ChatWindow = () => {
 
@@ -34,14 +35,24 @@ const ChatWindow = () => {
     }
 
     const postMsg = () => {
-        socket.emit(typesSocket.newMessage, {
+        console.log("se esta enviando el mensaje")
+        let data = {
             token: localStorage.getItem("token"),
             intId: "6387f05fbcc725a93ac1a443",
             text: currentMsg
-        })
+        }
+        console.log(data)
+        socket.emit(typesSocket.newMessage, data)
     }
 
-    console.log(currentMsg)
+    const fetchUser = async () => {
+        const response = await post("/user/userInfo", "6387f05fbcc725a93ac1a443")
+        console.log(response)
+    }
+
+    useEffect(()=> {
+        fetchUser()
+    }, [])
 
     return (
         <Stack
@@ -144,6 +155,7 @@ const ChatWindow = () => {
                                 p: '10px'
                             }}
                             aria-label="search"
+                            onClick={postMsg}
                         >
                             <SendIcon
                                 sx={{

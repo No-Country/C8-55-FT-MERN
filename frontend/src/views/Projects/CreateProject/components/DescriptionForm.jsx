@@ -24,7 +24,6 @@ const DescriptionForm = ({ setDescriptionData, handleNext, handleBack, setImg, i
 
   const creationDescription = () => {
 
-
     setDescriptionData({
       title: title.value,
       subtitle: subtitle.value,
@@ -40,7 +39,7 @@ const DescriptionForm = ({ setDescriptionData, handleNext, handleBack, setImg, i
 
 
   return (
-    <Stack component='form' sx={{ display: 'flex', gap: '1em' }}>
+    <Stack sx={{ display: 'flex', gap: '1em' }}>
       <Box sx={{ display: 'flex', gap: '1em', alignItems: 'center' }}>
         <Box sx={{ display: 'flex', flexDirection: 'column', gap: '1em', width: 700 }}>
           <TextField

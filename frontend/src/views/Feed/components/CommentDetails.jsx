@@ -133,7 +133,7 @@ const CommentDetails = ({ comment, getComments }) => {
                             {commentDetails?.comment.replies[0] && commentDetails?.comment.replies.map(reply => <Reply key={reply._id} reply={reply} getCommentDetails={getCommentDetails} />)}
 
                             <Box component='form' onSubmit={postReply} sx={{ display: 'flex', my: '0.3em' }}>
-                                <TextField size='small' fullWidth name="reply" label="Deja aqui tu veneno..." variant="outlined" />
+                                <TextField size='small' fullWidth name="reply" label="Deja aqui tu comentario..." variant="outlined" />
                                 <IconButton color='success' type='submit' >
                                     <SendIcon />
                                 </IconButton>

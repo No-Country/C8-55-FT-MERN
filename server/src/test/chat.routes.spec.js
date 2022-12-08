@@ -13,11 +13,11 @@ afterAll(async () => {
 
 let jwt;
 let userId;
-let user_comments;
-let comment;
+let get_chats;
+let get_chat;
 beforeEach(async () => {
-  user_comments = await request(app).get(`/comment/user_comment/${userId}`);
-  comment = await request(app).get(`/comment/get_comment/${1}`);
+  get_chat = await request(app).get(`/chat/get/:intId/${1}`);
+  get_chats = await request(app).get("/chat/get_chats");
 
   const response = await request(app).post("/user/signin").send({
     mail: "test@test.com",
@@ -27,115 +27,24 @@ beforeEach(async () => {
   userId = response.body._id;
 });
 
-describe("Posts routes testing", () => {
-  //user_comment/:id
-  describe("GET /comment/user_comment/:id", () => {
-    //should require authorization
+//get chats
+describe("Chats routes testing", () => {
+  describe("GET /chat/get_chats", () => {
     it("should require authorization", () => {
       request(app)
-        .get(`/comment/user_comment/${userId}`)
+        .get("/chat/get_chats")
+        .send(userId)
         .set("content-type", "application/json")
         .set("Authorization", `Bearer ${jwt}`)
         .expect(200);
     });
-
-    //The request returns an object
-    it("The request returns an object", async () => {
-      expect(user_comments.body).toBeInstanceOf(Object);
-    });
-
-    it("The request return a JSON", async () => {
-      expect(user_comments.headers["content-type"]).toContain("json");
-    });
   });
 
-  ///get_comment/:id
-  describe("GET /comment/get_comment/:id", () => {
-    //should require authorization
+  describe("GET /chat/get/:intId", () => {
     it("should require authorization", () => {
       request(app)
-        .get(`/comment/get_comment/${1}`)
-        .set("content-type", "application/json")
-        .set("Authorization", `Bearer ${jwt}`)
-        .expect(200);
-    });
-
-    //The request returns an object
-    it("The request returns an object", async () => {
-      expect(comment.body).toBeInstanceOf(Object);
-    });
-
-    it("The request return a JSON", async () => {
-      expect(comment.headers["content-type"]).toContain("json");
-    });
-  });
-
-  /// create
-  describe("POST /comment/create", () => {
-    it("The route works", () => {
-      request(app)
-        .post("/comment/post/")
-        .send({
-          userId,
-          postId: 1,
-          text: "test",
-        })
-        .set("content-type", "application/json")
-        .set("Authorization", `Bearer ${jwt}`)
-        .expect(200);
-    });
-  });
-
-  // put /reply
-  describe("PUT /comment/reply", () => {
-    it("The route works", () => {
-      request(app)
-        .put("/comment/reply/")
-        .send({
-          commentId: "1",
-          userId: userId,
-          postId: "1",
-          text: "test",
-        })
-        .set("content-type", "application/json")
-        .set("Authorization", `Bearer ${jwt}`)
-        .expect(200);
-    });
-  });
-
-  // put /like/:id
-  describe("PUT /comment/like/:id", () => {
-    it("The route works", () => {
-      request(app)
-        .put(`/comment/like/${1}`)
-        .send({
-          userId: userId,
-        })
-        .set("content-type", "application/json")
-        .set("Authorization", `Bearer ${jwt}`)
-        .expect(200);
-    });
-  });
-
-  // /delete/:id'
-  describe("PUT /comment/delete/:id", () => {
-    it("The route works", () => {
-      request(app)
-        .delete(`/comment/delete/${1}`)
-        .set("content-type", "application/json")
-        .set("Authorization", `Bearer ${jwt}`)
-        .expect(200);
-    });
-  });
-
-  // /update/:id
-  describe("PUT /comment/update/:id", () => {
-    it("The route works", () => {
-      request(app)
-        .put(`/comment/update/${1}`)
-        .send({
-          text: "test",
-        })
+        .get(`/chat/get/:intId/${1}`)
+        .send(userId)
         .set("content-type", "application/json")
         .set("Authorization", `Bearer ${jwt}`)
         .expect(200);

@@ -16,10 +16,12 @@ import getConfig from '../../../config';
 
 import { emitSocketIO, socket } from "../../../socketIO/socketIO";
 import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 const style = {
     postSharedStyle: {
         padding: '0.8em',
+        minWidth: 600
     }
 }
 
@@ -29,16 +31,18 @@ const PostShared = ({ post }) => {
     const [commentShow, setCommentShow] = useState(false)
     const navigate = useNavigate()
 
+    const user = useSelector(state => state.user)
+console.log(post)
     const commentView = () => {
         setCommentShow(!commentShow)
     }
 
-    const putLike = userId => {
+    const putLike = () => {
 
         const body = {
-            userId
+            userId: user.id
         }
-        axios.put(`${URL_BASE}/comments/like/${userId}`, body, getConfig())
+        axios.put(`${URL_BASE}/post/like/${post._id}`, body, getConfig())
             .then(res => console.log(res.data))
             .catch(err => console.log(err))
 

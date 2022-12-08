@@ -1,6 +1,6 @@
 import { Stack, Box, Typography, IconButton, Button } from '@mui/material'
 import React, { useEffect, useState } from 'react'
-// import CreatePost from './components/CreatePost'
+import CreatePost from './components/CreatePost'
 import PostShared from './components/PostShared'
 import AddIcon from '@mui/icons-material/Add';
 import axios from 'axios'
@@ -9,6 +9,7 @@ import {emitSocketIO, socket, onSocketIO} from "../../socketIO/socketIO";
 import { useSnackbar } from 'notistack';
 import { fetchNotifications, types, generateNotification } from '../../utils/notificationsUtils';
 import { useDispatch } from 'react-redux';
+import TimeLine from './components/TimeLine';
 
 
 const Feed = () => {
@@ -63,23 +64,23 @@ const Feed = () => {
  
 
   return (
-    <Stack>
-      <Stack sx={{ width: '600px', display: 'flex', gap: '1em' }}>
-
+    <Stack sx={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', gap: '2em'}}>
+      <Stack sx={{ width: '700px', display: 'flex', gap: '1em' }}>
         <Box sx={{ display: 'flex', width: '100%', justifyContent: 'space-between' }}>
           <Typography variant="h6" color="initial">Create post</Typography>
           <IconButton color='success' onClick={addPost}>
             <AddIcon />
           </IconButton>
         </Box>
-
-        {/* <CreatePost createPostVisibility={createPostVisibility} /> */}
-
-        <Stack sx={{ display: 'flex', gap: '1em', overflow: 'scroll', maxHeight: 500, paddingBottom: '3em' }}>
+        <CreatePost createPostVisibility={createPostVisibility} />
+        <Stack sx={{ display: 'flex', gap: '1em', overflow: 'scroll', maxHeight: 700, paddingBottom: '3em' }}>
           {posts && posts.map(post => <PostShared key={post._id} post={post} />).reverse()}
-
         </Stack>
       </Stack>
+      <Box sx={{flex: 1}}>
+        <TimeLine/>
+
+      </Box>
     </Stack>
   )
 }

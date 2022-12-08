@@ -63,7 +63,7 @@ const Comments = ({ comments, postId }) => {
                 <TextField
                     fullWidth
                     name="comment"
-                    label="Deja aqui tu veneno..."
+                    label="Deja aqui tu comentario..."
                     variant="outlined"
                     size="small"
                 />

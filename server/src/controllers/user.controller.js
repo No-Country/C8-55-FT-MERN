@@ -11,7 +11,6 @@ const signUp = async (req, res) => {
     _.isNil(req.body.mail) ||
     _.isNil(req.body.password) ||
     _.isNil(req.body.userType) ||
-    _.isNil(req.body.profileImage) ||
     _.isNil(req.body.role)
   ) {
     return res.status(404).send({ msg: "Faltan datos" });

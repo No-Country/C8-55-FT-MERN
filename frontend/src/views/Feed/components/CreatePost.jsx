@@ -18,37 +18,37 @@ const CreatePost = ({createPostVisibility, getAllPosts}) => {
     const URL_BASE = import.meta.env.VITE_REACT_APP_API_URI
 
 
-    const { quill, quillRef } = useQuill({modules});
-    const [postValue, setPostValue] = useState()
+    // const { quill, quillRef } = useQuill({modules});
+    // const [postValue, setPostValue] = useState()
 
-    useEffect(() => {
-      if (quill) {
-        quill.on('text-change', () => {
-            setPostValue(quillRef.current.firstChild.innerHTML.trim())
-        })
-      }
-    }, [quill])
+    // useEffect(() => {
+    //   if (quill) {
+    //     quill.on('text-change', () => {
+    //         setPostValue(quillRef.current.firstChild.innerHTML.trim())
+    //     })
+    //   }
+    // }, [quill])
 
-    const createPost = () => {
+    // const createPost = () => {
 
-        const body = {
-            text: postValue.toString()
-        }
-            axios.post(`${URL_BASE}/post/create`, body, getConfig())
-            .then(res => {
-                quillRef.current.firstChild.innerHTML = ''
-                return getAllPosts()
-            })
-            .catch(err => console.log(err.data))
-    }
+    //     const body = {
+    //         text: postValue.toString()
+    //     }
+    //         axios.post(`${URL_BASE}/post/create`, body, getConfig())
+    //         .then(res => {
+    //             quillRef.current.firstChild.innerHTML = ''
+    //             return getAllPosts()
+    //         })
+    //         .catch(err => console.log(err.data))
+    // }
     
     return (
         <div style={{ width: '100%', minHeight:20, maxHeight: 300, display: createPostVisibility, marginBottom: 70}}>
-            <div ref={quillRef} />
+            {/* <div ref={quillRef} />
 
             <Button onClick={createPost} variant="text" color="primary">
               Create Post
-            </Button>
+            </Button> */}
         </div>
     )
 }

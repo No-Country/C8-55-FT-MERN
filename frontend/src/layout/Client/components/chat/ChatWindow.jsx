@@ -13,13 +13,13 @@ import SendIcon from '@mui/icons-material/Send';
 
 import CloudMessage from "./CloudMessage";
 import { socket, typesSocket } from '../../../../socketIO/socketIO';
-import { post } from '../../../../utils/apiUtils';
+import { post, get } from '../../../../utils/apiUtils';
 
 const ChatWindow = () => {
 
     const [displayChat, setDisplayChat] = useState('none')
     const [currentMsg, setCurrentMsg] = useState("");
-    const msgRef = useRef();
+    const [historyMsg, setHistoryMsg] = useState();
 
     const displayShow = () => {
         if (displayChat === 'none') {
@@ -41,18 +41,28 @@ const ChatWindow = () => {
             intId: "6387f05fbcc725a93ac1a443",
             text: currentMsg
         }
-        console.log(data)
-        socket.emit(typesSocket.newMessage, data)
+        socket.emit(typesSocket.newMessage, {data})
     }
 
-    const fetchUser = async () => {
+    const receiveHistoryChat = async () => {
+
+        const response1 = await get(`chat/get/6387f05fbcc725a93ac1a443`);
+        const response2 = await get(`chat/get/637cf3d82bdc49cf28bdc3f2`);
+
+        if(response1.status === 200 && response2.status === 200) {
+            
+        }
+
+    }
+
+    /* const fetchUser = async () => {
         const response = await post("/user/userInfo", "6387f05fbcc725a93ac1a443")
         console.log(response)
     }
-
-    useEffect(()=> {
+ */
+    /* useEffect(()=> {
         fetchUser()
-    }, [])
+    }, []) */
 
     return (
         <Stack

@@ -44,6 +44,7 @@ const ClientLayout = () => {
 
   useEffect(()=> {
     socket.on(typesSocket.getMessage, (data)=>{
+      console.log("Está llegando el mensaje")
       console.log(data)
     })
   }, [])

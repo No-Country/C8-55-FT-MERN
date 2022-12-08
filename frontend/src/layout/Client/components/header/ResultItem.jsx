@@ -8,10 +8,26 @@ import {
     createTheme
 } from "@mui/material"
 
+import { post, get } from '../../../../utils/apiUtils'
+
 const ResultItem = ({ item }) => {
 
     const theme = createTheme()
     const navigate = useNavigate();
+
+    const fetchUser = async (id) => {
+
+        try {
+            const response = await get(`user/userInfo/${id}`)
+            console.log(response)
+            if(response.status === 200) {
+                navigate(`/profile/${response.data.userData._id}`)
+            }
+            
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
     return (
         <Box
@@ -26,7 +42,9 @@ const ResultItem = ({ item }) => {
                 margin: "0 auto"
             }}
             
-            onClick={()=> navigate("/feed")}
+            onClick={()=> {
+                fetchUser(item._id)
+            }}
         >
             <Box
                 sx={{

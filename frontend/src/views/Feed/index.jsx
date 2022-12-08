@@ -55,11 +55,6 @@ const Feed = () => {
             fetchNotifications(dispatch)
         })
 
-        /* return () => {
-           socket.off("GET_NOTIFICATION", (data)=> {
-             console.log(data)
-          })
-        } */
   }, [])
  
 

@@ -12,7 +12,6 @@ const Reply = ({ reply, getCommentDetails }) => {
     const hour = new Date(reply?.createdAt)
 
     
-console.log(reply.userId.profileImage)
 
     return (
         <Box p='0.5em' px='0' sx={{ display: 'flex', alignItems: 'center' }}>

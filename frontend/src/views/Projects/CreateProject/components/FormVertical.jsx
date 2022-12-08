@@ -66,8 +66,6 @@ const FormVertical = () => {
         axios.post(`${URL_BASE}/project/create` , body, getConfig())
         .then(res => console.log(res.data))
         .catch(err => console.log(err))
-
-        console.log(body)
      
 
         handleNext()

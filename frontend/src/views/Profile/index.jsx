@@ -5,6 +5,8 @@ import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import PersonAddAltIcon from '@mui/icons-material/PersonAddAlt';
+import CommentOutlinedIcon from '@mui/icons-material/CommentOutlined';
+import PersonAddAlt1OutlinedIcon from '@mui/icons-material/PersonAddAlt1Outlined';
 
 // reactstrap components
 import {
@@ -52,6 +54,8 @@ function Profile() {
 
   const URL_BASE = import.meta.env.VITE_REACT_APP_API_URI
 
+  
+
   const getUserInfo = () => {
     axios.get(`${URL_BASE}/user/userInfo/${id}`, getConfig())
       .then(res => setUserInfo(res.data.userData))
@@ -63,7 +67,7 @@ function Profile() {
   }, [id])
 
 
-  const followUser = id => {
+  const followUser = () => {
 
     axios.post(`${URL_BASE}/user/addfollowing/${id}`, id, getConfig())
       .then(res => {
@@ -89,7 +93,14 @@ function Profile() {
             </div>
             <div className="name">
               <h4 className="title">
-                {`${userInfo?.name} ${userInfo?.lastName}`} <br />
+                {`${userInfo?.name} ${userInfo?.lastName}`}
+                <br />
+                <IconButton>
+                <CommentOutlinedIcon/>
+                </IconButton>
+                <IconButton onClick={followUser}>
+                <PersonAddAlt1OutlinedIcon/>
+                </IconButton>
               </h4>
               <h6 className="description">{userInfo?.userRole?.role}</h6>
             </div>

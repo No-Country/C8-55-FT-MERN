@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Stack, Box, Divider, CardMedia, Typography, Button, IconButton, TextField, Badge } from '@mui/material'
+import { Stack, Box, Divider, CardMedia, Typography, Button, IconButton, TextField, Badge, Avatar } from '@mui/material'
 import axios from 'axios'
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import CommentIcon from '@mui/icons-material/Comment';
@@ -7,6 +7,8 @@ import Reply from './Reply';
 import SendIcon from '@mui/icons-material/Send';
 import getConfig from '../../../config';
 import { useNavigate } from 'react-router-dom';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+
 
 
 const CommentDetails = ({ comment, getComments }) => {
@@ -20,7 +22,8 @@ const CommentDetails = ({ comment, getComments }) => {
 
     const navigate = useNavigate()
     const hour = new Date(commentDetails?.comment.createdAt)
-
+    console.log(commentDetails?.comment.userId.profileImage
+        )
     const getCommentDetails = () => {
         axios.get(`${URL_BASE}/comment/get_comment/${comment}`, getConfig())
             .then(res => {
@@ -81,13 +84,12 @@ const CommentDetails = ({ comment, getComments }) => {
             <Box p='1em' pr='0' sx={{ display: 'flex', alignItems: 'start' }}>
 
                 <Box sx={{ maxWidth: 40, borderRadius: '100%', overflow: 'hidden' }}>
-                    <CardMedia
-                        component="img"
-                        height="40"
-                        width="40"
-                        image="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8cGVyc29ufGVufDB8fDB8fA%3D%3D&w=1000&q=80"
-                        alt="green iguana"
-                    />
+                <Avatar
+                                sx={{width: 40, height: 40 }}
+                                alt={<AccountCircleIcon/>}
+                                src={commentDetails.comment.userId.profileImage}
+                            />
+             
                 </Box>
                 <Box ml='0.5em' sx={{ flex: 1 }}>
                     <Box onClick={()=> navigate(`/profile/${commentDetails.comment.userId._id}`)} sx={{ display: 'flex', justifyContent: 'space-between' }}>
@@ -133,7 +135,7 @@ const CommentDetails = ({ comment, getComments }) => {
                             {commentDetails?.comment.replies[0] && commentDetails?.comment.replies.map(reply => <Reply key={reply._id} reply={reply} getCommentDetails={getCommentDetails} />)}
 
                             <Box component='form' onSubmit={postReply} sx={{ display: 'flex', my: '0.3em' }}>
-                                <TextField size='small' fullWidth name="reply" label="Deja aqui tu comentario..." variant="outlined" />
+                                <TextField size='small' fullWidth name="reply" label="Deja aqui tu comentario   ..." variant="outlined" />
                                 <IconButton color='success' type='submit' >
                                     <SendIcon />
                                 </IconButton>

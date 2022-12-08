@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux';
 import LockPersonOutlinedIcon from '@mui/icons-material/LockPersonOutlined';
 import SettingsApplicationsOutlinedIcon from '@mui/icons-material/SettingsApplicationsOutlined';
 import { useNavigate } from 'react-router-dom';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 import {
   Stack,
@@ -86,6 +87,7 @@ const Header = () => {
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
+
 
   const handleClose = () => {
     setAnchorEl(null);
@@ -195,7 +197,7 @@ const Header = () => {
             }}
           >
 
-            <Box sx={{
+            <Box onClick={()=> navigate(`/profile/${user.id}`) } sx={{
               p: '1em',
               display: 'flex',
               gap: '0.5em',
@@ -203,8 +205,8 @@ const Header = () => {
               cursor: "pointer"
             }}
             >
-              <SettingsApplicationsOutlinedIcon />
-              <Typography>Configuration</Typography>
+              <AccountCircleIcon />
+              <Typography>Profile</Typography>
             </Box>
 
             <Divider sx={{ mx: '1em' }} />

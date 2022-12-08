@@ -1,18 +1,17 @@
 import { Stack, Box } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 import { Navigate, Outlet } from 'react-router-dom'
-import Chat from './components/Chat'
-import Header from './components/header/Header'
-import SideBar from './components/SideBar'
+import Chat from '../Client/components/Chat'
+import Header from '../Client/components/header/Header'
 import { useDispatch, useSelector } from 'react-redux'
 import axios from 'axios'
 import getConfig from '../../config'
 import { setUser } from '../../store/slices/user.slice'
 
 import { fetchNotifications } from '../../utils/notificationsUtils';
-import SearchResults from "./components/header/SearchResults"
+import SearchResults from "../Client/components/header/SearchResults"
 
-const ClientLayout = () => {
+const PersonalLayout = () => {
   const URL_BASE = import.meta.env.VITE_REACT_APP_API_URI
 
   
@@ -41,29 +40,21 @@ const ClientLayout = () => {
   }, [])
 
   if (token) {
-
     return (
-      <Stack pt='5em' sx={{ width: '100%', height: '100vh', display: 'flex', position: 'relative', overflow: 'hidden' }}>
-        <Box sx={{ position: 'fixed', top: 0, right: 0, left: 0, zIndex: 1 }}>
+      <Stack>
+         <Box sx={{ position: 'fixed', top: 0, right: 0, left: 0, zIndex: 100 }}>
           <Header />
-          <SearchResults items={results?.data}/>
         </Box>
-        <Box sx={{ display: 'flex', height: '100%', position: 'relative' }}>
-          <Box sx={{ position: 'sticky', right: 0 }}>
-            <SideBar />
-          </Box>
-          <Stack p='1em'>
-            <Outlet />
-          </Stack>
-        </Box>
-        <Box sx={{ position: 'fixed', right: 0, bottom: 0 }}>
+        <Outlet />
+        <Box sx={{ position: 'fixed', right: 0, bottom: 0, zIndex: 200 }}>
           <Chat />
         </Box>
       </Stack>
     )
+
   } else {
     return <Navigate to='/log' />
   }
 }
 
-export default ClientLayout
+export default PersonalLayout

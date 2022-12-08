@@ -6,6 +6,7 @@ import CommentIcon from '@mui/icons-material/Comment';
 import Reply from './Reply';
 import SendIcon from '@mui/icons-material/Send';
 import getConfig from '../../../config';
+import { useNavigate } from 'react-router-dom';
 
 
 const CommentDetails = ({ comment, getComments }) => {
@@ -17,6 +18,7 @@ const CommentDetails = ({ comment, getComments }) => {
     const [repliesCount, setRepliesCount] = useState(0)
     const [likesCount, setLikesCount] = useState(0)
 
+    const navigate = useNavigate()
     const hour = new Date(commentDetails?.comment.createdAt)
 
     const getCommentDetails = () => {
@@ -71,6 +73,8 @@ const CommentDetails = ({ comment, getComments }) => {
             .catch(err => console.log(err))
     }, [])
 
+    console.log(commentDetails?.comment.userId._id)
+
     if (commentDetails) {
         return (
 
@@ -86,7 +90,7 @@ const CommentDetails = ({ comment, getComments }) => {
                     />
                 </Box>
                 <Box ml='0.5em' sx={{ flex: 1 }}>
-                    <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+                    <Box onClick={()=> navigate(`/profile/${commentDetails.comment.userId._id}`)} sx={{ display: 'flex', justifyContent: 'space-between' }}>
                         <Typography variant="body2" color="initial"><strong>{commentDetails.comment.userId.name} {commentDetails.comment.userId.lastName}</strong></Typography>
                         <Typography variant="body2" color="gray">{hour.toLocaleString()}</Typography>
                     </Box>

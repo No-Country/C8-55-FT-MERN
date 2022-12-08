@@ -177,7 +177,7 @@ function LandingPage() {
                     <a href="#pablo" onClick={(e) => e.preventDefault()}>
                       <img
                         alt="agustin"
-                        src="agustin.png"
+                        src="fede.png"
                       />
                     </a>
                   </div>

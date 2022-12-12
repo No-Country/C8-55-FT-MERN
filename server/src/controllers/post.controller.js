@@ -3,8 +3,8 @@ const Post = require("../models/Post");
 
 const createPost = async (req, res) => {
   try {
-    const userId = req.userId;
-    const { text, image } = req.body;
+    // const userId = req.userId;
+    const { text, image, userId } = req.body;
     if (!userId)
       return res.status(404).json({ message: "User id is required" });
     if (!text) return res.status(400).json({ message: "Text is required" });

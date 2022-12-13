@@ -29,7 +29,7 @@
 * ### Redux
 * ### Axios
 * ### Ckeditor
-* ### Moongose
+* ### Mongoose
 * ### Nodemon
 * ### Jest
 * ### Supertest
